@@ -15,7 +15,7 @@
                 <div class="carousel-pixelart-container" style="background-image: url(./img/cards/CryoEruption_Card.webp);"></div>
                 <div class="carousel-select-button-container-container">
                     <div class="carousel-select-button-container">
-                        <button title="Select casual gamemode">Select</button>
+                        <button title="Select casual gamemode" onclick="selectGamemode('casual')">Select</button>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <div class="carousel-pixelart-container" style="background-image: url(./img/cards/Eruption_Card.webp);"></div>
                 <div class="carousel-select-button-container-container">
                     <div class="carousel-select-button-container">
-                        <button title="Select intermediate gamemode">Select</button>
+                        <button title="Select intermediate gamemode" onclick="selectGamemode('intermediate')">Select</button>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <div class="carousel-pixelart-container" style="background-image: url(./img/cards/FireballVolley_Card.webp);"></div>
                 <div class="carousel-select-button-container-container">
                     <div class="carousel-select-button-container">
-                        <button title="Select ranked gamemode">Select</button>
+                        <button title="Select ranked gamemode" onclick="selectGamemode('ranked')">Select</button>
                     </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                 <div class="carousel-pixelart-container" style="background-image: url(./img/cards/DivergentSpirit_Card.webp);"></div>
                 <div class="carousel-select-button-container-container">
                     <div class="carousel-select-button-container">
-                        <button title="Select dual gamemode">Select</button>
+                        <button title="Select dual gamemode" onclick="ajaxGet('./spa/nocturnal-skirmish/invite-friend.php', 'dark-container')">Select</button>
                     </div>
                 </div>
             </div>

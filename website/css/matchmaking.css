@@ -1,0 +1,183 @@
+body {
+  display: flex;
+  justify-content: center;
+  margin-top: 15%;
+  background: linear-gradient(-45deg, #000000, rgb(88, 12, 86));
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
+}
+
+/* spinning card styling */
+
+:root {
+  --blight: url(./img/cards/Blight_Card.webp);
+  --bomb: url(./img/cards/Bomb_Card.webp);
+  --heavenlysmite: url(./img/cards/HeavenlySmite_Card.webp);
+  --flamebarrier: url(./img/cards/FlameBarrier_Card.webp);
+  --icemirror: url(./img/cards/IceMirror_Card.webp);
+  --poisonarrow: url(./img/cards/PoisonArrow_Card.webp);
+  --pressureblast: url(./img/cards/PressureBlast.webp);
+  --spider: url(./img/cards/Spider_Card.webp);
+  --whalesymphony: url(./img/cards/Whale_Symphony_Card.webp);
+  --divergentspirit: url(./img/cards/DivergentSpirit_Card.webp);
+  --backcard: url(./img/cards/Backside_Card.webp);
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
+.perspective {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -70%);
+  transform: translate(-50%, -70%);
+  perspective: 1600px;
+  perspective-origin: 50% -240px;
+}
+
+.box {  
+  width: var(--size);
+  
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.face {
+  width: 150px;
+  height: 240px;
+  
+  background-image: var(--heavenlysmite);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  
+  transform-style: preserve-3d;
+  border-radius: 15px;
+  border: solid 2px black;
+}
+
+
+
+
+.box {  
+  animation: rotate 5s linear infinite;
+}
+
+.face.front {
+  /*hver rotasjon er 5 sekunder definert over*/
+  animation: texture 50s 3s infinite;
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: "FlipH";
+  -ms-filter: "FlipH";
+}
+
+.face.back {
+  bottom: 200%;
+  transform-origin: center 365px 0.1px;
+  transform: rotateX(180deg);
+  position: absolute;
+  background-image: url(./img/cards/Backside_Card_REVERSE.webp);
+}
+
+  
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes texture {
+  0% {
+    background-image: var(--heavenlysmite);
+  }
+  10% {
+    background-image: var(--blight);
+  }
+  20% {
+    background-image: var(--bomb);
+  }
+  30% {
+    background-image: var(--divergentspirit);
+  }
+  40% {
+    background-image: var(--flamebarrier);
+  }
+  50% {
+    background-image: var(--icemirror);
+  }
+  60% {
+    background-image: var(--poisonarrow);
+  }
+  70% {
+    background-image: var(--pressureblast);
+  }
+  80% {
+    background-image: var(--spider);
+  }
+  90% {
+    background-image: var(--whalesymphony);
+  }
+  100% {
+    background-color: var(--heavenlysmite);
+  }
+}
+
+/* matchmaking text and cancel button */
+
+.matchmaking-text-container {
+  position: fixed;
+  top: 65vh;
+  width: 100%;
+  text-align: center;
+  font-family: "Silkscreen", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 20px;
+  color: white;
+  text-shadow: 1px 1px 2px pink;
+}
+
+.cancel-matchmaking {
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 15px;
+  text-align: center;
+  font-family: "Silkscreen", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 20px;
+  color: white;
+  background-color: transparent;
+  text-shadow: 1px 1px 2px pink;
+  border: solid 3px white;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 150px;
+  height: 50px;
+}
+
+.cancel-matchmaking:hover {
+  background-color: white;
+  color: purple;
+  text-shadow: none;
+}

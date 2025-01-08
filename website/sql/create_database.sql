@@ -137,3 +137,17 @@ USE gamehub_messages_deleted_edited;
 CREATE TABLE deleted_messages (message_id int, user_id int, message varchar(500), file varchar(50), timestamp varchar(64), edited int DEFAULT 0, reply int DEFAULT 0);
 
 CREATE TABLE edited_messages (message_id int, user_id int, message varchar(500), file varchar(50), timestamp varchar(64), edited int DEFAULT 0, reply int DEFAULT 0);
+
+CREATE DATABASE IF NOT EXISTS nocskir;
+
+USE nocskir;
+
+CREATE TABLE matchmaking (
+    id int NOT NULL AUTO_INCREMENT,
+    user_id_1 int,
+    user_id_2 int DEFAULT NULL,
+    gamemode varchar(32),
+    user_rank varchar(64),
+    match_name varchar(255),
+    PRIMARY KEY (id)
+);

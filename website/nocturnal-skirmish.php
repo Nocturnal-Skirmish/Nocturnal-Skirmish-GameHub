@@ -81,6 +81,7 @@
     <button class="nocskir-backtohub-button" onclick="window.location.href = 'hub.php'" title="Back to Hub"></button>
 </body>
 <script><?php include "./js/script.js" ?></script>
+<script><?php include "./js/nocskir.js" ?></script>
 <!-- Autolooping audio background music (works only if user allows it) -->
 <audio autoplay loop style="display: none;" id="musicAudio">
     <source src="./audio/music/IntermissionOST.mp3" type="audio/mpeg">
