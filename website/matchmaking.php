@@ -16,7 +16,7 @@ if (!isset($_SESSION['matchmaking_id'])) {
     <style><?php require "./css/matchmaking.css" ?></style>
     <style><?php require "./css/universal.css" ?></style>
 </head>
-<body onload="checkMatchmaking()">
+<body onload="checkMatchmaking(); prepareSFX();">
 <div class="perspective-container">
     <div class="perspective">
         <div class="box">
@@ -30,10 +30,24 @@ if (!isset($_SESSION['matchmaking_id'])) {
     <p id="elapsed-time">Elapsed time: 1 second.</p>
 </div>
 <button class="cancel-matchmaking" id="cancel-matchmaking" title="Cancel matchmaking" onclick="cancelMatchmaking()">Cancel</button>
-<audio src="./audio/music/IntermissionOST.mp3" autoplay style="display: none;" loop></audio>
+<!-- Autolooping audio background music (works only if user allows it) -->
+<audio autoplay loop style="display: none;" id="musicAudio">
+    <source src="./audio/music/SelectionOST.mp3" type="audio/mpeg">
+</audio>
+<!-- hover audio temp -->
+<audio id='hoverSFX'>
+        <source src="audio/sfx/hover.mp3" type="audio/mpeg">
+    </audio>
+    <!-- click sfx temp -->
+    <audio id='clickSFX'>
+        <source src="audio/sfx/click1.mp3" type="audio/mpeg">
+    </audio>
 </body>
 <script>
     <?php include "./js/nocskir.js" ?>
+</script>
+<script>
+    <?php include "./js/script.js" ?>
 </script>
 <script>
     // Finding match...
