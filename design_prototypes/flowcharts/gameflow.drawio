@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.4 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.4">
   <diagram name="Page-1" id="myqILL3eeMkwEd0w7rBm">
-    <mxGraphModel dx="808" dy="478" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1235" dy="731" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -374,7 +374,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="oT2C7l8W0-6BX3yRoDzb-39" value="Insert user id into user_id_2: row is now full" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="20" y="1120" width="120" height="60" as="geometry" />
+          <mxGeometry x="65" y="1200" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="oT2C7l8W0-6BX3yRoDzb-42" value="Invite Matchmaking" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="20" y="600" width="140" height="150" as="geometry">
@@ -393,13 +393,24 @@
         <mxCell id="oT2C7l8W0-6BX3yRoDzb-48" value="match_name" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oT2C7l8W0-6BX3yRoDzb-42">
           <mxGeometry y="120" width="140" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="oT2C7l8W0-6BX3yRoDzb-52" value="Create new table in matches with user_id_1, user_id_2 and the match_name" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="70" y="1240" width="150" height="70" as="geometry" />
+        <mxCell id="oT2C7l8W0-6BX3yRoDzb-52" value="Create new table in matches with user_id_1, user_id_2 and match_name" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="1350" width="140" height="70" as="geometry" />
         </mxCell>
         <mxCell id="oT2C7l8W0-6BX3yRoDzb-55" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=-0.004;entryY=0.025;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="EI8C_f2i3DZrhKItlqoA-45" target="EI8C_f2i3DZrhKItlqoA-47">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="580" y="1390" as="sourcePoint" />
             <mxPoint x="630" y="1340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="oT2C7l8W0-6BX3yRoDzb-58" value="" style="curved=1;endArrow=classic;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="oT2C7l8W0-6BX3yRoDzb-39" target="oT2C7l8W0-6BX3yRoDzb-45">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="50" y="1230" as="sourcePoint" />
+            <mxPoint x="100" y="1180" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="20" y="1150" />
+              <mxPoint x="20" y="920" />
+              <mxPoint x="250" y="790" />
+            </Array>
           </mxGeometry>
         </mxCell>
       </root>
