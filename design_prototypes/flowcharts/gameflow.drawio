@@ -10,7 +10,7 @@
         <mxCell id="EI8C_f2i3DZrhKItlqoA-2" value="nocturnal-skirmish.php" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="345" y="240" width="150" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="EI8C_f2i3DZrhKItlqoA-3" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+        <mxCell id="EI8C_f2i3DZrhKItlqoA-3" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" edge="1" target="EI8C_f2i3DZrhKItlqoA-4" source="EI8C_f2i3DZrhKItlqoA-1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="420" y="350" as="sourcePoint" />
             <mxPoint x="420" y="410" as="targetPoint" />
@@ -19,13 +19,13 @@
         <mxCell id="EI8C_f2i3DZrhKItlqoA-4" value="Select gamemode" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="360" y="430" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="EI8C_f2i3DZrhKItlqoA-5" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+        <mxCell id="EI8C_f2i3DZrhKItlqoA-5" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" edge="1" target="EI8C_f2i3DZrhKItlqoA-8" source="EI8C_f2i3DZrhKItlqoA-4">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="420" y="500" as="sourcePoint" />
             <mxPoint x="500" y="580" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="EI8C_f2i3DZrhKItlqoA-6" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+        <mxCell id="EI8C_f2i3DZrhKItlqoA-6" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" edge="1" target="EI8C_f2i3DZrhKItlqoA-7" source="EI8C_f2i3DZrhKItlqoA-4">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="420" y="500" as="sourcePoint" />
             <mxPoint x="340" y="580" as="targetPoint" />
@@ -392,6 +392,17 @@
         </mxCell>
         <mxCell id="oT2C7l8W0-6BX3yRoDzb-48" value="match_name" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="oT2C7l8W0-6BX3yRoDzb-42">
           <mxGeometry y="120" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="oT2C7l8W0-6BX3yRoDzb-63" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=-0.011;entryY=0.043;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="oT2C7l8W0-6BX3yRoDzb-52" target="EI8C_f2i3DZrhKItlqoA-47">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="640" y="1410" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="390" y="1385" />
+              <mxPoint x="390" y="1430" />
+              <mxPoint x="590" y="1430" />
+              <mxPoint x="590" y="1405" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="oT2C7l8W0-6BX3yRoDzb-52" value="Create new table in matches with user_id_1, user_id_2 and match_name" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="120" y="1350" width="140" height="70" as="geometry" />
