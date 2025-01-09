@@ -16,8 +16,7 @@ if (!isset($_SESSION['matchmaking_id'])) {
     <style><?php require "./css/matchmaking.css" ?></style>
     <style><?php require "./css/universal.css" ?></style>
 </head>
-<body>
-    
+<body onload="checkMatchmaking()">
 <div class="perspective-container">
     <div class="perspective">
         <div class="box">
@@ -30,9 +29,12 @@ if (!isset($_SESSION['matchmaking_id'])) {
     <h1 id="finding-match">Finding match</h1>
     <p id="elapsed-time">Elapsed time: 1 second.</p>
 </div>
-<button class="cancel-matchmaking" title="Cancel matchmaking" onclick="cancelMatchmaking()">Cancel</button>
+<button class="cancel-matchmaking" id="cancel-matchmaking" title="Cancel matchmaking" onclick="cancelMatchmaking()">Cancel</button>
 <audio src="./audio/music/IntermissionOST.mp3" autoplay style="display: none;" loop></audio>
 </body>
+<script>
+    <?php include "./js/nocskir.js" ?>
+</script>
 <script>
     // Finding match...
     var matchmakingText = document.getElementById("finding-match")
@@ -70,8 +72,9 @@ if (!isset($_SESSION['matchmaking_id'])) {
             seconds = 0
         }
     }, 1000)
-</script>
-<script>
-    <?php include "./js/nocskir.js" ?>
+
+    setInterval(function() {
+        checkMatchmaking();
+    }, 5000)
 </script>
 </html>

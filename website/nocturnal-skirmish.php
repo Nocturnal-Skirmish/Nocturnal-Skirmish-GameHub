@@ -16,6 +16,7 @@
     <script src="./lib/flickity/flickity.pkgd.min.js"></script>
 </head>
 <body id="nocskir-body" onload="prepareSFX();">
+<div class="confirmation-popup" id="confirmContainer"></div>
 <div id="dark-container" class="dark-container"></div>
     <div class="nocskir-slideshow">
         <div class="nocskir-slideshow-items">
@@ -96,3 +97,16 @@
     </audio>
 </html>
 <script><?php include "./lib/flickity/flickity.pkgd.js" ?></script>
+<script>
+    // Checks for url parameters
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    if (urlParams.has('matchmaking')) {
+        const matchmaking = urlParams.get('matchmaking')
+        if (matchmaking == "error") {
+            showConfirm("Something went wrong during matchmaking.")
+        } else if (matchmaking == "cancelled") {
+            showConfirm("The match was cancelled.")
+        }
+    }
+</script>
