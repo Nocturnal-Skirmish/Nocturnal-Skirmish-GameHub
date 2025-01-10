@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.4 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.4">
   <diagram name="Page-1" id="myqILL3eeMkwEd0w7rBm">
-    <mxGraphModel dx="1690" dy="1597" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1850" dy="1691" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -737,7 +737,7 @@
         <mxCell id="pQwzymtS64x7x1kbTtJx-165" value="Is turn set to true?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1817.5" y="1680" width="115" height="115" as="geometry" />
         </mxCell>
-        <mxCell id="pQwzymtS64x7x1kbTtJx-167" value="User able to perform their turn/actions" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pQwzymtS64x7x1kbTtJx-167" value="User performs action" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1810" y="1859.6699999999998" width="130" height="60.63" as="geometry" />
         </mxCell>
         <mxCell id="pQwzymtS64x7x1kbTtJx-172" value="" style="curved=1;endArrow=classic;html=1;rounded=0;entryX=0.049;entryY=0.591;entryDx=0;entryDy=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryPerimeter=0;" parent="1" source="pQwzymtS64x7x1kbTtJx-167" target="pQwzymtS64x7x1kbTtJx-165" edge="1">
@@ -764,14 +764,17 @@
         <mxCell id="pQwzymtS64x7x1kbTtJx-183" value="If the current user has turn set to false, set the other users turn to true" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1995" y="1820" width="130" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="wGgicrv_s1oQboJG13sr-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wGgicrv_s1oQboJG13sr-1" target="pQwzymtS64x7x1kbTtJx-165">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
         <mxCell id="wGgicrv_s1oQboJG13sr-1" value="" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="1817.5" y="1530" width="115" height="110" as="geometry" />
         </mxCell>
         <mxCell id="wGgicrv_s1oQboJG13sr-4" value="For any user who&#39;s &quot;turn&quot; is currently set to true" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="1832.5" y="1570" width="85" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="wGgicrv_s1oQboJG13sr-6" value="" style="shape=link;html=1;rounded=0;" edge="1" parent="1" source="wGgicrv_s1oQboJG13sr-1" target="pQwzymtS64x7x1kbTtJx-165">
+          <mxGeometry width="100" relative="1" as="geometry">
+            <mxPoint x="1870" y="1640" as="sourcePoint" />
+            <mxPoint x="1970" y="1640" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
