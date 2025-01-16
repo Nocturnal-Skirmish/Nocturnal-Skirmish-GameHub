@@ -10,26 +10,82 @@ if (isset($_SESSION['matchmaking_id'])) {
     $stmt->execute();
     $result = $stmt->get_result();
     if ((mysqli_num_rows($result) > 0)) {
+        // user id 2 has joined
         $row = mysqli_fetch_assoc($result);
-        // user_id_2 column has a user, create match table
 
-        // Check if the user is a real user
-        $conn -> select_db("gamehub");
-        $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = ?");
-        $stmt->bind_param("i", $row['user_id_2']);
+        // Get match name
+        $stmt = $conn->prepare("SELECT * FROM matchmaking WHERE id = ? LIMIT 1");
+        $stmt->bind_param("i", $_SESSION['matchmaking_id']);
         $stmt->execute();
         $result = $stmt->get_result();
-        if ($result->num_rows === 0){
-            // User doesnt exist
+        if ((mysqli_num_rows($result) > 0)) {
+            $row = mysqli_fetch_assoc($result);
+            $tablename = $row['match_name'];
+            $user_id_2 = $row['user_id_2'];
+            $user_id_1 = $row['user_id_1'];
+            $gamemode = $row['gamemode'];
+        } else {
             echo "error";
             exit;
         }
         $stmt->close();
-        $conn -> select_db("nocskir");
 
         // Check if a match table has already been created
+        $stmt = $conn->prepare("SELECT * FROM information_schema.tables WHERE table_schema = 'nocskir_matches' AND table_name = '$tablename' LIMIT 1;");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ((mysqli_num_rows($result) > 0)) {
+            // Match table found, update session vars and connect to it
+            $conn -> select_db("nocskir_matches");
+            $_SESSION['match_name'] = $tablename;
+            $stmt = $conn->prepare("UPDATE $tablename SET connected2 = 1 WHERE round = 1");
+            $stmt->execute();
+            $stmt->close();
+        } else {
+            // If it hasnt, create one.
+            $conn -> select_db("nocskir_matches");
+            $stmt = $conn->prepare("CREATE TABLE $tablename (
+                    round int NOT NULL AUTO_INCREMENT,
+                    user_id_1 int DEFAULT $user_id_1,
+                    user_id_2 int DEFAULT $user_id_2,
+                    gamemode varchar(32) DEFAULT '$gamemode',
+                    user_rank varchar(64) DEFAULT NULL,
+                    turn int,
+                    user_action varchar(255) DEFAULT NULL,
+                    timer int DEFAULT 60,
+                    ready boolean DEFAULT 0,
+                    upgrades1 varchar(300) DEFAULT NULL,
+                    upgrades2 varchar(300) DEFAULT NULL,
+                    health1 int DEFAULT 1000,
+                    health2 int DEFAULT 1000,
+                    armor1 int DEFAULT 0,
+                    armor2 int DEFAULT 0,
+                    bp1 int DEFAULT 15,
+                    bp2 int DEFAULT 15,
+                    connected1 boolean DEFAULT 0,
+                    connected2 boolean DEFAULT 0,
+                    PRIMARY KEY (round)
+                );
+            ");
+            $stmt->execute();
+            $stmt->close();
 
-        // If it hasnt, create one.
+            // Create random turn
+            $turn = random_int(1, 2);
+            if ($turn == 1) {
+                $turn = $user_id_1;
+            } else {
+                $turn = $user_id_2;
+            }
+
+            $connected1 = 1;
+
+            // Insert first row
+            $stmt = $conn->prepare("INSERT INTO $tablename (gamemode, turn, connected1) VALUES (?, ?, ?)");
+            $stmt->bind_param("sii", $gamemode, $turn, $connected1);
+            $stmt->execute();
+            $stmt->close();
+        }
         echo "found";
     }
 } else {

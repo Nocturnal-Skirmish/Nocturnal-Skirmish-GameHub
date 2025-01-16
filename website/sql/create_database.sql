@@ -16,7 +16,7 @@ CREATE TABLE users (
     nickname varchar(25),
     description varchar(500),
     runes BIGINT DEFAULT 0,
-    user_rank varchar(64) DEFAULT NULL,
+    user_rank varchar(64) DEFAULT "peasant",
     deck varchar(300) DEFAULT NULL,
     selected_character varchar(64) DEFAULT NULL,
     PRIMARY KEY (user_id)
@@ -171,3 +171,5 @@ CREATE TABLE matchmaking (
     match_name varchar(255),
     PRIMARY KEY (id)
 );
+
+CREATE DATABASE IF NOT EXISTS nocskir_matches;
