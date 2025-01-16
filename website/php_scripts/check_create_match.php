@@ -1,5 +1,5 @@
 <?php
-// Checks if another user is in your matchmaking and creates a match table if they are.
+// Checks if another user is in your matchmaking row and creates a match table if they are.
 require "avoid_errors.php";
 
 if (isset($_SESSION['matchmaking_id'])) {
