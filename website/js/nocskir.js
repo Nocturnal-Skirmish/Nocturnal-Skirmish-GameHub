@@ -15,15 +15,8 @@ function selectGamemode(gamemode) {
                 window.location = "matchmaking.php";
             }
         },
-        error: function(xhr, status, error) {
-            // Alert detailed error information
-            alert("Error details:\n" +
-                "Status: " + status + "\n" +
-                "Error: " + error + "\n" +
-                "Response Text: " + xhr.responseText);
-            
-            // Optionally, log the error for debugging
-            console.error("Error Details:", xhr, status, error);
+        error: function() {
+            showConfirm("Something went wrong.")
         }
     })
 }
@@ -55,18 +48,8 @@ function checkMatchmaking() {
             window.location = "nocturnal-skirmish.php?matchmaking=error"
         }
     })
-    .fail(function(xhr, status, error) {
-            // Alert detailed error information
-            alert("Error details:\n" +
-                "Status: " + status + "\n" +
-                "Error: " + error + "\n" +
-                "Response Text: " + xhr.responseText);
-            
-            // Optionally, log the error for debugging
-            console.error("Error Details:", xhr, status, error);
-        /* If request went wrong
+    .fail(function() {
         $.get("./php_scripts/cancel_matchmaking.php")
         window.location = "nocturnal-skirmish.php?matchmaking=error"
-        */
     })
 }

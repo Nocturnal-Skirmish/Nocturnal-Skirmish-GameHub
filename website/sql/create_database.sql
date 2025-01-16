@@ -172,4 +172,13 @@ CREATE TABLE matchmaking (
     PRIMARY KEY (id)
 );
 
+CREATE TABLE match_invites {
+    id int NOT NULL AUTO_INCREMENT,
+    outgoing int,
+    incoming int,
+    accepted boolean DEFAULT 0,
+    expire int,
+    PRIMARY KEY (id)
+}
+
 CREATE DATABASE IF NOT EXISTS nocskir_matches;

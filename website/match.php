@@ -37,7 +37,7 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <button onclick="leaveMatch()">Leave</button>
 </body>
 <script>
     // Interval to verify that youre online, check if the other user is online and if other user left
@@ -49,5 +49,29 @@
             }
         })
     }, 5000)
+
+    // Leaves the current match
+    function leaveMatch() {
+        $.get("./php_scripts/leave_match.php", function(response){
+            switch(response) {
+                case "ok":
+                    window.location = "nocturnal-skirmish.php"
+            }
+        })
+        .fail(function(xhr, status, error) {
+            // Alert detailed error information
+            alert("Error details:\n" +
+                "Status: " + status + "\n" +
+                "Error: " + error + "\n" +
+                "Response Text: " + xhr.responseText);
+            
+            // Optionally, log the error for debugging
+            console.error("Error Details:", xhr, status, error);
+        /* If request went wrong
+        $.get("./php_scripts/cancel_matchmaking.php")
+        window.location = "nocturnal-skirmish.php?matchmaking=error"
+        */
+    })
+    }
 </script>
 </html>

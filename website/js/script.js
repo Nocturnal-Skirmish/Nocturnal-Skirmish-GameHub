@@ -49,35 +49,45 @@ function configureFlickity() {
 }
 
 // GET request with ajax
-function ajaxGet(phpFile, changeID, onLoad){
-    const xhttp = new XMLHttpRequest();
-    xhttp.onload = function(){
-        document.getElementById(changeID).innerHTML = this.responseText;
-        if (onLoad != null) {
-            if (onLoad == "cropper_js") {
+function ajaxGet(phpFile, changeID, onLoad = null){
+    $.get(phpFile, function(data){
+        document.getElementById(changeID).innerHTML = data;
+    })
+    .done(function() {
+        switch(onLoad) {
+            case "cropper_js":
                 configureCropperJS();
-            } else if (onLoad == "audio_music_settings") {
+                break;
+            case "audio_music_settings":
                 configureAudioSettings();
-            } else if (onLoad == "friends_list") {
+                break;
+            case "friends_list":
                 ajaxGet('./spa/hub/online_offline_friends.php', 'hub-friends-content');
                 checkPendingAmount();
                 startFriendsListInterval();
-            } else if (onLoad == "cropper_js_banner") {
+                break;
+            case "cropper_js_banner":
                 configureCropperJSBanner();
-            } else if (onLoad == "still_at_bottom") {
+                break;
+            case "still_at_bottom":
                 stillAtBottom();
-            } else if (onLoad == "scroll"){
+                break;
+            case "scroll":
                 container = document.getElementById("messages-container");
                 container.scrollTop = container.scrollHeight;
-            } else if (onLoad == "scrollToDiv") {
+                break;
+            case "scrollToDiv":
                 scrollToDiv();
-            } else if (onLoad == "cropper_js_groupchat") {
+                break;
+            case "cropper_js_groupchat":
                 configureCropperJSGroupchat();
-            } else if (onLoad == "resize_groupchat_input") {
+                break;
+            case "resize_groupchat_input":
                 resizeGroupchatInput();
-            } else if (onLoad == "flickity") {
+                break;
+            case "flickity":
                 setTimeout(configureFlickity, 100);
-            }
+                break;
         }
 
         if (onLoad != "no_sfx") {
@@ -86,10 +96,15 @@ function ajaxGet(phpFile, changeID, onLoad){
 
         if (changeID == "dark-container") {
             $("#dark-container").fadeIn(100);
+        };
+    })
+    .fail(function() {
+        try {
+            showConfirm("Something went wrong")
+        } catch (error) {
+            alert("Something went wrong.")
         }
-    }
-    xhttp.open("GET", phpFile);
-    xhttp.send();
+    });
 }
 
 // Save description in database
