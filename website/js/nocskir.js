@@ -48,9 +48,18 @@ function checkMatchmaking() {
             window.location = "nocturnal-skirmish.php?matchmaking=error"
         }
     })
-    .fail(function() {
-        // If request went wrong
+    .fail(function(xhr, status, error) {
+            // Alert detailed error information
+            alert("Error details:\n" +
+                "Status: " + status + "\n" +
+                "Error: " + error + "\n" +
+                "Response Text: " + xhr.responseText);
+            
+            // Optionally, log the error for debugging
+            console.error("Error Details:", xhr, status, error);
+        /* If request went wrong
         $.get("./php_scripts/cancel_matchmaking.php")
         window.location = "nocturnal-skirmish.php?matchmaking=error"
+        */
     })
 }
