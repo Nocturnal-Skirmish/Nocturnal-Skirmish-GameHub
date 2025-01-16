@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.4 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.4">
   <diagram name="Page-1" id="myqILL3eeMkwEd0w7rBm">
-    <mxGraphModel dx="1805" dy="1665" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1955" dy="1754" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -215,6 +215,9 @@
             <mxPoint x="667.3199999999999" y="1890.72" as="sourcePoint" />
             <mxPoint x="590" y="1919.9999999999998" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="w6-UylWCK7Cdz2--Akp1-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EI8C_f2i3DZrhKItlqoA-70" target="w6-UylWCK7Cdz2--Akp1-2">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="EI8C_f2i3DZrhKItlqoA-70" value="&lt;div style=&quot;line-height: 90%;&quot; align=&quot;center&quot;&gt;Match end, decide winner&lt;br&gt;&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
           <mxGeometry x="460" y="1860" width="120" height="120" as="geometry" />
@@ -787,6 +790,9 @@
             <mxPoint x="1870" y="1640" as="sourcePoint" />
             <mxPoint x="1970" y="1640" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="w6-UylWCK7Cdz2--Akp1-2" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="1890" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
