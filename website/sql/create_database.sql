@@ -16,7 +16,27 @@ CREATE TABLE users (
     nickname varchar(25),
     description varchar(500),
     runes BIGINT DEFAULT 0,
+    user_rank varchar(64) DEFAULT NULL,
+    deck varchar(300) DEFAULT NULL,
+    selected_character varchar(64) DEFAULT NULL,
     PRIMARY KEY (user_id)
+);
+
+CREATE TABLE cards (
+    card_id int NOT NULL AUTO_INCREMENT,
+    card_name varchar(128),
+    description varchar(255) DEFAULT "Coming soon...",
+    bp int DEFAULT 0,
+    damage int,
+    healing int,
+    special boolean DEFAULT false,
+    effects varchar(300) DEFAULT NULL,
+    combo_list varchar(300) DEFAULT NULL,
+    evolution varchar(300) DEFAULT NULL,
+    rarity varchar(128) DEFAULT "commonRarity",
+    tag varchar(300) DEFAULT NULL,
+    texture varchar(128) DEFAULT "Template_Card.webp",
+    PRIMARY KEY (card_id)
 );
 
 CREATE TABLE recovery_codes (
