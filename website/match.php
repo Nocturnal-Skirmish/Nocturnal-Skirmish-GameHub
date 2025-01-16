@@ -20,5 +20,34 @@
         You are user id " . $_SESSION['match_uid_pos'] . " <br>
         User id 2 = " . $row["user_id_2"] . "<br>
         Gamemode = " . $row["gamemode"] . "<br>
-        Turn user id = " . $row["turn"] . "<br>";
+        Turn user id = " . $row["turn"] . "<br>
+        Rank: " . $row["user_rank"];
+
+        // Set some session variables
+        $_SESSION["match_user_id_1"] = $row["user_id_1"];
+        $_SESSION["match_user_id_2"] = $row["user_id_2"];
     }
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // Interval to verify that youre online, check if the other user is online and if other user left
+    setInterval(function() {
+        $.get("./php_scripts/verify_online_match.php", function(response){
+            switch(response) {
+                case "left":
+                    window.location = "nocturnal-skirmish.php?matchmaking=left"
+            }
+        })
+    }, 5000)
+</script>
+</html>

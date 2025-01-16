@@ -24,6 +24,7 @@ if (isset($_SESSION['matchmaking_id'])) {
             $user_id_2 = $row['user_id_2'];
             $user_id_1 = $row['user_id_1'];
             $gamemode = $row['gamemode'];
+            $rank = $row['user_rank'];
         } else {
             echo "error";
             exit;
@@ -49,7 +50,7 @@ if (isset($_SESSION['matchmaking_id'])) {
                     user_id_1 int DEFAULT $user_id_1,
                     user_id_2 int DEFAULT $user_id_2,
                     gamemode varchar(32) DEFAULT '$gamemode',
-                    user_rank varchar(64) DEFAULT NULL,
+                    user_rank varchar(64) DEFAULT 'none',
                     turn int,
                     user_action varchar(255) DEFAULT NULL,
                     timer int DEFAULT 60,
@@ -81,8 +82,8 @@ if (isset($_SESSION['matchmaking_id'])) {
             $connected1 = 1;
 
             // Insert first row
-            $stmt = $conn->prepare("INSERT INTO $tablename (gamemode, turn, connected1) VALUES (?, ?, ?)");
-            $stmt->bind_param("sii", $gamemode, $turn, $connected1);
+            $stmt = $conn->prepare("INSERT INTO $tablename (gamemode, user_rank, turn, connected1) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssii", $gamemode, $rank, $turn, $connected1);
             $stmt->execute();
             $stmt->close();
         }

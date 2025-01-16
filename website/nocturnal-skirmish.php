@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="./lib/flickity/flickity.css" media="screen">
     <script src="./lib/flickity/flickity.pkgd.min.js"></script>
 </head>
-<body id="nocskir-body" onload="prepareSFX();">
+<body id="nocskir-body" onload="prepareSFX(); ajaxGet('./php_scripts/update_login_time.php', 'hidden', 'no_sfx');">
 <div class="confirmation-popup" id="confirmContainer"></div>
 <div id="dark-container" class="dark-container"></div>
     <div class="nocskir-slideshow">
@@ -107,6 +107,30 @@
             showConfirm("Something went wrong during matchmaking.")
         } else if (matchmaking == "cancelled") {
             showConfirm("The match was cancelled.")
+        } else if (matchmaking == "left") {
+            showConfirm("The other player left the match.");
         }
     }
+
+    // Checks if user should be kicked
+    function isKicked() {
+        var placeholder = "placeholder";
+        $.ajax({
+            type: "POST",
+            url: './php_scripts/kick.php',
+            data:{ placeholder : placeholder }, 
+            success: function(response){
+                if (response == "kick") {
+                    window.location.href = "index.php";
+                }
+            }
+        })
+    }
+
+    // Verify that user is online
+    setInterval(function(){
+        ajaxGet('./php_scripts/update_login_time.php', 'hidden', 'no_sfx');
+        isKicked()
+    }, 5000);
 </script>
+<div id="hidden" style="display: none;"></div>

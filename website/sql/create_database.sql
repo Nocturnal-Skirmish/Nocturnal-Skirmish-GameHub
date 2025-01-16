@@ -167,7 +167,7 @@ CREATE TABLE matchmaking (
     user_id_1 int,
     user_id_2 int NOT NULL DEFAULT 0,
     gamemode varchar(32),
-    user_rank varchar(64),
+    user_rank varchar(64) DEFAULT "none",
     match_name varchar(255),
     PRIMARY KEY (id)
 );

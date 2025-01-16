@@ -36,6 +36,7 @@ if (!isset($_SESSION['isadmin']) || $_SESSION['isadmin'] != 1) {
             // Show sourcecode if file is not an image or audio
             $sourcecode = file_get_contents($absolutepath);
             $sourcecode = htmlspecialchars($sourcecode);
+            $sourcecode = nl2br($sourcecode);
             echo "<p>" . $sourcecode . "</p>";
         }
         echo "<br><br><button onclick='removeSourceCode()'>Close</button>";

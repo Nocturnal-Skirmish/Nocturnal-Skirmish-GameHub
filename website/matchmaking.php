@@ -16,7 +16,7 @@ if (!isset($_SESSION['matchmaking_id'])) {
     <style><?php require "./css/matchmaking.css" ?></style>
     <style><?php require "./css/universal.css" ?></style>
 </head>
-<body onload="checkMatchmaking(); prepareSFX();">
+<body onload="checkMatchmaking(); prepareSFX(); ajaxGet('./php_scripts/update_login_time.php', 'hidden', 'no_sfx');">
 <div class="perspective-container">
     <div class="perspective">
         <div class="box">
@@ -87,8 +87,27 @@ if (!isset($_SESSION['matchmaking_id'])) {
         }
     }, 1000)
 
+    // Checks if user should be kicked
+    function isKicked() {
+        var placeholder = "placeholder";
+        $.ajax({
+            type: "POST",
+            url: './php_scripts/kick.php',
+            data:{ placeholder : placeholder }, 
+            success: function(response){
+                if (response == "kick") {
+                    window.location.href = "index.php";
+                }
+            }
+        })
+    }
+
+    // Verify that user is online
     setInterval(function() {
         checkMatchmaking();
+        ajaxGet('./php_scripts/update_login_time.php', 'hidden', 'no_sfx');
+        isKicked()
     }, 5000)
 </script>
+<div id="hidden" style="display: none;"></div>
 </html>

@@ -15,8 +15,15 @@ function selectGamemode(gamemode) {
                 window.location = "matchmaking.php";
             }
         },
-        error: function() {
-            showConfirm("Something went wrong.")
+        error: function(xhr, status, error) {
+            // Alert detailed error information
+            alert("Error details:\n" +
+                "Status: " + status + "\n" +
+                "Error: " + error + "\n" +
+                "Response Text: " + xhr.responseText);
+            
+            // Optionally, log the error for debugging
+            console.error("Error Details:", xhr, status, error);
         }
     })
 }
