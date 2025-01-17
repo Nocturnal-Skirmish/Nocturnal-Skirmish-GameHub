@@ -16,6 +16,7 @@ CREATE TABLE users (
     nickname varchar(25),
     description varchar(500),
     runes BIGINT DEFAULT 0,
+    artifacts BIGINT DEFAULT 0,
     user_rank varchar(64) DEFAULT "peasant",
     deck varchar(300) DEFAULT NULL,
     selected_character varchar(64) DEFAULT NULL,
@@ -37,6 +38,20 @@ CREATE TABLE cards (
     tag varchar(300) DEFAULT NULL,
     texture varchar(128) DEFAULT "Template_Card.webp",
     PRIMARY KEY (card_id)
+);
+
+CREATE TABLE ranks (
+    rank_name varchar(128),
+    required_score int DEFAULT 0,
+    derank_pity_score int DEFAULT 0,
+    points_on_win int DEFAULT 0,
+    points_on_loss int DEFAULT 0,
+    runes_on_win int DEFAULT 0,
+    runes_on_loss int DEFAULT 0,
+    artifacts_on_win int DEFAULT 0,
+    starter_pity_score int DEFAULT 0,
+    texture varchar(128),
+    PRIMARY KEY (rank)
 );
 
 CREATE TABLE recovery_codes (
