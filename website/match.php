@@ -27,6 +27,23 @@
         $_SESSION["match_user_id_1"] = $row["user_id_1"];
         $_SESSION["match_user_id_2"] = $row["user_id_2"];
     }
+
+    // Randomly selects a song out of 4 to play as background music
+    $music_chance = rand(1,4);
+    switch($music_chance) {
+        case 1:
+            $musicsource = "MontebelloOST.wav";
+            break;
+        case 2:
+            $musicsource = "MatchOST.mp3";
+            break;
+        case 3:
+            $musicsource = "NocskirHouseOST.mp3";
+            break;
+        case 4:
+            $musicsource = "ColumbusOST.mp3";
+            break;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,9 +53,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>Document</title>
 </head>
-<body>
+<body onload="prepareSFX();">
     <button onclick="leaveMatch()">Leave</button>
+
+    <!-- Autolooping audio background music (works only if user allows it) -->
+    <audio autoplay loop style="display: none;" id="musicAudio">
+        <source src="./audio/music/<?php echo $musicsource ?>" type="audio/mpeg">
+    </audio>
+
+    <!-- hover audio temp -->
+    <audio id='hoverSFX'>
+        <source src="audio/sfx/hover.mp3" type="audio/mpeg">
+    </audio>
+    <!-- click sfx temp -->
+    <audio id='clickSFX'>
+        <source src="audio/sfx/click1.mp3" type="audio/mpeg">
+    </audio>
 </body>
+<script>
+    <?php include "./js/script.js" ?>
+</script>
 <script>
     // Interval to verify that youre online, check if the other user is online and if other user left
     setInterval(function() {
