@@ -87,6 +87,7 @@ if (isset($_SESSION['matchmaking_id'])) {
             $stmt->execute();
             $stmt->close();
         }
+        $_SESSION["popup_shown"] = false;
         echo "found";
     }
 } else {

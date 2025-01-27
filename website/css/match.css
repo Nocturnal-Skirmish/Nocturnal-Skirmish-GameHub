@@ -1,0 +1,118 @@
+body {
+    margin: 0;
+}
+
+.popup-vs-background {
+    width: 100%;
+    height: 100vh;
+    z-index: 995;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.375);
+    display: flex;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    font-family: "Afacad Flux", "sans-serif";
+}
+
+.popup-vs {
+    height: 50vh;
+    width: 100%;
+    background-color: rgb(208, 208, 208);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.turn-absolute {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+}
+
+.turn-container {
+    width: 380px;
+    height: 70px;
+    background-color: rgb(208, 208, 208);
+    position: relative;
+    top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Afacad Flux", "sans-serif";
+    font-size: 2.3rem;
+    font-weight: 600;
+    padding: 10px;
+}
+
+.profile-vs-preview {
+    padding: 15px;
+    width: calc(100% - 30px);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-container {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vs-container {
+    height: 100%;
+    width: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+}
+
+.profile-vs-preview-name-container {
+    width: fit-content;
+    height: fit-content;
+    margin-left: 15px;
+}
+
+.profile-vs-preview-name-container * {
+    margin: 0;
+}
+
+.profile-vs-preview-pfp {
+    width: 90px;
+    height: 90px;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: 90%;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-vs-preview-pfp img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.vs-rank-icon {
+    width: 50px;
+    height: 50px;
+    margin-left: 2px;
+}
+
+.vs-username {
+    display: flex;
+    align-items: center;
+}
