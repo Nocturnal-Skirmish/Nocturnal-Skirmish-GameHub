@@ -1,6 +1,6 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.4 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.4">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.7 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.7">
   <diagram name="Page-1" id="myqILL3eeMkwEd0w7rBm">
-    <mxGraphModel dx="1955" dy="1754" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+    <mxGraphModel dx="2045" dy="1837" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -187,7 +187,7 @@
         <mxCell id="EI8C_f2i3DZrhKItlqoA-100" value="connected1 (boolean)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="EI8C_f2i3DZrhKItlqoA-47" vertex="1">
           <mxGeometry y="540" width="140" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="w6-UylWCK7Cdz2--Akp1-1" value="connected2 (boolean)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="EI8C_f2i3DZrhKItlqoA-47">
+        <mxCell id="w6-UylWCK7Cdz2--Akp1-1" value="connected2 (boolean)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="EI8C_f2i3DZrhKItlqoA-47" vertex="1">
           <mxGeometry y="570" width="140" height="30" as="geometry" />
         </mxCell>
         <mxCell id="EI8C_f2i3DZrhKItlqoA-59" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="EI8C_f2i3DZrhKItlqoA-7" target="EI8C_f2i3DZrhKItlqoA-60" edge="1">
@@ -216,7 +216,7 @@
             <mxPoint x="590" y="1919.9999999999998" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="w6-UylWCK7Cdz2--Akp1-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="EI8C_f2i3DZrhKItlqoA-70" target="w6-UylWCK7Cdz2--Akp1-2">
+        <mxCell id="w6-UylWCK7Cdz2--Akp1-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="EI8C_f2i3DZrhKItlqoA-70" target="w6-UylWCK7Cdz2--Akp1-2" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="EI8C_f2i3DZrhKItlqoA-70" value="&lt;div style=&quot;line-height: 90%;&quot; align=&quot;center&quot;&gt;Match end, decide winner&lt;br&gt;&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
@@ -599,6 +599,15 @@
         <mxCell id="pQwzymtS64x7x1kbTtJx-99" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="pQwzymtS64x7x1kbTtJx-85" target="pQwzymtS64x7x1kbTtJx-98" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="CsufiQmwH3geNDcdlSES-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="pQwzymtS64x7x1kbTtJx-85" target="CsufiQmwH3geNDcdlSES-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="2190" y="1350" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2110" y="1210" />
+              <mxPoint x="2110" y="1325" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
         <mxCell id="pQwzymtS64x7x1kbTtJx-85" value="Every row in the match table represents a &quot;turn&quot;. In the row every collumn will have stored information about the current state of the match." style="rounded=1;whiteSpace=wrap;html=1;spacing=1;" parent="1" vertex="1">
           <mxGeometry x="1786.25" y="1170" width="177.5" height="80" as="geometry" />
         </mxCell>
@@ -791,8 +800,14 @@
             <mxPoint x="1970" y="1640" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="w6-UylWCK7Cdz2--Akp1-2" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="w6-UylWCK7Cdz2--Akp1-2" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="260" y="1890" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="CsufiQmwH3geNDcdlSES-1" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;i&gt;Turn logic&lt;/i&gt;&lt;/h1&gt;&lt;p&gt;&lt;i&gt;Move logic and how single cards/ combo&#39;s should be interpreted by the server and clients in a user friendly and easy to understand order&lt;/i&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="2230" y="1160" width="200" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="CsufiQmwH3geNDcdlSES-3" value="(wip)" style="whiteSpace=wrap;html=1;rounded=1;spacing=1;" vertex="1" parent="1">
+          <mxGeometry x="2220" y="1290" width="190" height="95" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
