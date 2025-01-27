@@ -26,6 +26,7 @@
         // Set some session variables
         $_SESSION["match_user_id_1"] = $row["user_id_1"];
         $_SESSION["match_user_id_2"] = $row["user_id_2"];
+        $_SESSION["match_turn_user_id"] = $row["turn"];
     }
 
     // Randomly selects a song out of 4 to play as background music
@@ -52,8 +53,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>Document</title>
+    <style>
+        <?php include "./css/match.css" ?>
+    </style>
+    <style> <?php include "./css/universal.css" ?> </style>
 </head>
 <body onload="prepareSFX();">
+    <?php include "./php_scripts/vs_popup.php" ?>
     <button onclick="leaveMatch()">Leave</button>
 
     <!-- Autolooping audio background music (works only if user allows it) -->
@@ -106,6 +112,12 @@
         window.location = "nocturnal-skirmish.php?matchmaking=error"
         */
     })
+    }
+
+    if (document.getElementById("popup-vs")) {
+        setTimeout(function() {
+            $("#popup-vs").fadeOut(500);
+        }, 5000)
     }
 </script>
 </html>
