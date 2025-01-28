@@ -14,14 +14,7 @@
         $stmt->execute();
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
-        echo "
-        Table name = $tablename <br>
-        User id 1 = " . $row["user_id_1"] . "<br>
-        You are user id " . $_SESSION['match_uid_pos'] . " <br>
-        User id 2 = " . $row["user_id_2"] . "<br>
-        Gamemode = " . $row["gamemode"] . "<br>
-        Turn user id = " . $row["turn"] . "<br>
-        Rank: " . $row["user_rank"];
+        $console_log = "Table name = $tablename | User id 1 = " . $row["user_id_1"] . " | You are user id " . $_SESSION['match_uid_pos'] . " | User id 2 = " . $row["user_id_2"] . " | Gamemode = " . $row["gamemode"] . " | Turn user id = " . $row["turn"] . " | Rank: " . $row["user_rank"];
 
         // Set some session variables
         $_SESSION["match_user_id_1"] = $row["user_id_1"];
@@ -99,19 +92,9 @@
             }
         })
         .fail(function(xhr, status, error) {
-            // Alert detailed error information
-            alert("Error details:\n" +
-                "Status: " + status + "\n" +
-                "Error: " + error + "\n" +
-                "Response Text: " + xhr.responseText);
-            
-            // Optionally, log the error for debugging
-            console.error("Error Details:", xhr, status, error);
-        /* If request went wrong
         $.get("./php_scripts/cancel_matchmaking.php")
         window.location = "nocturnal-skirmish.php?matchmaking=error"
-        */
-    })
+        })
     }
 
     if (document.getElementById("popup-vs")) {
@@ -119,5 +102,9 @@
             $("#popup-vs").fadeOut(500);
         }, 5000)
     }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        console.log("%c <?php echo $console_log ?>", "color:green; font-size:30px;")
+    })
 </script>
 </html>

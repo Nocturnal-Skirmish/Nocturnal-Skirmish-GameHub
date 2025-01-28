@@ -1,5 +1,19 @@
+:root {
+    --dynamic-background-gradient: linear-gradient(180deg, rgba(255,98,0,1) 0%, rgba(21,21,21,1) 81%);
+    --dynamic-theme-ui-bg-color: #552D18;
+    --dynamic-theme-border-color: #FF4400;
+    --dynamic-theme-icon-color: #FFFFFF;
+    --dynamic-theme-warning-color: #FF0000;
+    --dynamic-theme-positive-color: #00FF00;
+    --dynamic-theme-text-color: #FFFFFF;
+}
+
 body {
     margin: 0;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background: var(--dynamic-background-gradient);
 }
 
 .popup-vs-background {
