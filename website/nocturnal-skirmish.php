@@ -69,14 +69,21 @@
     </div>
 
     <div class="neon-button-container">
-        <div>
-        <a href="#" class="neon-button" onclick="ajaxGet('./spa/nocturnal-skirmish/gamemode_selection.php', 'dark-container', 'flickity')">Play</a>
+        <div class="neon-button-container-inner">
+            <div>
+            <a href="#" class="neon-button" onclick="ajaxGet('./spa/nocturnal-skirmish/gamemode_selection.php', 'dark-container', 'flickity')">Play</a>
+            </div>
+            <div>
+            <a href="#" class="neon-button">Inventory</a>
+            </div>
         </div>
-        <div>
-        <a href="#" class="neon-button">Inventory</a>
-        </div>
-        <div>
-        <a href="#" class="neon-button">Options</a>
+        <div class="neon-button-container-inner">
+            <div>
+            <a href="#" class="neon-button">Options</a>
+            </div>
+            <div>
+            <a href="./card-dex.php" class="neon-button">Card dex</a>
+            </div>
         </div>
     </div>
     <button class="nocskir-backtohub-button" onclick="window.location.href = 'hub.php'" title="Back to Hub"></button>

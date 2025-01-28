@@ -1,0 +1,73 @@
+/* Stylesheet for carddex */
+
+#carddex-body {
+    background-color: rgb(62, 5, 62);
+}
+
+.back-button {
+    margin: 15px;
+    text-align: center;
+    font-family: "Silkscreen", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 20px;
+    color: white;
+    background-color: transparent;
+    text-shadow: 1px 1px 2px pink;
+    border: solid 3px white;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 150px;
+    height: 50px;
+}
+
+.back-button:hover {
+    background-color: white;
+    color: rgb(62, 5, 62);
+    text-shadow: none;
+}
+
+.carddex-headline {
+    color: white;
+    font-family: "Silkscreen", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    text-shadow: 0 0 0.125em hsla(0, 0%, 100%, 0.3), 0 0 0.45em white;
+}
+
+.content {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+    position: relative;
+    bottom: 80px;
+}
+
+.card-grid {
+    margin-top: 100px;
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.card {
+    height: 240px;
+    width: 150px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    image-rendering: pixelated;
+}
+
+.card:hover {
+    filter: brightness(0.7);
+}
+
+.no-cards-found {
+    color: white;
+    font-family: "Silkscreen", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    text-shadow: 0 0 0.125em hsla(0, 0%, 100%, 0.3), 0 0 0.45em white;
+}

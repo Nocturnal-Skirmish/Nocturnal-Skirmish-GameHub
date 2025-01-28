@@ -7,6 +7,7 @@
     if ((mysqli_num_rows($result) === 0)) {
         // Match doesnt exist
         header("Location: ./nocturnal-skirmish.php?matchmaking=cancelled");
+        exit;
     } else {
         // Match exists, get info
         $conn -> select_db("nocskir_matches");
@@ -20,6 +21,26 @@
         $_SESSION["match_user_id_1"] = $row["user_id_1"];
         $_SESSION["match_user_id_2"] = $row["user_id_2"];
         $_SESSION["match_turn_user_id"] = $row["turn"];
+
+        // Get opponents nickname
+        if ($row["user_id_1"] == $_SESSION["user_id"]) {
+            $opponent_uid = $row["user_id_2"];
+        } else {
+            $opponent_uid = $row["user_id_1"];
+        }
+
+        $conn -> select_db("gamehub");
+        $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = ? LIMIT 1");
+        $stmt -> bind_param("i", $opponent_uid);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        $opponent_nickname = $row["nickname"];
+
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+            console.log('%c $console_log', 'color:green; font-size:30px;')
+        })</script>";
     }
 
     // Randomly selects a song out of 4 to play as background music
@@ -45,15 +66,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <title>Document</title>
+    <link rel="icon" type=".image/x-icon" href="./img/favicon.png">
+    <title>Match - Duelling <?php if (isset($opponent_nickname)) {echo $opponent_nickname;}?></title>
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
     <style>
         <?php include "./css/match.css" ?>
     </style>
-    <style> <?php include "./css/universal.css" ?> </style>
+    <style>
+        <?php include "./css/universal.css" ?>
+    </style>
 </head>
-<body onload="prepareSFX();">
+<body id="match-body" onload="prepareSFX(); retrieveMatchInfo();">
+    <div class="gradient-overlay"></div>
     <?php include "./php_scripts/vs_popup.php" ?>
-    <button onclick="leaveMatch()">Leave</button>
+    <div class="match-container">
+        <div class="healthbar-container">
+            <div class="healthbar" id="your-healthbar">
+                <div class="healthbar-width-meter" id="your-health-meter">
+                    <p id="your-health"></p>
+                </div>
+            </div>
+            <div class="clock">
+                <p id="clock-timer">00:35</p>
+            </div>
+            <div class="healthbar" id="opponent-healthbar">
+                <div class="healthbar-width-meter" id="opponent-health-meter">
+                    <p id="opponent-health"></p>
+                </div>
+            </div>
+        </div>
+        <div class="bp-container">
+            <p id="your-bp">BP: 10</p>
+            <div class="effect-icon" onmouseover="showEffectDetails('armour')" onmouseout="hideEffectDetails()"></div>
+            <div class="effect-icon" onmouseover="showEffectDetails('regen')" onmouseout="hideEffectDetails()"></div>
+            <div class="effect-icon" onmouseover="showEffectDetails('damageboost')" onmouseout="hideEffectDetails()"></div>
+            <div class="effect-icon" onmouseover="showEffectDetails('overhealth')" onmouseout="hideEffectDetails()"></div>
+
+            <!-- Hidden by default -->
+            <div class="effect-details-container"></div>
+
+        </div>
+    </div>
 
     <!-- Autolooping audio background music (works only if user allows it) -->
     <audio autoplay loop style="display: none;" id="musicAudio">
@@ -73,38 +126,6 @@
     <?php include "./js/script.js" ?>
 </script>
 <script>
-    // Interval to verify that youre online, check if the other user is online and if other user left
-    setInterval(function() {
-        $.get("./php_scripts/verify_online_match.php", function(response){
-            switch(response) {
-                case "left":
-                    window.location = "nocturnal-skirmish.php?matchmaking=left"
-            }
-        })
-    }, 5000)
-
-    // Leaves the current match
-    function leaveMatch() {
-        $.get("./php_scripts/leave_match.php", function(response){
-            switch(response) {
-                case "ok":
-                    window.location = "nocturnal-skirmish.php"
-            }
-        })
-        .fail(function(xhr, status, error) {
-        $.get("./php_scripts/cancel_matchmaking.php")
-        window.location = "nocturnal-skirmish.php?matchmaking=error"
-        })
-    }
-
-    if (document.getElementById("popup-vs")) {
-        setTimeout(function() {
-            $("#popup-vs").fadeOut(500);
-        }, 5000)
-    }
-
-    document.addEventListener("DOMContentLoaded", function() {
-        console.log("%c <?php echo $console_log ?>", "color:green; font-size:30px;")
-    })
+    <?php include "./js/match.js" ?>
 </script>
 </html>

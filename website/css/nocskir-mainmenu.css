@@ -114,8 +114,18 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: 2.3em;
-    gap: 2em;
+    height: fit-content;
+    margin-top: 50px;
+}
+
+.neon-button-container-inner {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 *,
