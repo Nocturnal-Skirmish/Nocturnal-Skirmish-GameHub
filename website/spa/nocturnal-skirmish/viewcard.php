@@ -50,6 +50,13 @@ if ((mysqli_num_rows($result) <= 0)) {
     if ($evolution == NULL) {
         $evolution == "This card has no evolution.";
     }
+    $css = $row["css"];
+    $cssVar = "";
+    if ($css == 0) {
+        $css = "";
+        $cssVar = "var(--$rarity)";
+        $cssVar = "style='background: $cssVar;'";
+    }
 }
 $stmt->close();
 ?>
@@ -61,8 +68,11 @@ $stmt->close();
         echo "<div class='viewcard-container'>This card could not be found...<button onclick='removeDarkContainer()'>Close</button></div>";
         exit;
     }
-    ?>
-<div class="viewcard-container" style="background: var(--<?php echo $rarity ?>);">
+?>
+<style>
+    <?php echo $css ?>
+</style>
+<div class="viewcard-container" <?php echo $cssVar ?>>
     <button class="close" title="Close" onclick="removeDarkContainer()"></button>
     <img class="main-card" src="./img/cards/<?php echo $texture ?>" alt="<?php echo $name ?>">
     <div class="vertical-divider"></div>
@@ -85,6 +95,7 @@ $stmt->close();
             <p>Effects: <?php echo $effects ?></p>
             <p>Combo list: <?php echo $combo_list ?></p>
             <p>Evolution: <?php echo $evolution ?></p>
+            <p>Rarity: <?php echo $rarity ?></p>
         </div>
     </div>
 </div>

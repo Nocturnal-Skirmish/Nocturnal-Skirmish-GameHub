@@ -104,7 +104,20 @@
 
             <!-- Hidden by default -->
             <div class="effect-details-container"></div>
-
+        </div>
+        <div class="emoji-dropdown-container">
+            <div class="emoji-icon">
+                <img src="./img/emojis/confused.png">
+            </div>
+            <div class="emoji-dropdown-menu">
+                <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
+                <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
+                <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
+                <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
+                <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
+                <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
+            </div>
+            <button class="emoji-dropdown-button"></button>
         </div>
     </div>
 

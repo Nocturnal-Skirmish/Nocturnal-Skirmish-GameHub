@@ -1,12 +1,12 @@
 /* Stylesheet for modal for viewing card info */
-
-/* background colors for raritys */
 :root {
-    --commonRarity: white;
-    --Halloween: linear-gradient(#7f0b0b, #fbdada);
-    --Christmas: url(./img/backgrounds/christmas-pattern.jpg) center fixed;
-    --epicRarity: linear-gradient(#521145, #ffb5fa);
-    --legendaryRarity: linear-gradient(#ffcc00, #fff3b5);
+    --Common: rgb(255, 255, 255);
+    --Uncommon: lightgreen;
+    --Rare: lightblue;
+    --Epic: linear-gradient(135deg, #5F01FE, #6A1194);
+    --Mythic: #ca1717;
+    --Legendary: #ff9035;
+    --Exclusive: #ff00f2;
 }
 
 .viewcard-container {
@@ -23,6 +23,9 @@
     max-width: 80%;
     overflow-y: scroll;
     display: flex;
+    /* Card rarity styling goes here */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 .close {

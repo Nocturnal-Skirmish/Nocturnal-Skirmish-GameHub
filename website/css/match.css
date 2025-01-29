@@ -306,3 +306,82 @@
     display: flex;
     align-items: center;
 }
+
+.emoji-dropdown-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 170px;
+    margin-left: 20px;
+    width: 60px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.emoji-icon {
+    width: 60px;
+    height: 45px;
+    border-top-left-radius: 75px;
+    border-top-right-radius: 75px;
+    background-color: var(--dynamic-theme-ui-bg-color);
+    border:solid 2px var(--dynamic-theme-border-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.emoji-icon img {
+    width: 70%;
+    aspect-ratio: 1/1;
+}
+
+.emoji-dropdown-button {
+    width: 58px;
+    height: 15px;
+    background-color: var(--dynamic-theme-ui-bg-color);
+    border:solid 2px var(--dynamic-theme-border-color);
+    border-top: none;
+    cursor: pointer;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-image: url(./img/icons/arrow-up.svg);
+    background-position: center;
+    background-size: 30%;
+    background-repeat: no-repeat;
+}
+
+.emoji-dropdown-menu {
+    width: 55px;
+    height: fit-content;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--dynamic-theme-ui-bg-color);
+    border:solid 2px var(--dynamic-theme-border-color);
+    border-top: none;
+    border-bottom: none;
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-top: 10px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.emoji-send-button {
+    min-width: 55px;
+    min-height: 55px;
+    border: none;
+    background-color: transparent;
+    background-position: center;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+#confused {
+    background-image: url(./img/emojis/confused.png);
+}
