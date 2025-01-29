@@ -11,6 +11,9 @@ if (isset($_SESSION["match_name"])) {
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
 
+    $_SESSION["current_round"] = $row["round"];
+    $_SESSION["match_turn_user_id"] = $row["turn"];
+
     // Figure out if youre user id 1 or 2
     if ($row["user_id_1"] == $_SESSION["user_id"]) {
         $pos = "1";

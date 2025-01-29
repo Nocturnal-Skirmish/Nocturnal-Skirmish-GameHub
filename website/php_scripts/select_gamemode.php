@@ -34,6 +34,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['matchmaking_id'] = $stmt->insert_id;
         $_SESSION['match_name'] = $matchname;
         $_SESSION['match_uid_pos'] = 1;
+        $_SESSION['opponent_uid_pos'] = 2;
     } else {
         // Row found, insert user id into that row
 
@@ -71,6 +72,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['matchmaking_id'] = $row_id;
             $_SESSION['match_name'] = $matchname;
             $_SESSION['match_uid_pos'] = 2;
+            $_SESSION['opponent_uid_pos'] = 1;
         }
     }
     $stmt->close();

@@ -5,7 +5,7 @@
     --Rare: lightblue;
     --Epic: linear-gradient(135deg, #5F01FE, #6A1194);
     --Mythic: #ca1717;
-    --Legendary: #ff9035;
+    --Legendary: linear-gradient(135deg, #ffde4b, #ff9100);
     --Exclusive: #ff00f2;
 }
 

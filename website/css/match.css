@@ -346,15 +346,19 @@
     cursor: pointer;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
-    background-image: url(./img/icons/arrow-up.svg);
-    background-position: center;
-    background-size: 30%;
-    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.emoji-dropdown-button img {
+    height: 20px;
+    width: 20px;
 }
 
 .emoji-dropdown-menu {
     width: 55px;
-    height: fit-content;
+    height: 0px;
     display: none;
     flex-direction: column;
     align-items: center;

@@ -21,6 +21,7 @@
         $_SESSION["match_user_id_1"] = $row["user_id_1"];
         $_SESSION["match_user_id_2"] = $row["user_id_2"];
         $_SESSION["match_turn_user_id"] = $row["turn"];
+        $_SESSION["current_round"] = $row["round"];
 
         // Get opponents nickname
         if ($row["user_id_1"] == $_SESSION["user_id"]) {
@@ -109,7 +110,7 @@
             <div class="emoji-icon">
                 <img src="./img/emojis/confused.png">
             </div>
-            <div class="emoji-dropdown-menu">
+            <div class="emoji-dropdown-menu" id="emoji-dropdown">
                 <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
                 <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
                 <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
@@ -117,8 +118,12 @@
                 <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
                 <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
             </div>
-            <button class="emoji-dropdown-button"></button>
+            <button class="emoji-dropdown-button" title="Show emojis" id="emoji-dropdown-button">
+                <img id="emoji-arrow" src="./img/icons/arrow.svg">
+            </button>
         </div>
+        <button onclick="matchEventHandler({'attack' : 500})">Attack 500 HP</button>
+        <button onclick="matchEventHandler({'turn' : 'end'})">End turn</button>
     </div>
 
     <!-- Autolooping audio background music (works only if user allows it) -->

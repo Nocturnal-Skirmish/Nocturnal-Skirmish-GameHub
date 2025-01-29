@@ -101,3 +101,64 @@ function showEffectDetails(effectname){
 function hideEffectDetails(event){
     effectdetailcontainer.style.display = "none";
 }
+
+// Emoji dropdown
+var dropdownState = 0;
+document.getElementById("emoji-dropdown-button").addEventListener("click", function() {
+    var arrow = document.getElementById("emoji-arrow");
+    if (dropdownState == 0) {
+        dropdownState = 1
+        // If dropdown is closed
+        document.getElementById("emoji-dropdown").style.display = "inline";
+        $('#emoji-dropdown').animate({
+            height:'300px',
+        }, 300);
+        arrow.style.transform = "rotate(180deg)";
+    } else {
+        dropdownState = 0
+        // If dropdown is open
+        setTimeout(function() {
+            document.getElementById("emoji-dropdown").style.display = "none";
+        }, 300)
+        $('#emoji-dropdown').animate({
+            height:'0px',
+        }, 300);
+        arrow.style.transform = "rotate(0deg)";
+    }
+})
+
+// All buttons go through this function
+function matchEventHandler(json) {
+    var url = "./php_scripts/match_event_handler.php"
+
+    fetch(url, {
+        method : "POST",
+        body : JSON.stringify(json),
+        credentials : "same-origin",
+        headers : {
+            "Content-Type" : "application/json"
+        }
+    })
+
+    .then(response => response.json())
+
+    .then(response => {
+        // Handle response here
+        switch (response.error) {
+            case "not_your_turn":
+                alert("It is not your turn yet.");
+                break;
+            case "error":
+                alert("something went wrong.");
+                break;
+        }
+
+        if (response.ok == 1) {
+            retrieveMatchInfo();
+        }
+    })
+
+    .catch(error => {
+        alert(error)
+    })
+}
