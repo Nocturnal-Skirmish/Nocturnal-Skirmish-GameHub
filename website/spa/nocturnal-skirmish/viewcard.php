@@ -51,11 +51,12 @@ if ((mysqli_num_rows($result) <= 0)) {
         $evolution == "This card has no evolution.";
     }
     $css = $row["css"];
-    $cssVar = "";
+    $raritybg = "";
     if ($css == 0) {
         $css = "";
-        $cssVar = "var(--$rarity)";
-        $cssVar = "style='background: $cssVar;'";
+        $raritybg = "var(--$rarity)";
+        $rarityborder = "var(--$rarity-Border)";
+        $raritybg = "style='background: $raritybg; border: $rarityborder 5px solid; border-radius: 5px;'";
     }
 }
 $stmt->close();
@@ -72,7 +73,7 @@ $stmt->close();
 <style>
     <?php echo $css ?>
 </style>
-<div class="viewcard-container" <?php echo $cssVar ?>>
+<div class="viewcard-container" <?php echo $raritybg ?>>
     <button class="close" title="Close" onclick="removeDarkContainer()"></button>
     <img class="main-card" src="./img/cards/<?php echo $texture ?>" alt="<?php echo $name ?>">
     <div class="vertical-divider"></div>
