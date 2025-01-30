@@ -47,6 +47,24 @@
     text-align: center;
 }
 
+.card-container {
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+    display: flex;
+    justify-content: right;
+}
+
+.card-container span{
+    color: white;
+    font-family: "Silkscreen", sans-serif;
+    font-size: 37px;
+    position: relative;
+    bottom: 10px;
+    right: 29px;
+    text-shadow: -1px -1px 0 #565656, 1px -1px 0 #565656, -1px 1px 0 #565656, 1px 1px 0 #565656;
+}
+
 /* sidebar styling */
 .carddex-welcome-sidebar {
     max-width: 30%;

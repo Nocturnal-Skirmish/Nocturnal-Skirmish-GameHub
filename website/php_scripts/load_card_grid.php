@@ -3,12 +3,12 @@
 require "avoid_errors.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // If sort is not set, set it to nothing
+    // If sort is not set, set it to battle points
     if (!isset($_SESSION["carddex_sort"])) {
         $_SESSION["carddex_sort"] = "bp";
-    } else {
-        $sort_column = $_SESSION["carddex_sort"];
     }
+
+    $sort_column = $_SESSION["carddex_sort"];
 
     // Check if sort column is valid to avoid sql injection
     $columns = array("card_name", "bp", "element", "rarity_int");
@@ -41,7 +41,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $name = $row["card_name"];
             $id = $row["card_id"];
             $texture = $row["texture"];
-            echo "<img onclick='viewCard($id)' class='card' title='See details' src='./img/cards/$texture' alt='$name'>";
+            $bp = $row["bp"];
+
+            if ($bp == 0) {
+                $bp = "";
+            }
+
+            echo "<div class='card-container'><img onclick='viewCard($id)' class='card' title='See details' src='./img/cards/$texture' alt='$name'><span>$bp</span></div>";
         }
     }
     $stmt->close();
