@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $bp = "";
             }
 
-            echo "<div class='card-container'><img onclick='viewCard($id)' class='card' title='See details' src='./img/cards/$texture' alt='$name'><span>$bp</span></div>";
+            echo "<div class='card-grid-section'><div class='card-container'><img onclick='viewCard($id)' class='card' title='See details' src='./img/cards/$texture' alt='$name'><span>$bp</span></div></div>";
         }
     }
     $stmt->close();

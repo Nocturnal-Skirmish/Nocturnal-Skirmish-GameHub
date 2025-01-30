@@ -62,3 +62,16 @@ function sortBy(column) {
         showConfirm("Something went wrong.");
     })
 }
+
+// Event listeners for mobile dropdown on sidebar
+document.getElementById("carddex-sidebar-open").addEventListener("click", function() {
+    document.getElementById("carddex-sidebar-container").style.display = "flex";
+    document.getElementById("carddex-sidebar-background").style.display = "block";
+    document.getElementById("carddex-sidebar-open").style.display = "none";
+})
+
+document.getElementById("carddex-sidebar-close").addEventListener("click", function() {
+    document.getElementById("carddex-sidebar-container").style.display = "none";
+    document.getElementById("carddex-sidebar-background").style.display = "none";
+    document.getElementById("carddex-sidebar-open").style.display = "flex";
+})

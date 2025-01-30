@@ -13,8 +13,25 @@
     background-color: rgb(62, 5, 62);
 }
 
+.carddex-headline-container {
+    width: 85%;
+    height: fit-content;
+    text-align: left;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.carddex-headline {
+    color: white;
+    font-family: "Silkscreen", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    text-shadow: 0 0 0.125em hsla(0, 0%, 100%, 0.3), 0 0 0.45em white;
+    position: relative;
+}
+
 .back-button {
-    margin: 15px;
     text-align: center;
     font-family: "Silkscreen", sans-serif;
     font-weight: 700;
@@ -26,9 +43,11 @@
     border: solid 3px white;
     border-radius: 5px;
     cursor: pointer;
-    width: 150px;
-    height: 50px;
-    z-index: 999;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: absolute;
+    right: 0;
 }
 
 .back-button:hover {
@@ -37,22 +56,13 @@
     text-shadow: none;
 }
 
-.carddex-headline {
-    color: white;
-    font-family: "Silkscreen", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-    text-shadow: 0 0 0.125em hsla(0, 0%, 100%, 0.3), 0 0 0.45em white;
-    position: relative;
-    text-align: center;
-}
-
 .card-container {
-    width: fit-content;
-    height: fit-content;
+    height: 240px;
+    width: 150px;
     position: relative;
     display: flex;
     justify-content: right;
+    margin-bottom: 20px;
 }
 
 .card-container span{
@@ -61,8 +71,27 @@
     font-size: 37px;
     position: relative;
     bottom: 10px;
-    right: 29px;
+    right: 2px;
     text-shadow: -1px -1px 0 #565656, 1px -1px 0 #565656, -1px 1px 0 #565656, 1px 1px 0 #565656;
+    height: fit-content;
+    width: fit-content;
+    z-index: 998;
+}
+
+.carddex-sidebar-container {
+    width: 40%;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 15px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 /* sidebar styling */
@@ -83,18 +112,14 @@
 }
 
 .carddex-search-sidebar {
-    max-width: 20%;
-    min-width: 30%;
+    width: 80%;
     max-height: min-content;
     border: 3px white solid;
     border-radius: 10px;
-    position: fixed;
-    right: 2%;
-    padding: 1%;
-
     background-color: black;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
     opacity: 75%;
+    padding: 15px;
 }
 .carddex-search-sidebar:hover {
     opacity: 100%;
@@ -103,11 +128,34 @@
     color: white;
     display: flex;
     flex-direction: row;
+    width: 100%;
 }
-input{
+
+.sort-by-headline {
+    color: white;
+    width: 100%;
+    text-align: center;
+    font-family: "Silkscreen", sans-serif;
+}
+
+.carddex-sort-radio {
+    text-align: center;
+    font-family: "Silkscreen", sans-serif;
+}
+
+.carddex-sort-radio input {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.carddex-sidebar-open {
+    display: none;
+}
+
+#searchInput{
     width: 100%;
     height: 50px;
-    margin-bottom: 15px;
     border: solid 1px black;
     background-color: white;
     border-radius: 5px;
@@ -125,14 +173,13 @@ input{
     font-weight: 200;
     font-size: 15px;
     text-align: center;
-    margin-top: 200px;
+    margin-top: 15px;
     padding-bottom: 15px;
-    width: 30%;
+    margin-bottom: 30px;
+    width: 80%;
     max-height: min-content;
-    position: fixed;
     right: 2%;
     opacity: 75%;
-    overflow-y: scroll;
     height: 600px;
 }
 .carddex-info-item {
@@ -145,86 +192,173 @@ input{
     border: 1px white solid;
     border-radius: 20px;
 }
-/* Styling for smaller screens where things should be responsive */
-@media(max-width:788px) {
-    .carddex-search-sidebar {
-        max-height: min-content;
-        border: 3px white solid;
-        border-radius: 10px;
-        position: fixed;
-        right: 2%;
-        padding: 2%;
-        background-color: black;
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-        opacity: 75%;
-        z-index: 999;
+
+.card-grid {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 25% 25% 25% 25%;
+    padding: 20px;
+    width: calc(60% - 40px);
+    height: calc(100vh - 40px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    position: absolute;
+    right: 0;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.card-grid-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.carddex-sidebar-close {
+    display: none;
+}
+
+.carddex-sidebar-background {
+    display: none;
+}
+
+@media(max-width:1240px) {
+    .card-grid {
+        grid-template-columns: 33% 33% 33%;
     }
-    .carddex-search-sidebar:hover {
-        opacity: 100%;
-    }
-    .carddex-sorting{
-        color: white;
-        display: flex;
+}
+@media(max-width:1040px) {
+    .carddex-headline-container {
         flex-direction: column;
     }
-    .carddex-sort-radio{
-        padding-top: 12px;
-        width: 100%;
+
+    .back-button {
+        position: relative;
+        margin-bottom: 20px;
     }
-    input{
-        width: 100%;
-        height: 40px;
-        margin-bottom: 15px;
-        border: solid 1px black;
-        background-color: white;
-        border-radius: 5px;
-        font-family: "Silkscreen", sans-serif;
-        font-weight: 200;
-        font-size: 13px;
-        text-indent: 5px;
+
+    #searchInput {
+        font-size: 1rem;
     }
-    .carddex-additional-info {
-        border: solid 3px white;
-        border-radius: 10px;
-        background-color: black;
-        color: white;
-        font-family: "Silkscreen", sans-serif;
-        font-weight: 200;
-        font-size: 20px;
-        text-align: center;
-        margin-top: 450px;
-        width: 33%;
-        max-height: 330px;
+
+    .carddex-sort-radio p {
+        font-size: 0.7rem;
+    }
+}
+
+/* Styling for smaller screens where things should be responsive */
+@media(max-width:940px) {
+    .carddex-sidebar-container {
         position: fixed;
-        overflow-y: scroll;
-        right: 2%;
-        opacity: 75%;
+        top: 0;
+        left: 0;
+        width: 360px;
+        z-index: 999;
+        background-color: #565656;
+        display: none;
+    }
+
+    .carddex-headline-container {
+        height: fit-content;
+        margin-top: 30px;
+    }
+
+    .carddex-sidebar-close {
+        display: inline;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 30px;
+        height: 30px;
+        margin: 15px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        background-image: url(./img/icons/x.svg);
+        background-size: 90%;
+        background-repeat: no-repeat;
+        background-position: center;
+        filter: invert(100%);
+    }
+
+    .carddex-sidebar-background {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: calc(100% - 360px);
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.50);
+        backdrop-filter: blur(20px);
+    }
+
+    .carddex-sidebar-open {
+        display: inline;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 30px;
+        height: 30px;
+        margin: 15px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        background-image: url(./img/icons/dropdown.svg);
+        background-size: 90%;
+        background-repeat: no-repeat;
+        background-position: center;
+        filter: invert(100%);
+        z-index: 997;
+    }
+
+    .card-grid {
+        width: 100%;
+        height: calc(100vh - 20px);
+        padding: 0px;
+        margin-top: 20px;
+        z-index: 998;
+    }
+}
+
+@media(max-width: 774px) {
+    .card-grid {
+        grid-template-columns: 50% 50%;
+    }
+}
+
+@media(max-width: 530px) {
+    .card-grid {
+        grid-template-columns: 100%;
     }
 }
 /* end sidebar styling */
 
 .content {
     width: 100%;
-    text-align: center;
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
+    align-items: center;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
 }
 
-.card-grid {
-    margin-left: 5%;
-    margin-top: 100px;
-    display: grid;
-    width: 60%;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+.carddex-sort-radio {
+    width: 25%;
 }
 
 .card {
     height: 240px;
     width: 150px;
     border-radius: 5px;
-    margin-bottom: 30px;
     cursor: pointer;
     image-rendering: pixelated;
+    position: absolute;
+    z-index: 997;
 }
 
 .card:hover {
