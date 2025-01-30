@@ -28,14 +28,17 @@ CREATE TABLE cards (
     card_name varchar(128),
     description varchar(255) DEFAULT "Coming soon...",
     bp int DEFAULT 0,
-    damage int,
-    healing int,
+    damage int DEFAULT 0,
+    healing int DEFAULT 0,
     special boolean DEFAULT false,
     effects varchar(300) DEFAULT NULL,
     combo_list varchar(300) DEFAULT NULL,
     evolution varchar(300) DEFAULT NULL,
-    rarity varchar(128) DEFAULT "commonRarity",
+    rarity varchar(128) DEFAULT "Common",
+    rarity_int int DEFAULT 1,
+    element varchar(128) DEFAULT "Default";
     tag varchar(300) DEFAULT NULL,
+    css varchar(500) DEFAULT 0,
     texture varchar(128) DEFAULT "Template_Card.webp",
     PRIMARY KEY (card_id)
 );

@@ -50,7 +50,7 @@ if (isset($_SESSION['matchmaking_id'])) {
                     user_id_1 int DEFAULT $user_id_1,
                     user_id_2 int DEFAULT $user_id_2,
                     gamemode varchar(32) DEFAULT '$gamemode',
-                    user_rank varchar(64) DEFAULT 'none',
+                    user_rank varchar(64) DEFAULT '$rank',
                     turn int,
                     user_action varchar(255) DEFAULT NULL,
                     timer int DEFAULT 60,

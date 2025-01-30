@@ -1,5 +1,5 @@
 <?php
-require "avoid_errors.php";
+require "../avoid_errors.php";
 // Retrives info about current match
 if (isset($_SESSION["match_name"])) {
     $conn -> select_db("nocskir_matches");
@@ -16,12 +16,24 @@ if (isset($_SESSION["match_name"])) {
 
     // Figure out if youre user id 1 or 2
     if ($row["user_id_1"] == $_SESSION["user_id"]) {
+        $opponent = $row["user_id_2"];
         $pos = "1";
         $oppos = "2";
     } else {
         $pos = "2";
         $oppos = "1";
+        $opponent = $row["user_id_1"];
     }
+
+    // Figure out whos turn it is
+    if ($row["turn"] == $opponent) {
+        $turn = "Opponents";
+    } else {
+        $turn = "Your";
+    }
+
+    // Get round
+    $round = $row["round"];
 
     // Get data
     $yourhealth = $row["health" . $pos];
@@ -32,7 +44,9 @@ if (isset($_SESSION["match_name"])) {
     $response = array(
         "yourhealth" => $yourhealth,
         "yourbp" => $yourbp,
-        "opponenthealth" => $opponenthealth
+        "opponenthealth" => $opponenthealth,
+        "round" => $round,
+        "turn" => $turn
     );
 
     echo json_encode($response);

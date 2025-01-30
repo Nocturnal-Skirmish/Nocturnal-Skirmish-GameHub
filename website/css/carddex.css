@@ -1,4 +1,13 @@
 /* Stylesheet for carddex */
+:root {
+    --Common: linear-gradient(135deg, rgb(239, 255, 239), #a0a0a0, #bbbbbb, #d6d6d6);
+    --Uncommon: linear-gradient(135deg, lightgreen, #69d163);
+    --Rare: linear-gradient(135deg, lightblue, #5d8cb8);
+    --Epic: linear-gradient(135deg, #5F01FE, #6A1194);
+    --Mythic: linear-gradient(135deg, #ff3769, #ff0000);
+    --Legendary: linear-gradient(135deg, #ffde4b, #ff9100);
+    --Exclusive: linear-gradient(135deg, #6c76ff, #e092ff, #ff00f2); 
+}
 
 #carddex-body {
     background-color: rgb(62, 5, 62);
@@ -19,6 +28,7 @@
     cursor: pointer;
     width: 150px;
     height: 50px;
+    z-index: 999;
 }
 
 .back-button:hover {
@@ -33,22 +43,161 @@
     font-weight: 700;
     font-style: normal;
     text-shadow: 0 0 0.125em hsla(0, 0%, 100%, 0.3), 0 0 0.45em white;
+    position: relative;
+    text-align: center;
 }
 
-.content {
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
+/* sidebar styling */
+.carddex-welcome-sidebar {
+    max-width: 30%;
+    max-height: 100vh;
+    margin-top: 5%;
+    border: 3px white solid;
+    border-radius: 10px;
+    background-color: pink;
+}
+.carddex-welcome-text{
+    font-family: "Silkscreen", sans-serif;
+    font-weight: 200;
+    font-size: 30px;
     text-align: center;
-    position: relative;
-    bottom: 80px;
+    margin-top: 20px;
+}
+
+.carddex-search-sidebar {
+    max-width: 20%;
+    min-width: 30%;
+    max-height: min-content;
+    border: 3px white solid;
+    border-radius: 10px;
+    position: fixed;
+    right: 2%;
+    padding: 1%;
+
+    background-color: black;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    opacity: 75%;
+}
+.carddex-search-sidebar:hover {
+    opacity: 100%;
+}
+.carddex-sorting{
+    color: white;
+    display: flex;
+    flex-direction: row;
+}
+input{
+    width: 100%;
+    height: 50px;
+    margin-bottom: 15px;
+    border: solid 1px black;
+    background-color: white;
+    border-radius: 5px;
+    font-family: "Silkscreen", sans-serif;
+    font-weight: 200;
+    font-size: 25px;
+    text-indent: 5px;
+}
+.carddex-additional-info {
+    border: solid 3px white;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    font-family: "Silkscreen", sans-serif;
+    font-weight: 200;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 200px;
+    padding-bottom: 15px;
+    width: 30%;
+    max-height: min-content;
+    position: fixed;
+    right: 2%;
+    opacity: 75%;
+    overflow-y: scroll;
+    height: 600px;
+}
+.carddex-info-item {
+    display: flex;
+    justify-content: center;
+}
+.carddex-info-item-box {
+    width: 80%;
+    margin-bottom: 15px;
+    border: 1px white solid;
+    border-radius: 20px;
+}
+/* Styling for smaller screens where things should be responsive */
+@media(max-width:788px) {
+    .carddex-search-sidebar {
+        max-height: min-content;
+        border: 3px white solid;
+        border-radius: 10px;
+        position: fixed;
+        right: 2%;
+        padding: 2%;
+        background-color: black;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        opacity: 75%;
+        z-index: 999;
+    }
+    .carddex-search-sidebar:hover {
+        opacity: 100%;
+    }
+    .carddex-sorting{
+        color: white;
+        display: flex;
+        flex-direction: column;
+    }
+    .carddex-sort-radio{
+        padding-top: 12px;
+        width: 100%;
+    }
+    input{
+        width: 100%;
+        height: 40px;
+        margin-bottom: 15px;
+        border: solid 1px black;
+        background-color: white;
+        border-radius: 5px;
+        font-family: "Silkscreen", sans-serif;
+        font-weight: 200;
+        font-size: 13px;
+        text-indent: 5px;
+    }
+    .carddex-additional-info {
+        border: solid 3px white;
+        border-radius: 10px;
+        background-color: black;
+        color: white;
+        font-family: "Silkscreen", sans-serif;
+        font-weight: 200;
+        font-size: 20px;
+        text-align: center;
+        margin-top: 450px;
+        width: 33%;
+        max-height: 330px;
+        position: fixed;
+        overflow-y: scroll;
+        right: 2%;
+        opacity: 75%;
+    }
+}
+/* end sidebar styling */
+
+.content {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
 }
 
 .card-grid {
+    margin-left: 5%;
     margin-top: 100px;
     display: grid;
-    width: 100%;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    width: 60%;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 }
 
 .card {

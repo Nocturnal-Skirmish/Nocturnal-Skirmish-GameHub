@@ -35,6 +35,8 @@ if (document.getElementById("popup-vs")) {
 var yourHealth = 0
 var yourBP = 0
 var opponentHealth = 0
+var turn = "";
+var round = 0;
 
 var yourHealthContainer = document.getElementById("your-health");
 var yourBpContainer = document.getElementById("your-bp");
@@ -43,8 +45,11 @@ var opponentHealthContainer = document.getElementById("opponent-health")
 var yourHealthBar = document.getElementById("your-health-meter");
 var opponentHealthBar = document.getElementById("opponent-health-meter");
 
+var roundCounter = document.getElementById("round")
+var turnCounter = document.getElementById("turn")
+
 function retrieveMatchInfo() {
-    var url = "./php_scripts/get_match_info.php";
+    var url = "./php_scripts/match/get_match_info.php";
 
     fetch(url, {
         method : "GET",
@@ -64,11 +69,23 @@ function retrieveMatchInfo() {
 
         var healthbar = (yourHealth / 10)
         healthbar = Math.round(healthbar)
-        yourHealthBar.style.width = healthbar + "%";
+        var width = healthbar + "%";
+        $(yourHealthBar).animate({
+            width:width,
+        }, 500);
 
         healthbar = (opponentHealth / 10)
         healthbar = Math.round(healthbar)
-        opponentHealthBar.style.width = healthbar + "%";
+        width = healthbar + "%";
+        $(opponentHealthBar).animate({
+            width:width,
+        }, 500);
+
+        turn = response.turn;
+        round = response.round;
+
+        turnCounter.innerHTML = turn + " turn."
+        roundCounter.innerHTML = "Round " + round
     })
 
     .catch(error => {
@@ -102,6 +119,45 @@ function hideEffectDetails(event){
     effectdetailcontainer.style.display = "none";
 }
 
+// TEMP: function that attacks opponent with damage in card
+function attackOpponent(card_id) {
+    var url = "./php_scripts/match/attack_opponent.php";
+
+    fetch(url, {
+        method : "POST",
+        body : JSON.stringify({
+            card_id : card_id
+        }),
+        credentials : "same-origin"
+    })
+
+    .then(response => response.json())
+
+    .then(response => {
+        switch (response.error) {
+            case "not_in_deck":
+                matchShowConfirm("This card is not in your deck.");
+                break;
+            case "not_your_turn":
+                matchShowConfirm("It is not your turn yet.");
+                break;
+            case "not_enough_bp":
+                matchShowConfirm("You dont have enough battle points for this attack.");
+                break;
+        }
+
+        if (response.ok == 1) {
+            retrieveMatchInfo();
+        }
+    })
+
+    .catch(error => {
+        matchShowConfirm("Something went wrong.");
+        console.error(error);
+    })
+
+}
+
 // Emoji dropdown
 var dropdownState = 0;
 document.getElementById("emoji-dropdown-button").addEventListener("click", function() {
@@ -127,38 +183,15 @@ document.getElementById("emoji-dropdown-button").addEventListener("click", funct
     }
 })
 
-// All buttons go through this function
-function matchEventHandler(json) {
-    var url = "./php_scripts/match_event_handler.php"
-
-    fetch(url, {
-        method : "POST",
-        body : JSON.stringify(json),
-        credentials : "same-origin",
-        headers : {
-            "Content-Type" : "application/json"
-        }
-    })
-
-    .then(response => response.json())
-
-    .then(response => {
-        // Handle response here
-        switch (response.error) {
-            case "not_your_turn":
-                alert("It is not your turn yet.");
-                break;
-            case "error":
-                alert("something went wrong.");
-                break;
-        }
-
-        if (response.ok == 1) {
-            retrieveMatchInfo();
-        }
-    })
-
-    .catch(error => {
-        alert(error)
-    })
+// Shows a popup with red text
+function matchShowConfirm(message, duration = 2000) {
+    document.getElementById("matchShowConfirm").innerHTML = message;
+    $('#matchShowConfirmContainer').animate({
+        height:'180px',
+    }, 300);
+    setTimeout(function() {
+        $('#matchShowConfirmContainer').animate({
+            height:'0px',
+        }, 300);
+    }, duration)
 }

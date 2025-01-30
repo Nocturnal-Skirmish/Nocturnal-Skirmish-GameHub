@@ -80,6 +80,11 @@
 <body id="match-body" onload="prepareSFX(); retrieveMatchInfo();">
     <div class="gradient-overlay"></div>
     <?php include "./php_scripts/vs_popup.php" ?>
+    <div id="matchShowConfirmContainer">
+        <div id="matchShowConfirm">
+            It is not your turn yet.
+        </div>
+    </div>
     <div class="match-container">
         <div class="healthbar-container">
             <div class="healthbar" id="your-healthbar">
@@ -111,7 +116,7 @@
                 <img src="./img/emojis/confused.png">
             </div>
             <div class="emoji-dropdown-menu" id="emoji-dropdown">
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
+                <button class="emoji-send-button" id="temp" onclick="sendEmoji('temp')"></button>
                 <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
                 <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
                 <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
@@ -122,8 +127,10 @@
                 <img id="emoji-arrow" src="./img/icons/arrow.svg">
             </button>
         </div>
-        <button onclick="matchEventHandler({'attack' : 500})">Attack 500 HP</button>
-        <button onclick="matchEventHandler({'turn' : 'end'})">End turn</button>
+        <div class="round-turn-container">
+            <div id="round">Round 1</div>
+            <div id="turn">Turn</div>
+        </div>
     </div>
 
     <!-- Autolooping audio background music (works only if user allows it) -->
