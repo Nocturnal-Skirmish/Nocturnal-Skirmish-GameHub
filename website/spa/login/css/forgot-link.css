@@ -90,3 +90,19 @@
 #type-in-code {
     text-align: center;
 }
+
+#type-in-code p{
+    text-wrap: wrap;
+    word-break: break-word;
+}
+
+@media(max-width:560px) {
+    .forgot-link-container {
+        max-width: 75%;
+    }
+
+    .forgot-link-container h1 {
+        font-size: 1.5rem;
+        text-wrap: wrap;
+    }
+}

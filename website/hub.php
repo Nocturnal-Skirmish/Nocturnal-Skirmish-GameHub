@@ -32,6 +32,22 @@ if (!isset($_SESSION['user_id'])) {
     <div class="confirmation-popup" id="confirmContainer"></div>
     <div class="hub-spa-container" id="hub-spa-container">
     </div>
+    <!--Mobile dropdown start-->
+    <button id="hub-dropdown-button" class="hub-dropdown-button"></button>
+    <div class="hub-dropdown-container" id="hub-dropdown-container">
+        <h1>Navigate</h1>
+        <button class="hub-dropdown-close" id="hub-dropdown-close"></button>
+        <button class="hub-corner-profile-dropdown-button" id="dropdown-button-settings" title="Settings" onclick="window.location.href = 'user_settings.php';"></button>
+            <div class="hub-corner-profile-dropdown-divider"></div>
+            <button class="hub-corner-profile-dropdown-button" id="dropdown-button-friends" title="Friends" onclick="ajaxGet('./spa/hub/friends_list.php', 'hub-spa-container', 'friends_list'); displaySpaContainerHub('block');"></button>
+            <div class="hub-corner-profile-dropdown-divider"></div>
+            <button class="hub-corner-profile-dropdown-button" id="dropdown-button-chats" title="Chats" onclick="window.location.href = 'messages.php'"></button>
+            <div class="hub-corner-profile-dropdown-divider"></div>
+            <button class="hub-corner-profile-dropdown-button" id="dropdown-button-leaderboard" title="Leaderboard"></button>
+            <div class="hub-corner-profile-dropdown-divider"></div>
+            <button class="hub-corner-profile-dropdown-button" id="dropdown-button-q_and_a" title="QandA"></button>
+    </div>
+    <!--Mobile dropdown end-->
     <div class="slide-text">
         <h1 class="slide-text-h1">
             <span>
@@ -70,10 +86,10 @@ if (!isset($_SESSION['user_id'])) {
             <div class="menu-selection-buttons">
                 <button onclick="window.location.href = 'nocturnal-skirmish.php'" class="play-button">Play <img style="width: 30%;" src="img/Noc_Skir_Logo.svg" alt="Logo"></button>
                 <br>
-                <button style="margin-bottom: 10px; margin-right: 10px;" class="menu-button">Inventory</button>
-                <a class="link" href="Featured.html"><button class="menu-button">Shop</button></a>
+                <button class="menu-button">Inventory</button>
+                <button class="menu-button">Shop</button>
                 <br>
-                <button style="margin-bottom: 10px; margin-right: 10px;" class="menu-button" onclick="ajaxGet('./spa/hub/tutorial_selection.php', 'dark-container')">Tutorial</button>
+                <button class="menu-button" onclick="ajaxGet('./spa/hub/tutorial_selection.php', 'dark-container')">Tutorial</button>
                 <button class="menu-button" onclick="ajaxGet('./spa/hub/friends_list.php', 'hub-spa-container', 'friends_list'); displaySpaContainerHub('block');" id='menu-selection-friends'>Friends List</button>
             </div>
         </div>
@@ -199,5 +215,13 @@ if (!isset($_SESSION['user_id'])) {
         displaySpaContainerHub('block');
         localStorage.setItem("openFriendList", 0);
     }
+
+    document.getElementById("hub-dropdown-button").addEventListener("click", function() {
+        document.getElementById("hub-dropdown-container").style.display = "block";
+    })
+
+    document.getElementById("hub-dropdown-close").addEventListener("click", function() {
+        document.getElementById("hub-dropdown-container").style.display = "none";
+    })
 </script>
 </html>

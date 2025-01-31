@@ -2,7 +2,9 @@
 
 .login-container{
     width: 550px;
+    max-width: 80%;
     height: 600px;
+    max-height: 80vh;
     background-color: white;
     border-radius: 42px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -11,6 +13,8 @@
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .login-logo-container{
@@ -18,10 +22,10 @@
     height: 170px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .login-logo-container img{
-    margin-top: 50px;
     width: 300px;
 }
 
@@ -42,8 +46,7 @@
 
 .login-form-inner h1{
     font-family: "Afacad Flux", sans-serif;
-    font-weight: 600;
-    font-size: 45px;
+    font-size: 2.7rem;
 }
 
 .login-cred-input{
@@ -94,12 +97,13 @@
     font-weight: 600;
     font-size: 13px;
     color: #4A88FF;
-    position: absolute;
-    bottom: 0;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
     left: 0;
-    right: 0;
+    width: 100%;
     text-align: center;
 }
 
@@ -173,4 +177,94 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-color: transparent;
+}
+
+@media(max-height:1205px) {
+    .login-logo-container {
+        height: 200px;
+    }
+    .login-logo-container img {
+        height: 100%;
+        margin-top: 0px;
+    }
+
+    .login-form-inner h1 {
+        margin: 0;
+        margin-bottom: 15px;
+    }
+
+    .login-forgot-link {
+        position: relative;
+        bottom: auto;
+        left: auto;
+    }
+
+    .login-button {
+        margin-bottom: 20px;
+    }
+}
+
+@media(max-width:560px) {
+    .login-form-inner {
+        width: calc(100% - 30px);
+        padding-left: 15px;
+        padding-right: 15px;
+        margin: 0;
+        height: fit-content;
+    }
+
+    .login-info-button {
+        position: fixed;
+    }
+
+    .login-form-inner h1 {
+        font-size: 1.8rem;
+    }
+
+    .login-cred-input {
+        height: 30px;
+        width: calc(100% - 17px);
+        font-size: 1rem;
+    }
+
+    .login-logo-container {
+        height: fit-content;
+        margin-bottom: 15px;
+    }
+
+    .login-logo-container img {
+        height: 90px;
+    }
+
+    .password-input-wrapper {
+        height: 35px;
+        overflow: auto;
+    }
+
+    .password-input-wrapper input {
+        font-size: 1rem;
+    }
+
+    .password-input-wrapper button {
+        height: 30px;
+        width: 30px;
+    }
+
+    .login-container {
+        height: fit-content;
+        padding: 15px;
+    }
+
+    .login-button {
+        margin-bottom: 15px;
+        width: fit-content;
+        height: fit-content;
+        padding: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .login-register-link {
+        font-size: 0.8rem;
+    }
 }

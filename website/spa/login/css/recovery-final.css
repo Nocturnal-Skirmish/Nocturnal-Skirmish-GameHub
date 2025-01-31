@@ -93,3 +93,9 @@
     border-radius: 10px;
     border: solid 1px black;
 }
+
+@media(max-width:1024px) {
+    .new-password-input-container input {
+        width: 80%;
+    }
+}
