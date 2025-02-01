@@ -123,6 +123,11 @@
     height: fit-content;
 }
 
+.maincard-container {
+    width: fit-content;
+    height: fit-content;
+}
+
 .credit {
     color: rgba(255, 255, 255, 0.7);
     font-family: "Silkscreen", sans-serif;

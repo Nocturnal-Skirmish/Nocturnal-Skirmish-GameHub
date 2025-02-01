@@ -77,7 +77,9 @@ $stmt->close();
 </style>
 <div class="viewcard-container" <?php echo $raritybg ?>>
     <button class="close" title="Close" onclick="removeDarkContainer()"></button>
-    <img class="main-card" src="./img/cards/<?php echo $texture ?>" alt="<?php echo $name ?>">
+    <div id="main-card-container">
+        <img class="main-card" id="main-card" src="./img/cards/<?php echo $texture ?>" alt="<?php echo $name ?>">
+    </div>
     <div class="vertical-divider"></div>
     <div class="stats-container">
         <div class="name-container">
@@ -103,3 +105,6 @@ $stmt->close();
         </div>
     </div>
 </div>
+<script>
+    
+</script>
