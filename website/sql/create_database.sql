@@ -26,7 +26,7 @@ CREATE TABLE users (
 CREATE TABLE cards (
     card_id int NOT NULL AUTO_INCREMENT,
     card_name varchar(128),
-    description varchar(255) DEFAULT "Coming soon...",
+    description varchar(400) DEFAULT "Coming soon...",
     bp int DEFAULT 0,
     damage int DEFAULT 0,
     healing int DEFAULT 0,
@@ -40,10 +40,12 @@ CREATE TABLE cards (
     tag varchar(300) DEFAULT NULL,
     css varchar(500) DEFAULT 0,
     texture varchar(128) DEFAULT "Template_Card.webp",
+    credit varchar(256) DEFAULT "The NocSkir Team",
     PRIMARY KEY (card_id)
 );
 
 CREATE TABLE ranks (
+    id int NOT NULL AUTO_INCREMENT,
     rank_name varchar(128),
     required_score int DEFAULT 0,
     derank_pity_score int DEFAULT 0,
@@ -54,7 +56,7 @@ CREATE TABLE ranks (
     artifacts_on_win int DEFAULT 0,
     starter_pity_score int DEFAULT 0,
     texture varchar(128),
-    PRIMARY KEY (rank)
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE recovery_codes (
@@ -190,13 +192,13 @@ CREATE TABLE matchmaking (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE match_invites {
+CREATE TABLE match_invites (
     id int NOT NULL AUTO_INCREMENT,
     outgoing int,
     incoming int,
     accepted boolean DEFAULT 0,
     expire int,
     PRIMARY KEY (id)
-}
+);
 
 CREATE DATABASE IF NOT EXISTS nocskir_matches;

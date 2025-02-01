@@ -58,6 +58,8 @@ if ((mysqli_num_rows($result) <= 0)) {
         $rarityborder = "var(--$rarity-Border)";
         $raritybg = "style='background: $raritybg; border: $rarityborder 5px solid; border-radius: 5px;'";
     }
+
+    $credit = $row["credit"];
 }
 $stmt->close();
 ?>
@@ -85,6 +87,7 @@ $stmt->close();
         <div class="name-underline"></div>
         <div class="description">
             <?php echo $description ?>
+            <p class="credit">Credit: <?php echo $credit ?></p>
         </div>
         </div>
         <p class="stats-headline">STATS</p>
