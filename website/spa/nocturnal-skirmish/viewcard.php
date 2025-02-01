@@ -87,7 +87,7 @@ $stmt->close();
         <div class="name-underline"></div>
         <div class="description">
             <?php echo $description ?>
-            <p class="credit">Credit: <?php echo $credit ?></p>
+            <p class="credit">Artwork credit: <?php echo $credit ?></p>
         </div>
         </div>
         <p class="stats-headline">STATS</p>
