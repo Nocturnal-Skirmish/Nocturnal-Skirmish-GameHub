@@ -29,8 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $search = htmlspecialchars($json["search"]);
 
     // Get cards with the name or tag
-    $stmt = $conn->prepare("SELECT * FROM cards WHERE lower(card_name) LIKE CONCAT('%', ?, '%') OR lower(tag) LIKE CONCAT('%', ?, '%') ORDER BY $sort_column");
-    $stmt->bind_param("ss", $search, $search);
+    $stmt = $conn->prepare("SELECT * FROM cards WHERE lower(card_name) LIKE CONCAT('%', ?, '%') OR lower(tag) LIKE CONCAT('%', ?, '%') OR lower(credit) LIKE CONCAT('%', ?, '%') ORDER BY $sort_column");
+    $stmt->bind_param("sss", $search, $search, $search);
     $stmt->execute();
     $result = $stmt->get_result();
     if ((mysqli_num_rows($result) <= 0)) {
