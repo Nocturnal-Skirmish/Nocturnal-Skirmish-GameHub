@@ -131,12 +131,13 @@
             <div id="round">Round 1</div>
             <div id="turn">Turn</div>
         </div>
-        <div class="card-slideout-container">
+        <div class="card-slideout-container" id="card-slideout-container">
             <img id="card-slideout-1" src="./img/cards/FrostBlade_Card.webp" alt="">
             <img id="card-slideout-2" src="./img/cards/BlackCat_Card_tailwag.webp" alt="">
             <img id="card-slideout-3" src="./img/cards/Poison_Frog_card.webp" alt="">
             <img id="card-slideout-4" src="./img/cards/Buddha_Card.webp" alt="">
             <img id="card-slideout-5" src="./img/cards/PoisonArrow_Card.webp" alt="">
+            <button class="card-slideout-button" id="card-slideout-button" title="Show hand"></button>
         </div>
     </div>
 

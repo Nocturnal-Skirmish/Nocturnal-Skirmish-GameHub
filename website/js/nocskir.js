@@ -44,12 +44,16 @@ function checkMatchmaking() {
             }, 2000)
         } else if (response == "error") {
             // If something went wrong
+            /*
             $.get("./php_scripts/cancel_matchmaking.php")
             window.location = "nocturnal-skirmish.php?matchmaking=error"
+            */
         }
     })
     .fail(function() {
+        /*
         $.get("./php_scripts/cancel_matchmaking.php")
         window.location = "nocturnal-skirmish.php?matchmaking=error"
+        */
     })
 }

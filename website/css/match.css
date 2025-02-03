@@ -7,6 +7,14 @@
     --dynamic-theme-warning-color: #FF0000;
     --dynamic-theme-positive-color: #00FF00;
     --dynamic-theme-text-color: #FFFFFF;
+
+    --Common: linear-gradient(135deg, rgb(239, 255, 239), #a0a0a0, #bbbbbb, #d6d6d6);
+    --Uncommon: linear-gradient(135deg, lightgreen, #69d163);
+    --Rare: linear-gradient(135deg, lightblue, #5d8cb8);
+    --Epic: linear-gradient(135deg, #5F01FE, #6A1194);
+    --Mythic: linear-gradient(135deg, #ff3769, #ff0000);
+    --Legendary: linear-gradient(135deg, #ffde4b, #ff9100);
+    --Exclusive: linear-gradient(180deg, #6c76ff, #e092ff, #ff00f2);
 }
 
 #match-body {
@@ -449,19 +457,27 @@
 .card-slideout-container {
     position: absolute;
     bottom: 0;
-    width: fit-content;
+    width: 210px;
     height: 200px;
     margin-bottom: 30px;
+    left: -50px;
+    display: flex;
+    align-items: center;
 }
 
 .card-slideout-container img {
     position: absolute;
     top: 0;
     left: 0;
-    border-radius: 5px;
+    border-radius: 10px;
     height: 100%;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     image-rendering: pixelated;
+
+    border: 3px solid transparent;
+    background-image: var(--dynamic-background-gradient), var(--Common);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
 }
 
 #card-slideout-4 {
@@ -484,7 +500,19 @@
     filter: brightness(0.6);
 }
 
-#card-slideout-5 {
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
+.card-slideout-button {
+    position: absolute;
+    right: 0;
+    width: 45px;
+    height: 45px;
+    z-index: 999;
+    margin-right: 85px;
+    background-image: url(./img/icons/slideout.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
