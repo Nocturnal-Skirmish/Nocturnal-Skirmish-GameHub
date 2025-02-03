@@ -13,7 +13,7 @@ function viewCard(card_id) {
 
 // CREDIT: https://armandocanals.com/posts/CSS-transform-rotating-a-3D-object-perspective-based-on-mouse-position.html
 function perspective() {
-    let constrain = 20;
+    let constrain = 80;
     let mouseOverContainer = document.getElementById("main-card-container");
     let ex1Layer = document.getElementById("main-card");
 
