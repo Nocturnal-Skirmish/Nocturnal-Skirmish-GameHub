@@ -5,6 +5,45 @@ function viewCard(card_id) {
     var url = "./spa/nocturnal-skirmish/viewcard.php?card=" + card_id
 
     ajaxGet(url, "dark-container");
+
+    setTimeout(function(){
+        perspective();
+    }, 500)
+}
+
+// CREDIT: https://armandocanals.com/posts/CSS-transform-rotating-a-3D-object-perspective-based-on-mouse-position.html
+function perspective() {
+    let constrain = 20;
+    let mouseOverContainer = document.getElementById("main-card-container");
+    let ex1Layer = document.getElementById("main-card");
+
+    function transforms(x, y, el) {
+        let box = el.getBoundingClientRect();
+        let calcX = -(y - box.y - (box.height / 2)) / constrain;
+        let calcY = (x - box.x - (box.width / 2)) / constrain;
+    
+    return "perspective(100px) "
+        + "   rotateX("+ calcX +"deg) "
+        + "   rotateY("+ calcY +"deg) ";
+    };
+
+    function transformElement(el, xyEl) {
+    el.style.transform  = transforms.apply(null, xyEl);
+    }
+
+    mouseOverContainer.onmousemove = function(e) {
+        let xy = [e.clientX, e.clientY];
+        let position = xy.concat([ex1Layer]);
+        console.log(xy)
+
+        window.requestAnimationFrame(function(){
+            transformElement(ex1Layer, position);
+        });
+    };
+
+    mouseOverContainer.onmouseout = function(e) {
+        ex1Layer.style = "";
+    }
 }
 
 // event listener from search bar
