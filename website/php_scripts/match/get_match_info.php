@@ -32,6 +32,27 @@ if (isset($_SESSION["match_name"])) {
         $turn = "Your";
     }
 
+    // Get your hand
+    $yourhand_csv = $row["hand" . $pos];
+    $yourhand = str_getcsv($yourhand_csv,separator: ',', enclosure: '"', escape: "");
+    $count = 1;
+    foreach ($yourhand as $card_id) {
+        // Get card texture for each card
+        $conn -> select_db("gamehub");
+        $stmt2 = $conn->prepare("SELECT * FROM cards WHERE card_id = ?");
+        $stmt2->bind_param("i", $card_id);
+        $stmt2->execute();
+        $result2 = $stmt2->get_result();
+        $row2 = $result2->fetch_assoc();
+        $texture = "./img/cards/" . $row2["texture"];
+
+        // Make variable name and value
+        $var_name = "yourhand" . $count;
+        ${$var_name} = $texture;
+        $count = $count + 1;
+    }
+
+
     // Get round
     $round = $row["round"];
 
@@ -46,7 +67,12 @@ if (isset($_SESSION["match_name"])) {
         "yourbp" => $yourbp,
         "opponenthealth" => $opponenthealth,
         "round" => $round,
-        "turn" => $turn
+        "turn" => $turn,
+        "yourhand1" => $yourhand1,
+        "yourhand2" => $yourhand2,
+        "yourhand3" => $yourhand3,
+        "yourhand4" => $yourhand4,
+        "yourhand5" => $yourhand5
     );
 
     echo json_encode($response);

@@ -63,18 +63,19 @@ function retrieveMatchInfo() {
         yourBP = response.yourbp;
         opponentHealth = response.opponenthealth;
 
-        opponentHealthContainer.innerHTML = opponentHealth + "/1000";
-        yourHealthContainer.innerHTML = yourHealth + "/1000";
+        opponentHealthContainer.innerHTML = opponentHealth + "/12000";
+        yourHealthContainer.innerHTML = yourHealth + "/12000";
         yourBpContainer.innerHTML = "BP: " + yourBP
 
-        var healthbar = (yourHealth / 10)
+        // Set health bars
+        var healthbar = (yourHealth / 120)
         healthbar = Math.round(healthbar)
         var width = healthbar + "%";
         $(yourHealthBar).animate({
             width:width,
         }, 500);
 
-        healthbar = (opponentHealth / 10)
+        healthbar = (opponentHealth / 120)
         healthbar = Math.round(healthbar)
         width = healthbar + "%";
         $(opponentHealthBar).animate({
@@ -86,6 +87,13 @@ function retrieveMatchInfo() {
 
         turnCounter.innerHTML = turn + " turn."
         roundCounter.innerHTML = "Round " + round
+
+        // Get textures for your hand
+        document.getElementById("card-slideout-1").src = response.yourhand1
+        document.getElementById("card-slideout-2").src = response.yourhand2
+        document.getElementById("card-slideout-3").src = response.yourhand3
+        document.getElementById("card-slideout-4").src = response.yourhand4
+        document.getElementById("card-slideout-5").src = response.yourhand5
     })
 
     .catch(error => {
@@ -195,3 +203,68 @@ function matchShowConfirm(message, duration = 2000) {
         }, 300);
     }, duration)
 }
+
+var slideoutState = 0;
+
+// Function for animating slideout
+document.getElementById("card-slideout-button").addEventListener("click", function() {
+    if (slideoutState == 0) {
+        $('#card-slideout-container').animate({
+            width:'45%',
+            left:'0',
+            marginLeft:'20px',
+        }, 300);
+        $('#card-slideout-button').animate({
+            rotate:'180deg',
+            marginRight:'0',
+            right:'-50px'
+        }, 300);
+
+        $('#card-slideout-5').animate({
+            marginLeft:'0%',
+        }, 300);
+
+        $('#card-slideout-4').animate({
+            marginLeft:'20%',
+        }, 300);
+
+        $('#card-slideout-3').animate({
+            marginLeft:'40%',
+        }, 300);
+
+        $('#card-slideout-2').animate({
+            marginLeft:'60%',
+        }, 300);
+
+        $('#card-slideout-1').animate({
+            marginLeft:'80%',
+        }, 300);
+
+        slideoutState = 1;
+    } else {
+        $('#card-slideout-container').animate({
+            width:'210px',
+            left:'-50px'
+        }, 300);
+        $('#card-slideout-button').animate({
+            rotate:'0deg',
+            marginRight:'85px',
+            right:'0'
+        }, 300);
+
+        $('#card-slideout-4').animate({
+            marginLeft:'20px',
+        }, 300);
+
+        $('#card-slideout-3').animate({
+            marginLeft:'40px',
+        }, 300);
+        $('#card-slideout-2').animate({
+            marginLeft:'60px',
+        }, 300);
+        $('#card-slideout-1').animate({
+            marginLeft:'80px',
+        }, 300);
+        slideoutState = 0;
+    }
+})

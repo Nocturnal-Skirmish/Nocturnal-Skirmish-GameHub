@@ -13,6 +13,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./lib/flickity/flickity.min.css">
     <link rel="stylesheet" href="./lib/flickity/flickity.css" media="screen">
+    
+    <!-- Lucide icons import -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script src="./lib/flickity/flickity.pkgd.min.js"></script>
 </head>
 <body id="nocskir-body" onload="prepareSFX(); ajaxGet('./php_scripts/update_login_time.php', 'hidden', 'no_sfx');">

@@ -13,7 +13,36 @@ if (isset($_SESSION['matchmaking_id'])) {
         // user id 2 has joined
         $row = mysqli_fetch_assoc($result);
 
+        // Create a hand with 5 random cards from your deck
+        $conn -> select_db("gamehub");
+        $stmt = $conn->prepare("SELECT deck FROM users WHERE user_id = ? LIMIT 1");
+        $stmt->bind_param("i", $_SESSION['user_id']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ((mysqli_num_rows($result) > 0)) {
+            // Convert deck to array
+            $row = mysqli_fetch_assoc($result);
+            $deck_array = str_getcsv($row["deck"],separator: ',', enclosure: '"', escape: "");
+
+            // Choose five random values from array
+            $hand_array = array_rand($deck_array, 5);
+            $hand_csv = "";
+            foreach ($hand_array as $index) {
+                // Get the id
+                $card_id = $deck_array[$index];
+                // Convert back to csv
+                $hand_csv = $hand_csv . "," . $card_id;
+            }
+            // Remove first ,
+            $hand_csv = substr($hand_csv, 1);
+        } else {
+            echo "error";
+            exit;
+        }
+
+
         // Get match name
+        $conn -> select_db("nocskir");
         $stmt = $conn->prepare("SELECT * FROM matchmaking WHERE id = ? LIMIT 1");
         $stmt->bind_param("i", $_SESSION['matchmaking_id']);
         $stmt->execute();
@@ -39,7 +68,8 @@ if (isset($_SESSION['matchmaking_id'])) {
             // Match table found, update session vars and connect to it
             $conn -> select_db("nocskir_matches");
             $_SESSION['match_name'] = $tablename;
-            $stmt = $conn->prepare("UPDATE $tablename SET connected2 = 1 WHERE round = 1");
+            $stmt = $conn->prepare("UPDATE $tablename SET connected2 = 1, hand2 = ? WHERE round = 1");
+            $stmt->bind_param("s", $hand_csv);
             $stmt->execute();
             $stmt->close();
         } else {
@@ -53,16 +83,20 @@ if (isset($_SESSION['matchmaking_id'])) {
                     user_rank varchar(64) DEFAULT '$rank',
                     turn int,
                     user_action varchar(255) DEFAULT NULL,
-                    timer int DEFAULT 60,
-                    ready boolean DEFAULT 0,
-                    upgrades1 varchar(300) DEFAULT NULL,
-                    upgrades2 varchar(300) DEFAULT NULL,
-                    health1 int DEFAULT 1000,
-                    health2 int DEFAULT 1000,
+                    special varchar(255) DEFAULT NULL,
+                    timer int DEFAULT 0,
+                    effects1 varchar(300) DEFAULT '0',
+                    effects2 varchar(300) DEFAULT '0',
+                    upgrades1 varchar(300) DEFAULT '0',
+                    upgrades2 varchar(300) DEFAULT '0',
+                    health1 int DEFAULT 12000,
+                    health2 int DEFAULT 12000,
                     armor1 int DEFAULT 0,
                     armor2 int DEFAULT 0,
                     bp1 int DEFAULT 15,
                     bp2 int DEFAULT 15,
+                    hand1 varchar(300) DEFAULT '0',
+                    hand2 varchar(300) DEFAULT '0',
                     connected1 boolean DEFAULT 0,
                     connected2 boolean DEFAULT 0,
                     PRIMARY KEY (round)
@@ -82,8 +116,8 @@ if (isset($_SESSION['matchmaking_id'])) {
             $connected1 = 1;
 
             // Insert first row
-            $stmt = $conn->prepare("INSERT INTO $tablename (gamemode, user_rank, turn, connected1) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssii", $gamemode, $rank, $turn, $connected1);
+            $stmt = $conn->prepare("INSERT INTO $tablename (gamemode, user_rank, turn, connected1, hand1) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssiis", $gamemode, $rank, $turn, $connected1, $hand_csv);
             $stmt->execute();
             $stmt->close();
         }
