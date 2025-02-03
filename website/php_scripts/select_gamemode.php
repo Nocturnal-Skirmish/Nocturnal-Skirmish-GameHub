@@ -16,6 +16,21 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $rank = "none";
     }
 
+    // Check if user has a deck. If not, make a default deck
+    $stmt = $conn->prepare("SELECT deck FROM users WHERE user_id = ?");
+    $stmt->bind_param("i", $_SESSION["user_id"]);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    if ($row["deck"] == null) {
+        // No deck found, create one
+        $defaultdeck = "25,25,25,25,35,35,35,35,46,46,27,58,12,22";
+        $stmt = $conn->prepare("UPDATE users SET deck = ? WHERE user_id = ?");
+        $stmt->bind_param("si", $defaultdeck, $_SESSION["user_id"]);
+        $stmt->execute();
+        $stmt->close();
+    }
+
     // Get all rows in matchmaking table that has empty user id 2
     $conn -> select_db("nocskir");
     $stmt = $conn->prepare("SELECT * FROM matchmaking WHERE gamemode = ? AND user_rank = ? AND user_id_2 = 0 LIMIT 1");

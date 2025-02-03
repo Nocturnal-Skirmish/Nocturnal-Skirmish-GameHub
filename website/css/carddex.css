@@ -354,11 +354,17 @@
 .card {
     height: 240px;
     width: 150px;
-    border-radius: 5px;
     cursor: pointer;
     image-rendering: pixelated;
     position: absolute;
     z-index: 997;
+
+
+    border-radius: 5px;
+    border: 3px solid transparent;
+    border-image-slice: 1;
+    background-origin: border-box;
+    background-clip: content-box, border-box;
 }
 
 .card:hover {

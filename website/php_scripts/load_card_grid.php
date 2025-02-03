@@ -42,12 +42,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $id = $row["card_id"];
             $texture = $row["texture"];
             $bp = $row["bp"];
+            $rarity = $row["rarity"];
 
             if ($bp == 0) {
                 $bp = "";
             }
 
-            echo "<div class='card-grid-section'><div class='card-container'><img onclick='viewCard($id)' class='card' title='See details' src='./img/cards/$texture' alt='$name'><span>$bp</span></div></div>";
+            echo "<div class='card-grid-section'><div class='card-container'><img style='background-image: var(--Common), var(--$rarity);' onclick='viewCard($id)' class='card' title='See details' src='./img/cards/$texture' alt='$name'><span>$bp</span></div></div>";
         }
     }
     $stmt->close();

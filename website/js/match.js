@@ -63,18 +63,18 @@ function retrieveMatchInfo() {
         yourBP = response.yourbp;
         opponentHealth = response.opponenthealth;
 
-        opponentHealthContainer.innerHTML = opponentHealth + "/1000";
-        yourHealthContainer.innerHTML = yourHealth + "/1000";
+        opponentHealthContainer.innerHTML = opponentHealth + "/12000";
+        yourHealthContainer.innerHTML = yourHealth + "/12000";
         yourBpContainer.innerHTML = "BP: " + yourBP
 
-        var healthbar = (yourHealth / 10)
+        var healthbar = (yourHealth / 120)
         healthbar = Math.round(healthbar)
         var width = healthbar + "%";
         $(yourHealthBar).animate({
             width:width,
         }, 500);
 
-        healthbar = (opponentHealth / 10)
+        healthbar = (opponentHealth / 120)
         healthbar = Math.round(healthbar)
         width = healthbar + "%";
         $(opponentHealthBar).animate({
