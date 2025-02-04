@@ -227,10 +227,77 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo "No chats found.";
             }
 
-            $conn -> select_db("gamehub");
             echo "Deleted $messagesDeleted messages. <br>";
 
-            // Remove chat tables that have no members
+            echo "---------------NOCSKIR & NOCSKIR_MATCHES-----------------------<br>";
+            echo "Removing matchmaking rows that are older than 1 hour.....<br>";
+
+            // Remove all matchmaking rows that are older than an hour
+            $unix_hour = time() + (60*60);
+
+            // Get all matchmaking rows
+            $count = 0;
+            $conn -> select_db("nocskir");
+            $stmt = $conn->prepare("SELECT * FROM matchmaking");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ((mysqli_num_rows($result) > 0)) {
+                while ($row = $result->fetch_assoc()) {
+                    // for each row
+                    $name = $row["match_name"];
+
+                    // Get unix timestamp from name
+                    $name_array = explode('_', $name);
+                    $unix_timestamp = $name_array[0];
+
+                    // Check if row is older than 1 hour
+                    if ($unix_timestamp < $unix_hour) {
+                        $stmt2 = $conn->prepare("DELETE FROM matchmaking WHERE id = ?");
+                        $stmt2->bind_param("i", $row["id"]);
+                        $stmt2->execute();
+                        $stmt2->close();
+                        $count = $count + 1;
+                    }
+                }
+
+                echo "Deleted $count matchmaking rows.<br>";
+            } else {
+                echo "No matchmaking rows. <br>";
+            }
+            $stmt->close();
+
+            // Delete match tables that are older than an hour
+            echo "Deleting match tables that are older than an hour...<br>";
+
+            $count = 0;
+
+            // Get all tables
+            $conn -> select_db("nocskir_matches");
+            $sql = "SHOW TABLES";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_array()) {
+                    // Get name of table
+                    $tablename = $row[0];
+
+                    // Get unix timestamp from name
+                    $name_array = explode('_', $tablename);
+                    $unix_timestamp = $name_array[0];
+
+                    // Check if table is older than 1 hour
+                    if ($unix_timestamp < $unix_hour) {
+                        $stmt2 = $conn->prepare("DROP TABLE $tablename");
+                        $stmt2->execute();
+                        $stmt2->close();
+                        $count = $count + 1;
+                    }
+                }
+
+                echo "Deleted $count match tables";
+            } else {
+                echo "No match tables. <br>";
+            }
+
             echo "<br>Cleanup done! <a href='../dashboard.php'>Back to dashboard.</a>";
         } else if (isset($_POST['logout'])) {
             session_unset();
