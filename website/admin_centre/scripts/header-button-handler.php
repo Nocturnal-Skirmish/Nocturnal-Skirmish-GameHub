@@ -233,7 +233,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Removing matchmaking rows that are older than 1 hour.....<br>";
 
             // Remove all matchmaking rows that are older than an hour
-            $unix_hour = time() + (60*60);
 
             // Get all matchmaking rows
             $count = 0;
@@ -246,12 +245,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                     // for each row
                     $name = $row["match_name"];
 
+                    $unix_timestamp = time();
+
                     // Get unix timestamp from name
                     $name_array = explode('_', $name);
-                    $unix_timestamp = $name_array[0];
+                    $unix_timestamp_hour = $name_array[0];
+                    $unix_timestamp_hour = $unix_timestamp_hour + (60*60);
 
                     // Check if row is older than 1 hour
-                    if ($unix_timestamp < $unix_hour) {
+                    if ($unix_timestamp_hour < $unix_timestamp) {
                         $stmt2 = $conn->prepare("DELETE FROM matchmaking WHERE id = ?");
                         $stmt2->bind_param("i", $row["id"]);
                         $stmt2->execute();
@@ -280,12 +282,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                     // Get name of table
                     $tablename = $row[0];
 
+                    $unix_timestamp = time();
+
                     // Get unix timestamp from name
                     $name_array = explode('_', $tablename);
-                    $unix_timestamp = $name_array[0];
+                    $unix_timestamp_hour = $name_array[0];
+                    $unix_timestamp_hour = $unix_timestamp_hour + (60*60);
 
                     // Check if table is older than 1 hour
-                    if ($unix_timestamp < $unix_hour) {
+                    if ($unix_timestamp_hour < $unix_timestamp) {
                         $stmt2 = $conn->prepare("DROP TABLE $tablename");
                         $stmt2->execute();
                         $stmt2->close();
