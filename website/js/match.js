@@ -31,6 +31,69 @@ if (document.getElementById("popup-vs")) {
     }, 5000)
 }
 
+// Shows a popup of an emoji sent by opponent
+function showEmoji(emoji) {
+    emojiImg = document.getElementById("emoji_img");
+    emojiImg.src = emoji;
+    $('#matchShowEmoji').animate({
+        height:'180px',
+    }, 300);
+    setTimeout(function() {
+        $('#matchShowEmoji').animate({
+            height:'0px',
+        }, 300);
+    }, 2000)
+}
+
+// Sends an emoji to the opponent
+function sendEmoji(emoji) {
+    var url = "./php_scripts/match/send_emoji.php";
+
+    // Disable all emoji buttons
+    var el = document.getElementById('emoji-dropdown'),
+    all = el.getElementsByTagName('button'), i;
+    for (i = 0; i < all.length; i++) {
+        all[i].disabled = true;
+    }
+
+    fetch(url, {
+        method : "POST",
+        body : JSON.stringify({
+            emoji : emoji
+        }),
+        credentials : "same-origin"
+    })
+
+    .then(response => response.json())
+
+    .then(response => {
+        switch(response.error) {
+            case "invalid":
+                matchShowConfirm("Invalid emoji.");
+        }
+
+        if (response.ok == 1) {
+            showEmoji(response.emojipath)
+        }
+    })
+
+    .catch(error => {
+        console.error(error);
+        matchShowConfirm("Something went wrong.")
+    })
+
+    .finally(() => {
+        setTimeout(function() {
+            // Enable all emoji buttons
+            var el = document.getElementById('emoji-dropdown'),
+            all = el.getElementsByTagName('button'), i;
+            for (i = 0; i < all.length; i++) {
+                all[i].disabled = false;
+            }
+        }, 3000)
+    })
+}
+
 // function that retrieves information about match at a interval of 5 seconds
 var yourHealth = 0
 var yourBP = 0
@@ -99,6 +162,11 @@ function retrieveMatchInfo() {
         var style = document.getElementById("card-slideout-style")
         style.innerHTML = "";
         style.innerHTML = style.innerHTML + response.yourhandrarity
+
+        // Get emoji
+        if (response.emoji != 0) {
+            showEmoji(response.emoji);
+        }
     })
 
     .catch(error => {
@@ -286,3 +354,59 @@ function reshuffle() {
         retrieveMatchInfo()
     })
 }
+
+
+
+// animations playground
+
+var cardSlideOut = anime.timeline({
+    easing: 'easeOutExpo',
+    duration: 600,
+    autoplay: false,
+    complete: function(anim) {document.querySelector('.card-slideout-container').onclick = anim.reverse;},
+    reverse: function(anim) {document.querySelector('.card-slideout-container').onclick = anim.reverse;},
+    
+});
+
+if (cardSlideOut.complete == true) {
+    document.querySelector('.card-slideout-container').onclick = cardSlideOut.reverse;
+}
+else {
+    document.querySelector('.card-slideout-container').onclick = cardSlideOut.play;
+}
+
+
+
+
+
+cardSlideOut
+.add({
+    targets: '.card-slideout-card',
+    translateX: 900,
+    duration: 600,
+})
+.add({
+    targets: '#card-slideout-1',
+    translateX: 20,
+    duration: 200,
+})
+.add({
+    targets: '#card-slideout-2',
+    translateX: 200,
+    duration: 200,
+})
+.add({
+    targets: '#card-slideout-3',
+    translateX: 380,
+    duration: 200,
+})
+.add({
+    targets: '#card-slideout-4',
+    translateX: 560,
+    duration: 200,
+})
+.add({
+    targets: '#card-slideout-5',
+    translateX: 740,
+    duration: 200,
+});

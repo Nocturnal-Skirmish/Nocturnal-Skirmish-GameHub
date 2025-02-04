@@ -99,6 +99,8 @@ if (isset($_SESSION['matchmaking_id'])) {
                     hand2 varchar(300) DEFAULT '0',
                     connected1 boolean DEFAULT 0,
                     connected2 boolean DEFAULT 0,
+                    emoji1 varchar(64) DEFAULT '0',
+                    emoji2 varchar(64) DEFAULT '0',
                     PRIMARY KEY (round)
                 );
             ");

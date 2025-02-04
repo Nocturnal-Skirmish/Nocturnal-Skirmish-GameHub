@@ -59,7 +59,6 @@ if (isset($_SESSION["match_name"])) {
         $count = $count + 1;
     }
 
-
     // Get round
     $round = $row["round"];
 
@@ -67,6 +66,18 @@ if (isset($_SESSION["match_name"])) {
     $yourhealth = $row["health" . $pos];
     $yourbp = $row["bp" . $pos];
     $opponenthealth = $row["health" . $oppos];
+
+    // Get emoji
+    $emoji = $row["emoji" . $pos];
+    $emojicol = "emoji" . $pos;
+    if ($emoji != "0") {
+        // Emoji has been received, reset to zero
+        $conn -> select_db("nocskir_matches");
+        $stmt = $conn->prepare("UPDATE $tablename SET $emojicol = 0 WHERE round = ?");
+        $stmt->bind_param("i", $round);
+        $stmt->execute();
+        $stmt->close();
+    }
 
     // Return JSON
     $response = array(
@@ -80,7 +91,8 @@ if (isset($_SESSION["match_name"])) {
         "yourhand3" => $yourhand3,
         "yourhand4" => $yourhand4,
         "yourhand5" => $yourhand5,
-        "yourhandrarity" => $yourhandrarity
+        "yourhandrarity" => $yourhandrarity,
+        "emoji" => $emoji
     );
 
     echo json_encode($response);
