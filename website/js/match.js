@@ -309,8 +309,7 @@ cardSlideOut.add({
     targets: '#card-slideout-button',
     translateX: 800,
     duration: 500,
-    rotate: ,
-});
+})
 .add({
     targets: '#card-slideout-1',
     translateX: 20,
