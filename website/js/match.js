@@ -268,3 +268,16 @@ document.getElementById("card-slideout-button").addEventListener("click", functi
         slideoutState = 0;
     }
 })
+
+function reshuffle() {
+    var url = "./php_scripts/match/reshuffle.php";
+
+    fetch(url, {
+        method : "GET",
+        credentials : "same-origin"
+    })
+
+    .then(() => {
+        retrieveMatchInfo()
+    })
+}
