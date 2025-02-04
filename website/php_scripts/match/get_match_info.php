@@ -36,6 +36,7 @@ if (isset($_SESSION["match_name"])) {
     $yourhand_csv = $row["hand" . $pos];
     $yourhand = str_getcsv($yourhand_csv,separator: ',', enclosure: '"', escape: "");
     $count = 1;
+    $yourhandrarity = "";
     foreach ($yourhand as $card_id) {
         // Get card texture for each card
         $conn -> select_db("gamehub");
@@ -45,10 +46,16 @@ if (isset($_SESSION["match_name"])) {
         $result2 = $stmt2->get_result();
         $row2 = $result2->fetch_assoc();
         $texture = "./img/cards/" . $row2["texture"];
+        $rarity = $row2["rarity"];
 
-        // Make variable name and value
+        // Make variable name and value of texture
         $var_name = "yourhand" . $count;
         ${$var_name} = $texture;
+
+        // Make css for hand rarity
+        $css = "#card-slideout-$count {background-image: var(--Common), var(--$rarity);} ";
+        $yourhandrarity = $yourhandrarity . $css;
+
         $count = $count + 1;
     }
 
@@ -72,7 +79,8 @@ if (isset($_SESSION["match_name"])) {
         "yourhand2" => $yourhand2,
         "yourhand3" => $yourhand3,
         "yourhand4" => $yourhand4,
-        "yourhand5" => $yourhand5
+        "yourhand5" => $yourhand5,
+        "yourhandrarity" => $yourhandrarity
     );
 
     echo json_encode($response);

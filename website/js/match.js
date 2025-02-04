@@ -94,6 +94,11 @@ function retrieveMatchInfo() {
         document.getElementById("card-slideout-3").src = response.yourhand3
         document.getElementById("card-slideout-4").src = response.yourhand4
         document.getElementById("card-slideout-5").src = response.yourhand5
+
+        // Get rarity for your hand
+        var style = document.getElementById("card-slideout-style")
+        style.innerHTML = "";
+        style.innerHTML = style.innerHTML + response.yourhandrarity
     })
 
     .catch(error => {
