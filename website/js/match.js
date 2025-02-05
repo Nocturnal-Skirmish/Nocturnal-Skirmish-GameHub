@@ -158,6 +158,13 @@ function retrieveMatchInfo() {
         document.getElementById("card-slideout-4").src = response.yourhand4
         document.getElementById("card-slideout-5").src = response.yourhand5
 
+        // Get ids for your hand
+        document.getElementById("card-slideout-1").name = response.yourhand1id
+        document.getElementById("card-slideout-2").name = response.yourhand2id
+        document.getElementById("card-slideout-3").name = response.yourhand3id
+        document.getElementById("card-slideout-4").name = response.yourhand4id
+        document.getElementById("card-slideout-5").name = response.yourhand5id
+
         // Get rarity for your hand
         var style = document.getElementById("card-slideout-style")
         style.innerHTML = "";
@@ -364,9 +371,15 @@ cards.forEach(card => {
             animationState = 1;
         }
         else {
-            cardUpAnimation(previousCard, 1)
-            cardUpAnimation(this.id);
-            previousCard = this.id;
+            if (previousCard == this.id) {
+                cardUpAnimation(previousCard, 1)
+                hideCardDetails()
+            } else {
+                cardUpAnimation(previousCard, 1)
+                cardUpAnimation(this.id);
+                previousCard = this.id;
+                showCardDetails(this.name);
+            }
         }
     })
 });
@@ -396,6 +409,7 @@ function cardUpAnimation(id, reverse) {
 }
 
 document.querySelector('#card-slideout-button').onclick = function() {
+    hideCardDetails();
     playCardAnimation()
     if (animationState == 0) {
         animationState = 1;
@@ -422,6 +436,42 @@ function playCardAnimation() {
    console.log(cardSlideOut); // began: true
 }
 
+// Gets details about a card and shows them
+function showCardDetails(card_id) {
+    var detailsContainer = document.getElementById("details-container");
+
+    var url = "./php_scripts/match/get_card_details.php?id=" + card_id;
+
+    fetch(url, {
+        method : "GET",
+        credentials : "same-origin"
+    })
+
+    .then(response => response.text())
+
+    .then(response => {
+        if (response == "error") {
+            hideCardDetails();
+            matchShowConfirm("Something went wrong.")
+        } else {
+            detailsContainer.style.display = "flex";
+            detailsContainer.innerHTML = response;
+        }
+    })
+
+    .catch(error => {
+        console.error(error)
+        hideCardDetails();
+        matchShowConfirm("Something went wrong.")
+    })
+}
+
+// Hides card details
+function hideCardDetails() {
+    var detailsContainer = document.getElementById("details-container");
+    detailsContainer.style.display = "none";
+    detailsContainer.innerHTML = "";
+}
 
 
 

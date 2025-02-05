@@ -326,6 +326,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 999;
 }
 
 .emoji-icon {
@@ -392,19 +393,6 @@
     background-repeat: no-repeat;
     cursor: pointer;
     margin-bottom: 10px;
-}
-
-/* Emoji backgrounds */
-#confused {
-    background-image: url(./img/emojis/confused.png);
-}
-
-#temp {
-    background-image: url(./img/emojis/temp.webp);
-}
-
-#happythumbs {
-    background-image: url(./img/emojis/happythumbs.jpg);
 }
 
 #matchShowConfirmContainer {
@@ -485,6 +473,86 @@
     left: -50px;
     display: flex;
     align-items: center;
+}
+
+.card-details-container {
+    position: absolute;
+    bottom: 290px;
+    left: 30px;
+    width: fit-content;
+    height: fit-content;
+    max-height: 150px;
+    max-width: 500px;
+    display: none;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: var(--dynamic-theme-ui-bg-color);
+    border: solid 2px var(--dynamic-theme-border-color);
+    padding-bottom: 75px;
+    z-index: 998;
+}
+
+.card-details-image {
+    height: 150px;
+    image-rendering: pixelated;
+    aspect-ratio: 5/8;
+    border-radius: 5px;
+}
+
+.card-details-right {
+    width: fit-content;
+    max-height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin-left: 20px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.card-details-name {
+    margin: 0;
+    color: white;
+    font-family: "Silkscreen", sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    position: relative;
+    bottom: 8px;
+    text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
+}
+
+.card-details-name-underline {
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    position: relative;
+    bottom: 5px;
+}
+
+.card-details-description {
+    color: white;
+    font-family: "Silkscreen", sans-serif;
+}
+
+.card-details-button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 20px;
+    padding: 5px;
+    background-color: var(--dynamic-theme-ui-bg-color);
+    border: 2px solid #FABA61;
+    border-radius: 8px;
+    color: #FABA61;
+    font-family: "Silkscreen", sans-serif;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.card-details-button:hover {
+    background-color: #FABA61;
+    color: white;
 }
 
 .card-slideout-container img {

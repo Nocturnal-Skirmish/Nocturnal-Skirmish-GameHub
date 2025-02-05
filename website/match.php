@@ -121,22 +121,7 @@
                 <img src="./img/emojis/confused.png">
             </div>
             <div class="emoji-dropdown-menu" id="emoji-dropdown">
-                <button class="emoji-send-button" id="temp" onclick="sendEmoji('temp.webp')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused.png')"></button>
-                <button class="emoji-send-button" id="happythumbs" onclick="sendEmoji('happythumbs.jpg')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('happythumbs2.jpg')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('deviousblue.png')"></button>
-
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('girl1scary.png')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('adultjoke.png')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('girl2scary.jpg')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('agony.webp')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('familynormal.jpg')"></button>
-
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('familyreverse.png')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('superpinkysmile.webp')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('partyy.png')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('salutedrunk.jpg')"></button>
+                <?php include "./php_scripts/match/load_emoji_dropdown.php" ?>
             </div>
             <button class="emoji-dropdown-button" title="Show emojis" id="emoji-dropdown-button">
                 <img id="emoji-arrow" src="./img/icons/arrow.svg">
@@ -146,12 +131,13 @@
             <div id="round">Round 1</div>
             <div id="turn">Turn</div>
         </div>
+        <div id="details-container" class="card-details-container"></div>
         <div class="card-slideout-container" id="card-slideout-container">
-            <img class="card-slideout-card" id="card-slideout-1" src="./img/cards/FrostBlade_Card.webp" alt="">
-            <img class="card-slideout-card" id="card-slideout-2" src="./img/cards/BlackCat_Card_tailwag.webp" alt="">
-            <img class="card-slideout-card" id="card-slideout-3" src="./img/cards/Poison_Frog_card.webp" alt="">
-            <img class="card-slideout-card" id="card-slideout-4" src="./img/cards/Buddha_Card.webp" alt="">
-            <img class="card-slideout-card" id="card-slideout-5" src="./img/cards/PoisonArrow_Card.webp" alt="">
+            <img class="card-slideout-card" id="card-slideout-1" src="">
+            <img class="card-slideout-card" id="card-slideout-2" src="">
+            <img class="card-slideout-card" id="card-slideout-3" src="">
+            <img class="card-slideout-card" id="card-slideout-4" src="">
+            <img class="card-slideout-card" id="card-slideout-5" src="">
             <button class="card-slideout-button" id="card-slideout-button" title="Show hand"></button>
         </div>
     </div>

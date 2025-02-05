@@ -52,6 +52,10 @@ if (isset($_SESSION["match_name"])) {
         $var_name = "yourhand" . $count;
         ${$var_name} = $texture;
 
+        // Make variable name and value of id
+        $var_name = "yourhand" . $count . "id";
+        ${$var_name} = $card_id;
+
         // Make css for hand rarity
         $css = "#card-slideout-$count {background-image: var(--Common), var(--$rarity);} ";
         $yourhandrarity = $yourhandrarity . $css;
@@ -91,6 +95,11 @@ if (isset($_SESSION["match_name"])) {
         "yourhand3" => $yourhand3,
         "yourhand4" => $yourhand4,
         "yourhand5" => $yourhand5,
+        "yourhand1id" => $yourhand1id,
+        "yourhand2id" => $yourhand2id,
+        "yourhand3id" => $yourhand3id,
+        "yourhand4id" => $yourhand4id,
+        "yourhand5id" => $yourhand5id,
         "yourhandrarity" => $yourhandrarity,
         "emoji" => $emoji
     );
