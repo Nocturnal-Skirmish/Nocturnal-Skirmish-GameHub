@@ -8,7 +8,7 @@ if (isset($_SESSION["match_name"]) && $_SERVER['REQUEST_METHOD'] == "POST") {
     $tablename = $_SESSION['match_name'];
 
     // See if emoji is valid
-    $valid_emojis = array("temp.webp", "confused.png");
+    $valid_emojis = array("temp.webp", "confused.png", "happythumbs.jpg", "happythumbs2.jpg", "deviousblue.png", "girl1scary.png", "adultjoke.png", "girl2scary.jpg", "agony.webp", "familynormal.jpg", "familyreverse.png", "superpinkysmile.webp", "partyy.png", "salutedrunk.jpg");
     if (!in_array($emoji, $valid_emojis)) {
         echo json_encode(array("error" => "invalid"));
         exit;

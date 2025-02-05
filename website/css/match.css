@@ -403,6 +403,10 @@
     background-image: url(./img/emojis/temp.webp);
 }
 
+#happythumbs {
+    background-image: url(./img/emojis/happythumbs.jpg);
+}
+
 #matchShowConfirmContainer {
     position: fixed;
     top: 0;

@@ -123,10 +123,20 @@
             <div class="emoji-dropdown-menu" id="emoji-dropdown">
                 <button class="emoji-send-button" id="temp" onclick="sendEmoji('temp.webp')"></button>
                 <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused.png')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused.png')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused.png')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused.png')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused.png')"></button>
+                <button class="emoji-send-button" id="happythumbs" onclick="sendEmoji('happythumbs.jpg')"></button>
+                <button class="emoji-send-button" id="confused" onclick="sendEmoji('happythumbs2.jpg')"></button>
+                <button class="emoji-send-button" id="confused" onclick="sendEmoji('deviousblue.png')"></button>
+
+                <button class="emoji-send-button" id="confused" onclick="sendEmoji('girl1scary.png')"></button>
+                <button class="emoji-send-button" id="confused" onclick="sendEmoji('adultjoke.png')"></button>
+                <button class="emoji-send-button" id="confused" onclick="sendEmoji('girl2scary.jpg')"></button>
+                <button class="emoji-send-button" id="confused" onclick="sendEmoji('agony.webp')"></button>
+                <button class="emoji-send-button" id="confused" onclick="sendEmoji('familynormal.jpg')"></button>
+
+                <button class="emoji-send-button" id="confused" onclick="sendEmoji('familyreverse.png')"></button>
+                <button class="emoji-send-button" id="confused" onclick="sendEmoji('superpinkysmile.webp')"></button>
+                <button class="emoji-send-button" id="confused" onclick="sendEmoji('partyy.png')"></button>
+                <button class="emoji-send-button" id="confused" onclick="sendEmoji('salutedrunk.jpg')"></button>
             </div>
             <button class="emoji-dropdown-button" title="Show emojis" id="emoji-dropdown-button">
                 <img id="emoji-arrow" src="./img/icons/arrow.svg">
