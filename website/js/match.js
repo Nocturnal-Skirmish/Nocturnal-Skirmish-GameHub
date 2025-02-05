@@ -294,68 +294,136 @@ function reshuffle() {
 
 // animations playground
 
+var animationDuration = 50;
+
 var cardSlideOut = anime.timeline({
-    easing: 'easeOutExpo',
-    duration: 600,
+    easing: 'easeInOutElastic',
+    duration: (animationDuration * 2),
     autoplay: false,
 });
-
-cardSlideOut.add({
-    targets: '.card-slideout-card',
-    translateX: 900,
-    duration: 600,
-})
+cardSlideOut
 .add({
-    targets: '#card-slideout-button',
-    translateX: 800,
-    duration: 500,
-})
-.add({
-    targets: '#card-slideout-1',
-    translateX: 20,
-    duration: 200,
-})
-.add({
-    targets: '#card-slideout-2',
-    translateX: 200,
-    duration: 200,
-})
-.add({
-    targets: '#card-slideout-3',
-    translateX: 380,
-    duration: 200,
+    targets: '#card-slideout-5',
+    translateX: 720,
+    duration: (animationDuration * 4),
 })
 .add({
     targets: '#card-slideout-4',
-    translateX: 560,
-    duration: 200,
+    translateX: 540,
+    duration: (animationDuration * 4),
 })
 .add({
-    targets: '#card-slideout-5',
-    translateX: 740,
-    duration: 200,
+    targets: '#card-slideout-3',
+    translateX: 360,
+    duration: (animationDuration * 4),
+})
+.add({
+    targets: '#card-slideout-2',
+    translateX: 180,
+    duration: (animationDuration * 4),
 })
 
-console.log(cardSlideOut); // began: false
-
-document.querySelector('#card-slideout-button').onclick = function() {
-    document.getElementById("card-slideout-button").disabled = true;
-    if (cardSlideOut.began) {
-        if (cardSlideOut.finished) {
-            cardSlideOut.reverse();
-        }
-    }
-    cardSlideOut.play();
-
-    setTimeout(function() {
-        document.getElementById("card-slideout-button").disabled = false;
-    }, 1500)
-   console.log(cardSlideOut); // began: true
-}
 
 
+
+var buttonSlideOut = anime.timeline({
+    easing: 'easeInOutElastic',
+    duration: (animationDuration * 4),
+    autoplay: false
+})
+
+buttonSlideOut.add({
+    targets: '#card-slideout-button',
+    translateX: 800,
+    duration: (animationDuration * 3),
+    rotate: "180deg"
+})
+
+// slide selected cards up
 var cardSelectedUp = anime.timeline({
     easing: 'easeOutExpo',
     duration: 100,
     autoplay: false,
 });
+
+cardSelectedUp
+.add({
+    targets: '.card-slideout-card',
+    translateY: -20,
+    duration: 100,
+});
+
+var animationState = 0;
+var previousCard = "";
+
+const cards = document.querySelectorAll('.card-slideout-card');
+cards.forEach(card => {
+    card.addEventListener("click", function() {
+        if (animationState == 0) {
+            playCardAnimation();
+            animationState = 1;
+        }
+        else {
+            cardUpAnimation(previousCard, 1)
+            cardUpAnimation(this.id);
+            previousCard = this.id;
+        }
+    })
+});
+
+var slideuptime = 50;
+var cardSelectedUp = anime.timeline({})
+function cardUpAnimation(id, reverse) {
+    cardSelectedUp.restart();
+    cardSelectedUp = anime.timeline({
+        easing: 'easeOutExpo',
+        duration: slideuptime,
+        autoplay: false,
+    });
+    
+    cardSelectedUp
+    .add({
+        targets: '#' + id,
+        translateY: -40,
+        duration: slideuptime,
+    });
+
+    if (reverse == 1) {
+        cardSelectedUp.reverse();
+    }
+
+    cardSelectedUp.play();
+}
+
+document.querySelector('#card-slideout-button').onclick = function() {
+    playCardAnimation()
+    if (animationState == 0) {
+        animationState = 1;
+    } else {
+        animationState = 0;
+    }
+}
+
+function playCardAnimation() {
+    document.getElementById("card-slideout-button").disabled = true;
+    if (cardSlideOut.began) {
+        if (cardSlideOut.finished) {
+            cardUpAnimation(previousCard, 1)
+            cardSlideOut.reverse();
+            buttonSlideOut.reverse();
+        }
+    }
+    cardSlideOut.play();
+    buttonSlideOut.play();
+
+    setTimeout(function() {
+        document.getElementById("card-slideout-button").disabled = false;
+    }, (animationDuration * 3))
+   console.log(cardSlideOut); // began: true
+}
+
+
+
+
+
+
