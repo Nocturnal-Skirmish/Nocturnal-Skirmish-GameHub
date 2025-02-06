@@ -67,6 +67,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="./lib/anime-master/lib/anime.min.js"></script>
     <link rel="icon" type=".image/x-icon" href="./img/favicon.png">
     <title>Match - Duelling <?php if (isset($opponent_nickname)) {echo $opponent_nickname;}?></title>
     <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
@@ -76,6 +77,7 @@
     <style>
         <?php include "./css/universal.css" ?>
     </style>
+    <style id="card-slideout-style"></style>
 </head>
 <body id="match-body" onload="prepareSFX(); retrieveMatchInfo();">
     <div class="gradient-overlay"></div>
@@ -84,6 +86,9 @@
         <div id="matchShowConfirm">
             It is not your turn yet.
         </div>
+    </div>
+    <div id="matchShowEmoji">
+        <img id="emoji_img">
     </div>
     <div class="match-container">
         <div class="healthbar-container">
@@ -116,12 +121,7 @@
                 <img src="./img/emojis/confused.png">
             </div>
             <div class="emoji-dropdown-menu" id="emoji-dropdown">
-                <button class="emoji-send-button" id="temp" onclick="sendEmoji('temp')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
-                <button class="emoji-send-button" id="confused" onclick="sendEmoji('confused')"></button>
+                <?php include "./php_scripts/match/load_emoji_dropdown.php" ?>
             </div>
             <button class="emoji-dropdown-button" title="Show emojis" id="emoji-dropdown-button">
                 <img id="emoji-arrow" src="./img/icons/arrow.svg">
@@ -131,12 +131,13 @@
             <div id="round">Round 1</div>
             <div id="turn">Turn</div>
         </div>
+        <div id="details-container" class="card-details-container"></div>
         <div class="card-slideout-container" id="card-slideout-container">
-            <img id="card-slideout-1" src="./img/cards/FrostBlade_Card.webp" alt="">
-            <img id="card-slideout-2" src="./img/cards/BlackCat_Card_tailwag.webp" alt="">
-            <img id="card-slideout-3" src="./img/cards/Poison_Frog_card.webp" alt="">
-            <img id="card-slideout-4" src="./img/cards/Buddha_Card.webp" alt="">
-            <img id="card-slideout-5" src="./img/cards/PoisonArrow_Card.webp" alt="">
+            <img class="card-slideout-card" id="card-slideout-1" src="">
+            <img class="card-slideout-card" id="card-slideout-2" src="">
+            <img class="card-slideout-card" id="card-slideout-3" src="">
+            <img class="card-slideout-card" id="card-slideout-4" src="">
+            <img class="card-slideout-card" id="card-slideout-5" src="">
             <button class="card-slideout-button" id="card-slideout-button" title="Show hand"></button>
         </div>
     </div>

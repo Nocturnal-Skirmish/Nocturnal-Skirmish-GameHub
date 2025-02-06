@@ -36,6 +36,7 @@ if (isset($_SESSION["match_name"])) {
     $yourhand_csv = $row["hand" . $pos];
     $yourhand = str_getcsv($yourhand_csv,separator: ',', enclosure: '"', escape: "");
     $count = 1;
+    $yourhandrarity = "";
     foreach ($yourhand as $card_id) {
         // Get card texture for each card
         $conn -> select_db("gamehub");
@@ -45,13 +46,22 @@ if (isset($_SESSION["match_name"])) {
         $result2 = $stmt2->get_result();
         $row2 = $result2->fetch_assoc();
         $texture = "./img/cards/" . $row2["texture"];
+        $rarity = $row2["rarity"];
 
-        // Make variable name and value
+        // Make variable name and value of texture
         $var_name = "yourhand" . $count;
         ${$var_name} = $texture;
+
+        // Make variable name and value of id
+        $var_name = "yourhand" . $count . "id";
+        ${$var_name} = $card_id;
+
+        // Make css for hand rarity
+        $css = "#card-slideout-$count {background-image: var(--Common), var(--$rarity);} ";
+        $yourhandrarity = $yourhandrarity . $css;
+
         $count = $count + 1;
     }
-
 
     // Get round
     $round = $row["round"];
@@ -60,6 +70,18 @@ if (isset($_SESSION["match_name"])) {
     $yourhealth = $row["health" . $pos];
     $yourbp = $row["bp" . $pos];
     $opponenthealth = $row["health" . $oppos];
+
+    // Get emoji
+    $emoji = $row["emoji" . $pos];
+    $emojicol = "emoji" . $pos;
+    if ($emoji != "0") {
+        // Emoji has been received, reset to zero
+        $conn -> select_db("nocskir_matches");
+        $stmt = $conn->prepare("UPDATE $tablename SET $emojicol = 0 WHERE round = ?");
+        $stmt->bind_param("i", $round);
+        $stmt->execute();
+        $stmt->close();
+    }
 
     // Return JSON
     $response = array(
@@ -72,7 +94,14 @@ if (isset($_SESSION["match_name"])) {
         "yourhand2" => $yourhand2,
         "yourhand3" => $yourhand3,
         "yourhand4" => $yourhand4,
-        "yourhand5" => $yourhand5
+        "yourhand5" => $yourhand5,
+        "yourhand1id" => $yourhand1id,
+        "yourhand2id" => $yourhand2id,
+        "yourhand3id" => $yourhand3id,
+        "yourhand4id" => $yourhand4id,
+        "yourhand5id" => $yourhand5id,
+        "yourhandrarity" => $yourhandrarity,
+        "emoji" => $emoji
     );
 
     echo json_encode($response);

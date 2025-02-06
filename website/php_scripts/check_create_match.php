@@ -82,9 +82,9 @@ if (isset($_SESSION['matchmaking_id'])) {
                     gamemode varchar(32) DEFAULT '$gamemode',
                     user_rank varchar(64) DEFAULT '$rank',
                     turn int,
-                    user_action varchar(255) DEFAULT NULL,
                     special varchar(255) DEFAULT NULL,
                     timer int DEFAULT 0,
+                    user_action varchar(300) DEFAULT '0',
                     effects1 varchar(300) DEFAULT '0',
                     effects2 varchar(300) DEFAULT '0',
                     upgrades1 varchar(300) DEFAULT '0',
@@ -99,6 +99,8 @@ if (isset($_SESSION['matchmaking_id'])) {
                     hand2 varchar(300) DEFAULT '0',
                     connected1 boolean DEFAULT 0,
                     connected2 boolean DEFAULT 0,
+                    emoji1 varchar(64) DEFAULT '0',
+                    emoji2 varchar(64) DEFAULT '0',
                     PRIMARY KEY (round)
                 );
             ");

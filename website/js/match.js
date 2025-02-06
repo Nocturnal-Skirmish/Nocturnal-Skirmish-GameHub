@@ -31,6 +31,69 @@ if (document.getElementById("popup-vs")) {
     }, 5000)
 }
 
+// Shows a popup of an emoji sent by opponent
+function showEmoji(emoji) {
+    emojiImg = document.getElementById("emoji_img");
+    emojiImg.src = emoji;
+    $('#matchShowEmoji').animate({
+        height:'180px',
+    }, 300);
+    setTimeout(function() {
+        $('#matchShowEmoji').animate({
+            height:'0px',
+        }, 300);
+    }, 2000)
+}
+
+// Sends an emoji to the opponent
+function sendEmoji(emoji) {
+    var url = "./php_scripts/match/send_emoji.php";
+
+    // Disable all emoji buttons
+    var el = document.getElementById('emoji-dropdown'),
+    all = el.getElementsByTagName('button'), i;
+    for (i = 0; i < all.length; i++) {
+        all[i].disabled = true;
+    }
+
+    fetch(url, {
+        method : "POST",
+        body : JSON.stringify({
+            emoji : emoji
+        }),
+        credentials : "same-origin"
+    })
+
+    .then(response => response.json())
+
+    .then(response => {
+        switch(response.error) {
+            case "invalid":
+                matchShowConfirm("Invalid emoji.");
+        }
+
+        if (response.ok == 1) {
+            showEmoji(response.emojipath)
+        }
+    })
+
+    .catch(error => {
+        console.error(error);
+        matchShowConfirm("Something went wrong.")
+    })
+
+    .finally(() => {
+        setTimeout(function() {
+            // Enable all emoji buttons
+            var el = document.getElementById('emoji-dropdown'),
+            all = el.getElementsByTagName('button'), i;
+            for (i = 0; i < all.length; i++) {
+                all[i].disabled = false;
+            }
+        }, 3000)
+    })
+}
+
 // function that retrieves information about match at a interval of 5 seconds
 var yourHealth = 0
 var yourBP = 0
@@ -94,6 +157,23 @@ function retrieveMatchInfo() {
         document.getElementById("card-slideout-3").src = response.yourhand3
         document.getElementById("card-slideout-4").src = response.yourhand4
         document.getElementById("card-slideout-5").src = response.yourhand5
+
+        // Get ids for your hand
+        document.getElementById("card-slideout-1").name = response.yourhand1id
+        document.getElementById("card-slideout-2").name = response.yourhand2id
+        document.getElementById("card-slideout-3").name = response.yourhand3id
+        document.getElementById("card-slideout-4").name = response.yourhand4id
+        document.getElementById("card-slideout-5").name = response.yourhand5id
+
+        // Get rarity for your hand
+        var style = document.getElementById("card-slideout-style")
+        style.innerHTML = "";
+        style.innerHTML = style.innerHTML + response.yourhandrarity
+
+        // Get emoji
+        if (response.emoji != 0) {
+            showEmoji(response.emoji);
+        }
     })
 
     .catch(error => {
@@ -204,67 +284,196 @@ function matchShowConfirm(message, duration = 2000) {
     }, duration)
 }
 
-var slideoutState = 0;
+function reshuffle() {
+    var url = "./php_scripts/match/reshuffle.php";
 
-// Function for animating slideout
-document.getElementById("card-slideout-button").addEventListener("click", function() {
-    if (slideoutState == 0) {
-        $('#card-slideout-container').animate({
-            width:'45%',
-            left:'0',
-            marginLeft:'20px',
-        }, 300);
-        $('#card-slideout-button').animate({
-            rotate:'180deg',
-            marginRight:'0',
-            right:'-50px'
-        }, 300);
+    fetch(url, {
+        method : "GET",
+        credentials : "same-origin"
+    })
 
-        $('#card-slideout-5').animate({
-            marginLeft:'0%',
-        }, 300);
+    .then(() => {
+        retrieveMatchInfo()
+    })
+}
 
-        $('#card-slideout-4').animate({
-            marginLeft:'20%',
-        }, 300);
 
-        $('#card-slideout-3').animate({
-            marginLeft:'40%',
-        }, 300);
 
-        $('#card-slideout-2').animate({
-            marginLeft:'60%',
-        }, 300);
+// animations playground
 
-        $('#card-slideout-1').animate({
-            marginLeft:'80%',
-        }, 300);
+var animationDuration = 50;
 
-        slideoutState = 1;
-    } else {
-        $('#card-slideout-container').animate({
-            width:'210px',
-            left:'-50px'
-        }, 300);
-        $('#card-slideout-button').animate({
-            rotate:'0deg',
-            marginRight:'85px',
-            right:'0'
-        }, 300);
-
-        $('#card-slideout-4').animate({
-            marginLeft:'20px',
-        }, 300);
-
-        $('#card-slideout-3').animate({
-            marginLeft:'40px',
-        }, 300);
-        $('#card-slideout-2').animate({
-            marginLeft:'60px',
-        }, 300);
-        $('#card-slideout-1').animate({
-            marginLeft:'80px',
-        }, 300);
-        slideoutState = 0;
-    }
+var cardSlideOut = anime.timeline({
+    easing: 'easeInOutElastic',
+    duration: (animationDuration * 2),
+    autoplay: false,
+});
+cardSlideOut
+.add({
+    targets: '#card-slideout-5',
+    translateX: 720,
+    duration: (animationDuration * 4),
 })
+.add({
+    targets: '#card-slideout-4',
+    translateX: 540,
+    duration: (animationDuration * 4),
+})
+.add({
+    targets: '#card-slideout-3',
+    translateX: 360,
+    duration: (animationDuration * 4),
+})
+.add({
+    targets: '#card-slideout-2',
+    translateX: 180,
+    duration: (animationDuration * 4),
+})
+
+
+
+
+var buttonSlideOut = anime.timeline({
+    easing: 'easeInOutElastic',
+    duration: (animationDuration * 4),
+    autoplay: false
+})
+
+buttonSlideOut.add({
+    targets: '#card-slideout-button',
+    translateX: 800,
+    duration: (animationDuration * 3),
+    rotate: "180deg"
+})
+
+// slide selected cards up
+var cardSelectedUp = anime.timeline({
+    easing: 'easeOutExpo',
+    duration: 100,
+    autoplay: false,
+});
+
+cardSelectedUp
+.add({
+    targets: '.card-slideout-card',
+    translateY: -20,
+    duration: 100,
+});
+
+var animationState = 0;
+var previousCard = "";
+
+const cards = document.querySelectorAll('.card-slideout-card');
+cards.forEach(card => {
+    card.addEventListener("click", function() {
+        if (animationState == 0) {
+            playCardAnimation();
+            animationState = 1;
+        }
+        else {
+            if (previousCard == this.id) {
+                cardUpAnimation(previousCard, 1)
+                hideCardDetails()
+            } else {
+                cardUpAnimation(previousCard, 1)
+                cardUpAnimation(this.id);
+                previousCard = this.id;
+                showCardDetails(this.name);
+            }
+        }
+    })
+});
+
+var slideuptime = 50;
+var cardSelectedUp = anime.timeline({})
+function cardUpAnimation(id, reverse) {
+    cardSelectedUp.restart();
+    cardSelectedUp = anime.timeline({
+        easing: 'easeOutExpo',
+        duration: slideuptime,
+        autoplay: false,
+    });
+    
+    cardSelectedUp
+    .add({
+        targets: '#' + id,
+        translateY: -40,
+        duration: slideuptime,
+    });
+
+    if (reverse == 1) {
+        cardSelectedUp.reverse();
+    }
+
+    cardSelectedUp.play();
+}
+
+document.querySelector('#card-slideout-button').onclick = function() {
+    hideCardDetails();
+    playCardAnimation()
+    if (animationState == 0) {
+        animationState = 1;
+    } else {
+        animationState = 0;
+    }
+}
+
+function playCardAnimation() {
+    document.getElementById("card-slideout-button").disabled = true;
+    if (cardSlideOut.began) {
+        if (cardSlideOut.finished) {
+            cardUpAnimation(previousCard, 1)
+            cardSlideOut.reverse();
+            buttonSlideOut.reverse();
+        }
+    }
+    cardSlideOut.play();
+    buttonSlideOut.play();
+
+    setTimeout(function() {
+        document.getElementById("card-slideout-button").disabled = false;
+    }, (animationDuration * 3))
+   console.log(cardSlideOut); // began: true
+}
+
+// Gets details about a card and shows them
+function showCardDetails(card_id) {
+    var detailsContainer = document.getElementById("details-container");
+
+    var url = "./php_scripts/match/get_card_details.php?id=" + card_id;
+
+    fetch(url, {
+        method : "GET",
+        credentials : "same-origin"
+    })
+
+    .then(response => response.text())
+
+    .then(response => {
+        if (response == "error") {
+            hideCardDetails();
+            matchShowConfirm("Something went wrong.")
+        } else {
+            detailsContainer.style.display = "flex";
+            detailsContainer.innerHTML = response;
+        }
+    })
+
+    .catch(error => {
+        console.error(error)
+        hideCardDetails();
+        matchShowConfirm("Something went wrong.")
+    })
+}
+
+// Hides card details
+function hideCardDetails() {
+    var detailsContainer = document.getElementById("details-container");
+    detailsContainer.style.display = "none";
+    detailsContainer.innerHTML = "";
+}
+
+
+
+
+
