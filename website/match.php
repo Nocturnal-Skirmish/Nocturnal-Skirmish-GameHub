@@ -133,13 +133,61 @@
         </div>
         <div id="details-container" class="card-details-container"></div>
         <div class="card-slideout-container" id="card-slideout-container">
-            <img class="card-slideout-card" id="card-slideout-1" src="">
-            <img class="card-slideout-card" id="card-slideout-2" src="">
-            <img class="card-slideout-card" id="card-slideout-3" src="">
-            <img class="card-slideout-card" id="card-slideout-4" src="">
-            <img class="card-slideout-card" id="card-slideout-5" src="">
+            <div class="card-slideout-card-wrapper" id="card-1">
+                <img class="card-slideout-card" id="card-slideout-1" src="">
+                <span id="card-slideout-1-bp">1</span>
+            </div>
+            <div class="card-slideout-card-wrapper" id="card-2">
+                <img class="card-slideout-card" id="card-slideout-2" src="">
+                <span id="card-slideout-2-bp">2</span>
+            </div>
+            <div class="card-slideout-card-wrapper" id="card-3">
+                <img class="card-slideout-card" id="card-slideout-3" src="">
+                <span id="card-slideout-3-bp">3</span>
+            </div>
+            <div class="card-slideout-card-wrapper" id="card-4">
+                <img class="card-slideout-card" id="card-slideout-4" src="">
+                <span id="card-slideout-4-bp">4</span>
+            </div>
+            <div class="card-slideout-card-wrapper" id="card-5">
+                <img class="card-slideout-card" id="card-slideout-5" src="">
+                <span id="card-slideout-5-bp">5</span>
+            </div>
             <button class="card-slideout-button" id="card-slideout-button" title="Show hand"></button>
         </div>
+
+        <div id="details-container-enemy" class="card-details-container"></div>
+        <div class="card-slideout-container-enemy" id="card-slideout-container-enemy">
+            <div class="card-slideout-card-wrapper-enemy" id="card-1-enemy">
+                <img class="card-slideout-card" id="card-slideout-1-enemy" src="">
+                <span id="card-slideout-1-bp-enemy">1</span>
+            </div>
+            <div class="card-slideout-card-wrapper-enemy" id="card-2-enemy">
+                <img class="card-slideout-card" id="card-slideout-2-enemy" src="">
+                <span id="card-slideout-2-bp-enemy">2</span>
+            </div>
+            <div class="card-slideout-card-wrapper-enemy" id="card-3-enemy">
+                <img class="card-slideout-card" id="card-slideout-3-enemy" src="">
+                <span id="card-slideout-3-bp-enemy">3</span>
+            </div>
+            <div class="card-slideout-card-wrapper-enemy" id="card-4-enemy">
+                <img class="card-slideout-card" id="card-slideout-4-enemy" src="">
+                <span id="card-slideout-4-bp-enemy">4</span>
+            </div>
+            <div class="card-slideout-card-wrapper-enemy" id="card-5-enemy">
+                <img class="card-slideout-card" id="card-slideout-5-enemy" src="">
+                <span id="card-slideout-5-bp-enemy">5</span>
+            </div>
+            <button style="transform: scaleX(-1);" class="card-slideout-button" id="card-slideout-button-enemy" title="Show enemy hand"></button>
+        </div>
+        <div class="action-box">
+            <div class="action-box-card" id="action-card-1"></div>
+            <div class="action-box-card" id="action-card-2"></div>
+            <div class="action-box-card" id="action-card-3"></div>
+            <div class="action-box-card" id="action-card-4"></div>
+            <div class="action-box-card" id="action-card-5"></div>
+        </div>
+    </div>
     </div>
 
     <!-- Autolooping audio background music (works only if user allows it) -->

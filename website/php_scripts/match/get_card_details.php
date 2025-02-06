@@ -34,4 +34,12 @@ if (isset($_GET["id"])) {
         <?php echo $description ?>
     </div>
 </div>
+<?php
+    if(isset($_GET["enemy"])) {
+        goto end;
+    }
+?>
 <button class="card-details-button" onclick="addToAction(<?php echo $card_id ?>)">Choose this card</button>
+<?php
+end:
+?>

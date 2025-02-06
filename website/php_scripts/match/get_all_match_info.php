@@ -20,6 +20,7 @@ if (isset($_SESSION["match_name"])) {
     $match_uid_pos = $_SESSION['match_uid_pos'];
     $opponent_uid_pos = $_SESSION['opponent_uid_pos'];
     $current_round = $_SESSION['current_round'];
+    $yourhand_csv = $_SESSION["hand"];
 
     // Get opponent user id
     if ($user_id == $user_id_1) {

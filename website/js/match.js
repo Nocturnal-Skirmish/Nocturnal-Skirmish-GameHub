@@ -159,16 +159,48 @@ function retrieveMatchInfo() {
         document.getElementById("card-slideout-5").src = response.yourhand5
 
         // Get ids for your hand
-        document.getElementById("card-slideout-1").name = response.yourhand1id
-        document.getElementById("card-slideout-2").name = response.yourhand2id
-        document.getElementById("card-slideout-3").name = response.yourhand3id
-        document.getElementById("card-slideout-4").name = response.yourhand4id
-        document.getElementById("card-slideout-5").name = response.yourhand5id
+        document.getElementById("card-1").name = response.yourhand1id
+        document.getElementById("card-2").name = response.yourhand2id
+        document.getElementById("card-3").name = response.yourhand3id
+        document.getElementById("card-4").name = response.yourhand4id
+        document.getElementById("card-5").name = response.yourhand5id
+
+        // Get bp for each card
+        document.getElementById("card-slideout-1-bp").innerHTML = response.yourhand1bp
+        document.getElementById("card-slideout-2-bp").innerHTML = response.yourhand2bp
+        document.getElementById("card-slideout-3-bp").innerHTML = response.yourhand3bp
+        document.getElementById("card-slideout-4-bp").innerHTML = response.yourhand4bp
+        document.getElementById("card-slideout-5-bp").innerHTML = response.yourhand5bp
 
         // Get rarity for your hand
         var style = document.getElementById("card-slideout-style")
         style.innerHTML = "";
         style.innerHTML = style.innerHTML + response.yourhandrarity
+
+        // Get textures for enemy hand
+        document.getElementById("card-slideout-1-enemy").src = response.enemyhand1
+        document.getElementById("card-slideout-2-enemy").src = response.enemyhand2
+        document.getElementById("card-slideout-3-enemy").src = response.enemyhand3
+        document.getElementById("card-slideout-4-enemy").src = response.enemyhand4
+        document.getElementById("card-slideout-5-enemy").src = response.enemyhand5
+
+        // Get ids for enemy hand
+        document.getElementById("card-1-enemy").name = response.enemyhand1id
+        document.getElementById("card-2-enemy").name = response.enemyhand2id
+        document.getElementById("card-3-enemy").name = response.enemyhand3id
+        document.getElementById("card-4-enemy").name = response.enemyhand4id
+        document.getElementById("card-5-enemy").name = response.enemyhand5id
+
+        // Get bp for each enemy card
+        document.getElementById("card-slideout-1-bp-enemy").innerHTML = response.enemyhand1bp
+        document.getElementById("card-slideout-2-bp-enemy").innerHTML = response.enemyhand2bp
+        document.getElementById("card-slideout-3-bp-enemy").innerHTML = response.enemyhand3bp
+        document.getElementById("card-slideout-4-bp-enemy").innerHTML = response.enemyhand4bp
+        document.getElementById("card-slideout-5-bp-enemy").innerHTML = response.enemyhand5bp
+
+        // Get rarity for enemy hand
+        var style = document.getElementById("card-slideout-style")
+        style.innerHTML = style.innerHTML + response.enemyhandrarity
 
         // Get emoji
         if (response.emoji != 0) {
@@ -299,42 +331,61 @@ function reshuffle() {
 
 
 
-// animations playground
+// animations playground..................................................................................................................
+
+/* Experimental fix (not working) */
+function toggleDisabled(togglestatus = false) {
+    if (togglestatus === true) {
+        document.getElementById('card-slideout-container').setAttribute("disabled");
+        document.getElementById('card-slideout-container').style.pointerEvents = "none";
+    } else {
+        document.getElementById('card-slideout-container').removeAttribute("disabled");
+        document.getElementById('card-slideout-container').style = "";
+    }
+} 
 
 var animationDuration = 50;
-
+/* Cards sliding out from hand animation timeline */
 var cardSlideOut = anime.timeline({
-    easing: 'easeInOutElastic',
+    easing: 'easeInOutSine',
     duration: (animationDuration * 2),
     autoplay: false,
+    loop: false,
 });
+/* The Timeline itself */
 cardSlideOut
 .add({
-    targets: '#card-slideout-5',
+    function() {
+        toggleDisabled(true);
+    },
+    targets: '#card-5',
     translateX: 720,
-    duration: (animationDuration * 4),
+    duration: (animationDuration * 3),
 })
 .add({
-    targets: '#card-slideout-4',
+    targets: '#card-4',
     translateX: 540,
-    duration: (animationDuration * 4),
-})
+    duration: (animationDuration * 3),
+}, "-=50")
 .add({
-    targets: '#card-slideout-3',
+    targets: '#card-3',
     translateX: 360,
-    duration: (animationDuration * 4),
-})
+    duration: (animationDuration * 3),
+}, "-=50")
 .add({
-    targets: '#card-slideout-2',
+    targets: '#card-2',
     translateX: 180,
-    duration: (animationDuration * 4),
-})
+    duration: (animationDuration * 3),
+    complete: function() {
+        toggleDisabled(false);
+    },
+}, "-=50");
 
 
 
-
+/* Button slideout animation which comes at the same time as the cards slide out */
 var buttonSlideOut = anime.timeline({
-    easing: 'easeInOutElastic',
+    easing: 'easeInOutSine',
     duration: (animationDuration * 4),
     autoplay: false
 })
@@ -360,22 +411,32 @@ cardSelectedUp
     duration: 100,
 });
 
+/* Define a bunch of important state variables for the animations and selections */
 var animationState = 0;
+var animationStateEnemy = 0;
 var previousCard = "";
+var previousCardEnemy = "";
 
-const cards = document.querySelectorAll('.card-slideout-card');
+/* The event listener itself and the logic behind animations for player hand */
+const cards = document.querySelectorAll('.card-slideout-card-wrapper');
 cards.forEach(card => {
     card.addEventListener("click", function() {
+        if (animationStateEnemy == 1) {
+            playCardAnimationEnemy()
+            animationStateEnemy = 0;
+            hideCardDetailsEnemy();
+        }
         if (animationState == 0) {
             playCardAnimation();
             animationState = 1;
         }
         else {
             if (previousCard == this.id) {
-                cardUpAnimation(previousCard, 1)
+                cardDownAnimation(previousCard);
                 hideCardDetails()
+                previousCard = 0;
             } else {
-                cardUpAnimation(previousCard, 1)
+                cardDownAnimation(previousCard);
                 cardUpAnimation(this.id);
                 previousCard = this.id;
                 showCardDetails(this.name);
@@ -383,15 +444,15 @@ cards.forEach(card => {
         }
     })
 });
-
+/* Cards sliding up when selected animations */
 var slideuptime = 50;
 var cardSelectedUp = anime.timeline({})
-function cardUpAnimation(id, reverse) {
-    cardSelectedUp.restart();
+function cardUpAnimation(id) {
     cardSelectedUp = anime.timeline({
         easing: 'easeOutExpo',
         duration: slideuptime,
         autoplay: false,
+        loop: false,
     });
     
     cardSelectedUp
@@ -401,16 +462,36 @@ function cardUpAnimation(id, reverse) {
         duration: slideuptime,
     });
 
-    if (reverse == 1) {
-        cardSelectedUp.reverse();
-    }
-
     cardSelectedUp.play();
 }
+/* Cards sliding down when selected again, or when selecting other cards animation */
+var slidedowntime = 20;
+var cardSelectedDown = anime.timeline({})
+function cardDownAnimation(id) {
 
+    cardSelectedDown = anime.timeline({
+        easing: 'easeOutExpo',
+        duration: slideuptime,
+        autoplay: false,
+    });
+    
+    cardSelectedDown
+    .add({
+        targets: '#' + id,
+        translateY: 0,
+        duration: slidedowntime,
+    });
+    cardSelectedDown.play();
+}
+/* Card slideout button onclick function which */
 document.querySelector('#card-slideout-button').onclick = function() {
     hideCardDetails();
-    playCardAnimation()
+    playCardAnimation();
+    if (animationStateEnemy == 1) {
+        playCardAnimationEnemy()
+        animationStateEnemy = 0;
+        hideCardDetailsEnemy();
+    }
     if (animationState == 0) {
         animationState = 1;
     } else {
@@ -422,7 +503,7 @@ function playCardAnimation() {
     document.getElementById("card-slideout-button").disabled = true;
     if (cardSlideOut.began) {
         if (cardSlideOut.finished) {
-            cardUpAnimation(previousCard, 1)
+            cardDownAnimation(previousCard);
             cardSlideOut.reverse();
             buttonSlideOut.reverse();
         }
@@ -466,6 +547,36 @@ function showCardDetails(card_id) {
     })
 }
 
+// Gets details about a card and shows them for the enemys side
+function showCardDetailsEnemy(card_id) {
+    var detailsContainer = document.getElementById("details-container-enemy");
+
+    var url = "./php_scripts/match/get_card_details.php?id=" + card_id + "&enemy=1";
+
+    fetch(url, {
+        method : "GET",
+        credentials : "same-origin"
+    })
+
+    .then(response => response.text())
+
+    .then(response => {
+        if (response == "error") {
+            hideCardDetails();
+            matchShowConfirm("Something went wrong.")
+        } else {
+            detailsContainer.style.display = "flex";
+            detailsContainer.innerHTML = response;
+        }
+    })
+
+    .catch(error => {
+        console.error(error)
+        hideCardDetails();
+        matchShowConfirm("Something went wrong.")
+    })
+}
+
 // Hides card details
 function hideCardDetails() {
     var detailsContainer = document.getElementById("details-container");
@@ -473,7 +584,194 @@ function hideCardDetails() {
     detailsContainer.innerHTML = "";
 }
 
+// Hides card details for enemy
+function hideCardDetailsEnemy() {
+    var detailsContainer = document.getElementById("details-container-enemy");
+    detailsContainer.style.display = "none";
+    detailsContainer.innerHTML = "";
+}
 
 
 
+// Opponent/Enemy card slideout animations
 
+var cardSlideOutEnemy = anime.timeline({
+    easing: 'easeInOutSine',
+    duration: (animationDuration * 2),
+    autoplay: false,
+});
+cardSlideOutEnemy
+.add({
+    targets: '#card-5-enemy',
+    translateX: -720,
+    duration: (animationDuration * 3),
+})
+.add({
+    targets: '#card-4-enemy',
+    translateX: -540,
+    duration: (animationDuration * 3),
+}, "-=50")
+.add({
+    targets: '#card-3-enemy',
+    translateX: -360,
+    duration: (animationDuration * 3),
+}, "-=50")
+.add({
+    targets: '#card-2-enemy',
+    translateX: -180,
+    duration: (animationDuration * 3),
+}, "-=50")
+
+
+// Enemy/Opponent card button slideout animations
+var buttonSlideOutEnemy = anime.timeline({
+    easing: 'easeInOutElastic',
+    duration: (animationDuration * 4),
+    autoplay: false
+})
+
+buttonSlideOutEnemy.add({
+    targets: '#card-slideout-button-enemy',
+    translateX: 800,
+    duration: (animationDuration * 3),
+    rotate: "180deg"
+})
+
+// slide selected cards up on enemy/Opponent
+var cardSelectedUpEnemy = anime.timeline({
+    easing: 'easeOutExpo',
+    duration: 100,
+    autoplay: false,
+});
+
+cardSelectedUpEnemy
+.add({
+    targets: '.card-slideout-card-enemy',
+    translateY: -20,
+    duration: 100,
+});
+
+
+
+document.querySelector('#card-slideout-button-enemy').onclick = function() {
+    hideCardDetailsEnemy();
+    playCardAnimationEnemy();
+    if (animationState == 1) {
+        playCardAnimation()
+        animationState = 0;
+        hideCardDetails();
+    }
+    if (animationStateEnemy == 0) {
+        animationStateEnemy = 1;
+    } else {
+        animationStateEnemy = 0;
+    }
+}
+
+function playCardAnimationEnemy() {
+    document.getElementById("card-slideout-button-enemy").disabled = true;
+    if (cardSlideOutEnemy.began) {
+        if (cardSlideOutEnemy.finished) {
+            cardDownAnimation(previousCardEnemy)
+            cardSlideOutEnemy.reverse();
+            buttonSlideOutEnemy.reverse();
+        }
+    }
+    cardSlideOutEnemy.play();
+    buttonSlideOutEnemy.play();
+
+    setTimeout(function() {
+        document.getElementById("card-slideout-button-enemy").disabled = false;
+    }, (animationDuration * 3))
+   console.log(cardSlideOutEnemy); // began: true
+}
+
+const enemycards = document.querySelectorAll('.card-slideout-card-wrapper-enemy');
+enemycards.forEach(card => {
+    card.addEventListener("click", function() {
+        if (animationState == 1) {
+            playCardAnimation()
+            animationState = 0;
+            hideCardDetails();
+        }
+        if (animationStateEnemy == 0) {
+            playCardAnimationEnemy();
+            animationStateEnemy = 1;
+        }
+        else {
+            if (previousCardEnemy == this.id) {
+                cardDownAnimation(previousCardEnemy)
+                hideCardDetailsEnemy()
+                previousCardEnemy = 0;
+            } else {
+                cardDownAnimation(previousCardEnemy)
+                cardUpAnimation(this.id);
+                previousCardEnemy = this.id;
+                showCardDetailsEnemy(this.name);
+            }
+        }
+    })
+});
+
+var actionJSON = {
+    1:0,
+    2:0,
+    3:0,
+    4:0,
+    5:0
+};
+var cardBox = "";
+var noOpenSpots = true;
+// Function that adds card to action
+function addToAction(card_id) {
+    hideCardDetails();
+    noOpenSpots = true;
+
+    var url = "./php_scripts/match/get_card_info.php?id=" + card_id;
+
+    fetch(url, {
+        method : "GET",
+        credentials : "same-origin"
+    })
+
+    .then(response => response.json())
+
+    .then(response => {
+        switch(response.error) {
+            case "card_not_exist":
+                matchShowConfirm("This card doesnt exist.");
+                break;
+            case "error":
+                matchShowConfirm("Something went wrong.")
+                break;
+        }
+
+        if (response.status == 200) {
+            // If everything went well
+            for (var key in actionJSON) {
+                if (actionJSON.hasOwnProperty(key)) {
+                    var value = actionJSON[key];
+                    if (value == 0) {
+                        noOpenSpots = false;
+                        // Update background image
+                        actionJSON[key] = card_id;
+                        var cardBox = document.getElementById("action-card-" + key);
+                        cardBox.style.backgroundImage = `url(./img/cards/${response.texture})`
+                        cardBox.setAttribute("json_pos", key)
+                        cardBox.setAttribute("card_id", card_id)
+                        break;
+                    }
+                }
+            }
+            if (noOpenSpots == true) {
+                matchShowConfirm("You can only use 5 cards in an action.")
+            }
+            console.log(actionJSON)
+        }
+    })
+
+    .catch(error => {
+        console.error(error)
+        matchShowConfirm("Something went wrong")
+    })
+}

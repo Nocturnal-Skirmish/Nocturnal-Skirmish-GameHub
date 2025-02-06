@@ -34,6 +34,7 @@ if (isset($_SESSION["match_name"])) {
 
     // Get your hand
     $yourhand_csv = $row["hand" . $pos];
+    $_SESSION["hand"] = $yourhand_csv;
     $yourhand = str_getcsv($yourhand_csv,separator: ',', enclosure: '"', escape: "");
     $count = 1;
     $yourhandrarity = "";
@@ -47,6 +48,7 @@ if (isset($_SESSION["match_name"])) {
         $row2 = $result2->fetch_assoc();
         $texture = "./img/cards/" . $row2["texture"];
         $rarity = $row2["rarity"];
+        $bp = $row2["bp"];
 
         // Make variable name and value of texture
         $var_name = "yourhand" . $count;
@@ -56,9 +58,49 @@ if (isset($_SESSION["match_name"])) {
         $var_name = "yourhand" . $count . "id";
         ${$var_name} = $card_id;
 
+        // Make variable name with bp of card
+        $var_name = "yourhand" . $count . "bp";
+        ${$var_name} = $bp;
+
         // Make css for hand rarity
         $css = "#card-slideout-$count {background-image: var(--Common), var(--$rarity);} ";
         $yourhandrarity = $yourhandrarity . $css;
+
+        $count = $count + 1;
+    }
+
+    // Get enemys hand
+    $enemyhand_csv = $row["hand" . $oppos];
+    $enemyhand = str_getcsv($enemyhand_csv,separator: ',', enclosure: '"', escape: "");
+    $count = 1;
+    $enemyhandrarity = "";
+    foreach ($enemyhand as $card_id) {
+        // Get card texture for each card
+        $conn -> select_db("gamehub");
+        $stmt2 = $conn->prepare("SELECT * FROM cards WHERE card_id = ?");
+        $stmt2->bind_param("i", $card_id);
+        $stmt2->execute();
+        $result2 = $stmt2->get_result();
+        $row2 = $result2->fetch_assoc();
+        $texture = "./img/cards/" . $row2["texture"];
+        $rarity = $row2["rarity"];
+        $bp = $row2["bp"];
+
+        // Make variable name and value of texture
+        $var_name = "enemyhand" . $count;
+        ${$var_name} = $texture;
+
+        // Make variable name and value of id
+        $var_name = "enemyhand" . $count . "id";
+        ${$var_name} = $card_id;
+
+        // Make variable name with bp of card
+        $var_name = "enemyhand" . $count . "bp";
+        ${$var_name} = $bp;
+
+        // Make css for hand rarity
+        $css = "#card-slideout-$count-enemy {background-image: var(--Common), var(--$rarity);} ";
+        $enemyhandrarity = $enemyhandrarity . $css;
 
         $count = $count + 1;
     }
@@ -100,7 +142,29 @@ if (isset($_SESSION["match_name"])) {
         "yourhand3id" => $yourhand3id,
         "yourhand4id" => $yourhand4id,
         "yourhand5id" => $yourhand5id,
+        "yourhand1bp" => $yourhand1bp,
+        "yourhand2bp" => $yourhand2bp,
+        "yourhand3bp" => $yourhand3bp,
+        "yourhand4bp" => $yourhand4bp,
+        "yourhand5bp" => $yourhand5bp,
         "yourhandrarity" => $yourhandrarity,
+
+        "enemyhand1" => $enemyhand1,
+        "enemyhand2" => $enemyhand2,
+        "enemyhand3" => $enemyhand3,
+        "enemyhand4" => $enemyhand4,
+        "enemyhand5" => $enemyhand5,
+        "enemyhand1id" => $enemyhand1id,
+        "enemyhand2id" => $enemyhand2id,
+        "enemyhand3id" => $enemyhand3id,
+        "enemyhand4id" => $enemyhand4id,
+        "enemyhand5id" => $enemyhand5id,
+        "enemyhand1bp" => $enemyhand1bp,
+        "enemyhand2bp" => $enemyhand2bp,
+        "enemyhand3bp" => $enemyhand3bp,
+        "enemyhand4bp" => $enemyhand4bp,
+        "enemyhand5bp" => $enemyhand5bp,
+        "enemyhandrarity" => $enemyhandrarity,
         "emoji" => $emoji
     );
 
