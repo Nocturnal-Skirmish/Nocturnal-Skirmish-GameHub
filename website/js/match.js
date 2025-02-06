@@ -483,7 +483,7 @@ function cardDownAnimation(id) {
     });
     cardSelectedDown.play();
 }
-/* Card slideout button onclick function which */
+/* Card slideout button onclick function which triggers multiple logic states */
 document.querySelector('#card-slideout-button').onclick = function() {
     hideCardDetails();
     playCardAnimation();
@@ -498,7 +498,7 @@ document.querySelector('#card-slideout-button').onclick = function() {
         animationState = 0;
     }
 }
-
+/* Gets triggered in the code above */
 function playCardAnimation() {
     document.getElementById("card-slideout-button").disabled = true;
     if (cardSlideOut.began) {
@@ -652,7 +652,7 @@ cardSelectedUpEnemy
 });
 
 
-
+/* On click function for enemy button slideout animation */
 document.querySelector('#card-slideout-button-enemy').onclick = function() {
     hideCardDetailsEnemy();
     playCardAnimationEnemy();
@@ -667,7 +667,7 @@ document.querySelector('#card-slideout-button-enemy').onclick = function() {
         animationStateEnemy = 0;
     }
 }
-
+/* This gets triggered in the code above */
 function playCardAnimationEnemy() {
     document.getElementById("card-slideout-button-enemy").disabled = true;
     if (cardSlideOutEnemy.began) {
@@ -685,7 +685,7 @@ function playCardAnimationEnemy() {
     }, (animationDuration * 3))
    console.log(cardSlideOutEnemy); // began: true
 }
-
+/* Eventlistener for cards in hand enemy */
 const enemycards = document.querySelectorAll('.card-slideout-card-wrapper-enemy');
 enemycards.forEach(card => {
     card.addEventListener("click", function() {
