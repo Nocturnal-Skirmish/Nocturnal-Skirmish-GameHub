@@ -2,6 +2,7 @@
     --dynamic-background-color: #000000;
     --dynamic-background-gradient: linear-gradient(180deg, rgba(255, 98, 0, 0.54) 0%, rgba(21,21,21,1) 81%);
     --dynamic-theme-ui-bg-color: #552D18;
+    --dynamic-theme-ui-bg-seethrough-color: rgba(85, 45, 24, 0.9);
     --dynamic-theme-border-color: #FF4400;
     --dynamic-theme-icon-color: #FFFFFF;
     --dynamic-theme-warning-color: #FF0000;
@@ -499,7 +500,7 @@
     display: none;
     padding: 20px;
     border-radius: 15px;
-    background-color: var(--dynamic-theme-ui-bg-color);
+    background-color: var(--dynamic-theme-ui-bg-seethrough-color);
     border: solid 2px var(--dynamic-theme-border-color);
     padding-bottom: 75px;
     z-index: 998;

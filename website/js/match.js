@@ -331,7 +331,7 @@ function reshuffle() {
 
 
 
-// animations playground..................................................................................................................
+// animations playground...........................................................................................................................................
 
 /* Experimental fix (not working) */
 function toggleDisabled(togglestatus = false) {
@@ -344,6 +344,7 @@ function toggleDisabled(togglestatus = false) {
     }
 } 
 
+/* husk å gjøre lukking animasjon raskere ----------------------------------------------------------------------------------------- */
 var animationDuration = 50;
 /* Cards sliding out from hand animation timeline */
 var cardSlideOut = anime.timeline({
@@ -439,7 +440,7 @@ cards.forEach(card => {
                 cardDownAnimation(previousCard);
                 cardUpAnimation(this.id);
                 previousCard = this.id;
-                showCardDetails(this.name);
+                showCardDetails(this.name, this.id);
             }
         }
     })
@@ -518,7 +519,7 @@ function playCardAnimation() {
 }
 
 // Gets details about a card and shows them
-function showCardDetails(card_id) {
+function showCardDetails(card_id, card_pressed) {
     var detailsContainer = document.getElementById("details-container");
 
     var url = "./php_scripts/match/get_card_details.php?id=" + card_id;
@@ -538,6 +539,10 @@ function showCardDetails(card_id) {
             detailsContainer.style.display = "flex";
             detailsContainer.innerHTML = response;
         }
+    })
+
+    .then(() => {
+        document.getElementById("card-details-button").name = card_pressed;
     })
 
     .catch(error => {
@@ -656,8 +661,9 @@ cardSelectedUpEnemy
 document.querySelector('#card-slideout-button-enemy').onclick = function() {
     hideCardDetailsEnemy();
     playCardAnimationEnemy();
+    /* Checks if player card hand is open, if so, close it */
     if (animationState == 1) {
-        playCardAnimation()
+        playCardAnimation();
         animationState = 0;
         hideCardDetails();
     }
@@ -723,8 +729,8 @@ var actionJSON = {
 var cardBox = "";
 var noOpenSpots = true;
 // Function that adds card to action
-function addToAction(card_id) {
-    hideCardDetails();
+function addToAction(card_id, card_pressed) {
+    cardDownAnimation(card_pressed);
     noOpenSpots = true;
 
     var url = "./php_scripts/match/get_card_info.php?id=" + card_id;
@@ -759,13 +765,20 @@ function addToAction(card_id) {
                         cardBox.style.backgroundImage = `url(./img/cards/${response.texture})`
                         cardBox.setAttribute("json_pos", key)
                         cardBox.setAttribute("card_id", card_id)
+                        cardBox.addEventListener("click", function() {
+                            removeFromAction(key);
+                            cardBox.removeEventListener("click", null);
+                        })
+                        hideCardDetails();
                         break;
                     }
                 }
             }
             if (noOpenSpots == true) {
                 matchShowConfirm("You can only use 5 cards in an action.")
+                hideCardDetails();
             }
+
             console.log(actionJSON)
         }
     })
@@ -774,4 +787,11 @@ function addToAction(card_id) {
         console.error(error)
         matchShowConfirm("Something went wrong")
     })
+}
+
+// Function that removes card from action
+function removeFromAction(id) {
+    var cardBox = document.getElementById("action-card-" + id);
+    cardBox.style.backgroundImage = "";
+    actionJSON[id] = 0;
 }
