@@ -3,7 +3,7 @@
     --Common: linear-gradient(135deg, rgb(239, 255, 239), #a0a0a0, #bbbbbb, #d6d6d6);
     --Uncommon: linear-gradient(135deg, lightgreen, #69d163);
     --Rare: linear-gradient(135deg, lightblue, #5d8cb8);
-    --Epic: linear-gradient(135deg, #5F01FE, #6A1194);
+    --Epic: linear-gradient(135deg, #b15eff, #7048ff, #a31fe0);
     --Mythic: linear-gradient(135deg, #ff3769, #ff0000);
     --Legendary: linear-gradient(135deg, #ffde4b, #ff9100);
     --Exclusive: linear-gradient(180deg, #6c76ff, #e092ff, #ff00f2);
@@ -11,7 +11,7 @@
     --Common-Border: #989898;
     --Uncommon-Border: #00c41a;
     --Rare-Border: #0090c4;
-    --Epic-Border: #6200b2;
+    --Epic-Border: #d178da;
     --Mythic-Border: #d20000;
     --Legendary-Border: #ffd988;
     --Exclusive-Border: #ff00f2;

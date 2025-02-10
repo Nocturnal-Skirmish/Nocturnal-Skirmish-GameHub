@@ -54,6 +54,13 @@ if (isset($_SESSION['matchmaking_id'])) {
             $user_id_1 = $row['user_id_1'];
             $gamemode = $row['gamemode'];
             $rank = $row['user_rank'];
+            if ($_SESSION["user_id"] == $user_id_1) {
+                $pos = 1;
+            } else {
+                $pos = 2;
+            }
+            $conn_col = "connected" . $pos;
+            $hand_col = "hand" . $pos;
         } else {
             echo "error";
             exit;
@@ -68,7 +75,7 @@ if (isset($_SESSION['matchmaking_id'])) {
             // Match table found, update session vars and connect to it
             $conn -> select_db("nocskir_matches");
             $_SESSION['match_name'] = $tablename;
-            $stmt = $conn->prepare("UPDATE $tablename SET connected2 = 1, hand2 = ? WHERE round = 1");
+            $stmt = $conn->prepare("UPDATE $tablename SET $conn_col = 1, $hand_col = ? WHERE round = 1");
             $stmt->bind_param("s", $hand_csv);
             $stmt->execute();
             $stmt->close();
@@ -82,9 +89,9 @@ if (isset($_SESSION['matchmaking_id'])) {
                     gamemode varchar(32) DEFAULT '$gamemode',
                     user_rank varchar(64) DEFAULT '$rank',
                     turn int,
-                    user_action varchar(255) DEFAULT NULL,
                     special varchar(255) DEFAULT NULL,
                     timer int DEFAULT 0,
+                    user_action varchar(300) DEFAULT '0',
                     effects1 varchar(300) DEFAULT '0',
                     effects2 varchar(300) DEFAULT '0',
                     upgrades1 varchar(300) DEFAULT '0',
@@ -99,6 +106,8 @@ if (isset($_SESSION['matchmaking_id'])) {
                     hand2 varchar(300) DEFAULT '0',
                     connected1 boolean DEFAULT 0,
                     connected2 boolean DEFAULT 0,
+                    emoji1 varchar(64) DEFAULT '0',
+                    emoji2 varchar(64) DEFAULT '0',
                     PRIMARY KEY (round)
                 );
             ");
@@ -116,7 +125,7 @@ if (isset($_SESSION['matchmaking_id'])) {
             $connected1 = 1;
 
             // Insert first row
-            $stmt = $conn->prepare("INSERT INTO $tablename (gamemode, user_rank, turn, connected1, hand1) VALUES (?, ?, ?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO $tablename (gamemode, user_rank, turn, $conn_col, $hand_col) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("ssiis", $gamemode, $rank, $turn, $connected1, $hand_csv);
             $stmt->execute();
             $stmt->close();
