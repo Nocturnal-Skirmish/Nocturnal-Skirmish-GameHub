@@ -8,6 +8,7 @@
     --dynamic-theme-warning-color: #FF0000;
     --dynamic-theme-positive-color: #00FF00;
     --dynamic-theme-text-color: #FFFFFF;
+    --dynamic-theme-user-selection-color: rgb(194, 52, 0);
 
     --Common: linear-gradient(135deg, rgb(239, 255, 239), #a0a0a0, #bbbbbb, #d6d6d6);
     --Uncommon: linear-gradient(135deg, lightgreen, #69d163);
@@ -16,6 +17,15 @@
     --Mythic: linear-gradient(135deg, #ff3769, #ff0000);
     --Legendary: linear-gradient(135deg, #ffde4b, #ff9100);
     --Exclusive: linear-gradient(180deg, #6c76ff, #e092ff, #ff00f2);
+}
+
+::-moz-selection { /* Code for Firefox */
+    color: var(--dynamic-theme-text-color);
+    background: var(--dynamic-theme-user-selection-color);
+}
+::selection {
+    color: var(--dynamic-theme-text-color);
+    background: var(--dynamic-theme-user-selection-color);
 }
 
 #match-body {

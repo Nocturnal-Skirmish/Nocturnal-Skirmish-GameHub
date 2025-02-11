@@ -1,6 +1,15 @@
 /*Stylesheet with rules for every page*/
 @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
 
+::-moz-selection { /* Code for Firefox */
+    color: var(--dynamic-theme-text-color);
+    background: var(--dynamic-theme-user-selection-color);
+}
+::selection {
+    color: var(--dynamic-theme-text-color);
+    background: var(--dynamic-theme-user-selection-color);
+}
+
 body{
     margin: 0;
     background-color: #F0F0F0;

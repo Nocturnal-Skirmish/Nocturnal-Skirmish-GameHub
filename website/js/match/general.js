@@ -101,6 +101,8 @@ var opponentHealth = 0
 var turn = "";
 var round = 0;
 
+var firstTime = true;
+
 var yourHealthContainer = document.getElementById("your-health");
 var yourBpContainer = document.getElementById("your-bp");
 var opponentHealthContainer = document.getElementById("opponent-health")
@@ -110,6 +112,8 @@ var opponentHealthBar = document.getElementById("opponent-health-meter");
 
 var roundCounter = document.getElementById("round")
 var turnCounter = document.getElementById("turn")
+
+var handArray = [];
 
 function retrieveMatchInfo() {
     var url = "./php_scripts/match/get_match_info.php";
@@ -123,12 +127,16 @@ function retrieveMatchInfo() {
 
     .then(response => {
         yourHealth = response.yourhealth;
-        yourBP = response.yourbp;
         opponentHealth = response.opponenthealth;
 
         opponentHealthContainer.innerHTML = opponentHealth + "/12000";
         yourHealthContainer.innerHTML = yourHealth + "/12000";
-        yourBpContainer.innerHTML = "BP: " + yourBP
+
+        if (firstTime == true) {
+            yourBP = response.yourbp;
+            UpdateBP();
+            firstTime = false;
+        }
 
         // Set health bars
         var healthbar = (yourHealth / 120)
@@ -160,17 +168,27 @@ function retrieveMatchInfo() {
 
         // Get ids for your hand
         document.getElementById("card-1").name = response.yourhand1id
+        handArray[0] = Number(response.yourhand1id);
         document.getElementById("card-2").name = response.yourhand2id
+        handArray[1] = Number(response.yourhand2id);
         document.getElementById("card-3").name = response.yourhand3id
+        handArray[2] = Number(response.yourhand3id);
         document.getElementById("card-4").name = response.yourhand4id
+        handArray[3] = Number(response.yourhand4id);
         document.getElementById("card-5").name = response.yourhand5id
+        handArray[4] = Number(response.yourhand5id);
 
         // Get bp for each card
         document.getElementById("card-slideout-1-bp").innerHTML = response.yourhand1bp
+        document.getElementById("card-1").setAttribute("bp", response.yourhand1bp);
         document.getElementById("card-slideout-2-bp").innerHTML = response.yourhand2bp
+        document.getElementById("card-2").setAttribute("bp", response.yourhand2bp);
         document.getElementById("card-slideout-3-bp").innerHTML = response.yourhand3bp
+        document.getElementById("card-3").setAttribute("bp", response.yourhand3bp);
         document.getElementById("card-slideout-4-bp").innerHTML = response.yourhand4bp
+        document.getElementById("card-4").setAttribute("bp", response.yourhand4bp);
         document.getElementById("card-slideout-5-bp").innerHTML = response.yourhand5bp
+        document.getElementById("card-5").setAttribute("bp", response.yourhand5bp);
 
         // Get rarity for your hand
         var style = document.getElementById("card-slideout-style")
@@ -213,6 +231,29 @@ function retrieveMatchInfo() {
     })
 }
 
+// Resets action to zero
+function resetAction() {
+    actionBp = 0;
+    actionJSON = {
+        1:0,
+        2:0,
+        3:0,
+        4:0
+    };
+
+    document.querySelectorAll(".action-box-card").forEach(element => {
+        element.style.backgroundImage = "";
+        element.removeAttribute("json_pos");
+        element.removeAttribute("card-pressed");
+        element.removeAttribute("card_id");
+    })
+
+    document.querySelectorAll(".card-slideout-card-wrapper").forEach(element => {
+        element.style.pointerEvents = "auto";
+        element.style.opacity = "1";
+    })
+}
+
 // when effect icon is hovered over
 var effecticon = document.querySelector(".effect-icon");
 var effectdetailcontainer = document.querySelector(".effect-details-container");
@@ -239,15 +280,13 @@ function hideEffectDetails(event){
     effectdetailcontainer.style.display = "none";
 }
 
-// TEMP: function that attacks opponent with damage in card
-function attackOpponent(card_id) {
+// Attack opponent with action and ends the round
+function attackOpponent() {
     var url = "./php_scripts/match/attack_opponent.php";
 
     fetch(url, {
         method : "POST",
-        body : JSON.stringify({
-            card_id : card_id
-        }),
+        body : JSON.stringify(actionJSON),
         credentials : "same-origin"
     })
 
@@ -256,7 +295,7 @@ function attackOpponent(card_id) {
     .then(response => {
         switch (response.error) {
             case "not_in_deck":
-                matchShowConfirm("This card is not in your deck.");
+                matchShowConfirm("Some of these cards are not in your deck.");
                 break;
             case "not_your_turn":
                 matchShowConfirm("It is not your turn yet.");
@@ -264,9 +303,14 @@ function attackOpponent(card_id) {
             case "not_enough_bp":
                 matchShowConfirm("You dont have enough battle points for this attack.");
                 break;
+            case "error":
+                matchShowConfirm("Something went wrong.");
+                break;
         }
 
         if (response.ok == 1) {
+            firstTime = true;
+            resetAction();
             retrieveMatchInfo();
         }
     })
@@ -330,408 +374,28 @@ function reshuffle() {
 }
 
 
-
-// animations playground...........................................................................................................................................
-
-/* Experimental fix (not working) */
-function toggleDisabled(togglestatus = false) {
-    if (togglestatus === true) {
-        document.getElementById('card-slideout-container').setAttribute("disabled");
-        document.getElementById('card-slideout-container').style.pointerEvents = "none";
-    } else {
-        document.getElementById('card-slideout-container').removeAttribute("disabled");
-        document.getElementById('card-slideout-container').style = "";
-    }
-} 
-
-/* husk å gjøre lukking animasjon raskere ----------------------------------------------------------------------------------------- */
-var animationDuration = 50;
-/* Cards sliding out from hand animation timeline */
-var cardSlideOut = anime.timeline({
-    easing: 'easeInOutSine',
-    duration: (animationDuration * 2),
-    autoplay: false,
-    loop: false,
-});
-/* The Timeline itself */
-cardSlideOut
-.add({
-    function() {
-        toggleDisabled(true);
-    },
-    targets: '#card-5',
-    translateX: 720,
-    duration: (animationDuration * 3),
-})
-.add({
-    targets: '#card-4',
-    translateX: 540,
-    duration: (animationDuration * 3),
-}, "-=50")
-.add({
-    targets: '#card-3',
-    translateX: 360,
-    duration: (animationDuration * 3),
-}, "-=50")
-.add({
-    targets: '#card-2',
-    translateX: 180,
-    duration: (animationDuration * 3),
-    complete: function() {
-        toggleDisabled(false);
-    },
-}, "-=50");
-
-
-
-/* Button slideout animation which comes at the same time as the cards slide out */
-var buttonSlideOut = anime.timeline({
-    easing: 'easeInOutSine',
-    duration: (animationDuration * 4),
-    autoplay: false
-})
-
-buttonSlideOut.add({
-    targets: '#card-slideout-button',
-    translateX: 800,
-    duration: (animationDuration * 3),
-    rotate: "180deg"
-})
-
-// slide selected cards up
-var cardSelectedUp = anime.timeline({
-    easing: 'easeOutExpo',
-    duration: 100,
-    autoplay: false,
-});
-
-cardSelectedUp
-.add({
-    targets: '.card-slideout-card',
-    translateY: -20,
-    duration: 100,
-});
-
-/* Define a bunch of important state variables for the animations and selections */
-var animationState = 0;
-var animationStateEnemy = 0;
-var previousCard = "";
-var previousCardEnemy = "";
-
-/* The event listener itself and the logic behind animations for player hand */
-const cards = document.querySelectorAll('.card-slideout-card-wrapper');
-cards.forEach(card => {
-    card.addEventListener("click", function() {
-        if (animationStateEnemy == 1) {
-            playCardAnimationEnemy()
-            animationStateEnemy = 0;
-            hideCardDetailsEnemy();
-        }
-        if (animationState == 0) {
-            playCardAnimation();
-            animationState = 1;
-        }
-        else {
-            if (previousCard == this.id) {
-                cardDownAnimation(previousCard);
-                hideCardDetails()
-                previousCard = 0;
-            } else {
-                cardDownAnimation(previousCard);
-                cardUpAnimation(this.id);
-                previousCard = this.id;
-                showCardDetails(this.name, this.id);
-            }
-        }
-    })
-});
-/* Cards sliding up when selected animations */
-var slideuptime = 50;
-var cardSelectedUp = anime.timeline({})
-function cardUpAnimation(id) {
-    cardSelectedUp = anime.timeline({
-        easing: 'easeOutExpo',
-        duration: slideuptime,
-        autoplay: false,
-        loop: false,
-    });
-    
-    cardSelectedUp
-    .add({
-        targets: '#' + id,
-        translateY: -40,
-        duration: slideuptime,
-    });
-
-    cardSelectedUp.play();
-}
-/* Cards sliding down when selected again, or when selecting other cards animation */
-var slidedowntime = 20;
-var cardSelectedDown = anime.timeline({})
-function cardDownAnimation(id) {
-
-    cardSelectedDown = anime.timeline({
-        easing: 'easeOutExpo',
-        duration: slideuptime,
-        autoplay: false,
-    });
-    
-    cardSelectedDown
-    .add({
-        targets: '#' + id,
-        translateY: 0,
-        duration: slidedowntime,
-    });
-    cardSelectedDown.play();
-}
-/* Card slideout button onclick function which triggers multiple logic states */
-document.querySelector('#card-slideout-button').onclick = function() {
-    hideCardDetails();
-    playCardAnimation();
-    if (animationStateEnemy == 1) {
-        playCardAnimationEnemy()
-        animationStateEnemy = 0;
-        hideCardDetailsEnemy();
-    }
-    if (animationState == 0) {
-        animationState = 1;
-    } else {
-        animationState = 0;
-    }
-}
-/* Gets triggered in the code above */
-function playCardAnimation() {
-    document.getElementById("card-slideout-button").disabled = true;
-    if (cardSlideOut.began) {
-        if (cardSlideOut.finished) {
-            cardDownAnimation(previousCard);
-            cardSlideOut.reverse();
-            buttonSlideOut.reverse();
-        }
-    }
-    cardSlideOut.play();
-    buttonSlideOut.play();
-
-    setTimeout(function() {
-        document.getElementById("card-slideout-button").disabled = false;
-    }, (animationDuration * 3))
-   console.log(cardSlideOut); // began: true
-}
-
-// Gets details about a card and shows them
-function showCardDetails(card_id, card_pressed) {
-    var detailsContainer = document.getElementById("details-container");
-
-    var url = "./php_scripts/match/get_card_details.php?id=" + card_id;
-
-    fetch(url, {
-        method : "GET",
-        credentials : "same-origin"
-    })
-
-    .then(response => response.text())
-
-    .then(response => {
-        if (response == "error") {
-            hideCardDetails();
-            matchShowConfirm("Something went wrong.")
-        } else {
-            detailsContainer.style.display = "flex";
-            detailsContainer.innerHTML = response;
-        }
-    })
-
-    .then(() => {
-        document.getElementById("card-details-button").name = card_pressed;
-    })
-
-    .catch(error => {
-        console.error(error)
-        hideCardDetails();
-        matchShowConfirm("Something went wrong.")
-    })
-}
-
-// Gets details about a card and shows them for the enemys side
-function showCardDetailsEnemy(card_id) {
-    var detailsContainer = document.getElementById("details-container-enemy");
-
-    var url = "./php_scripts/match/get_card_details.php?id=" + card_id + "&enemy=1";
-
-    fetch(url, {
-        method : "GET",
-        credentials : "same-origin"
-    })
-
-    .then(response => response.text())
-
-    .then(response => {
-        if (response == "error") {
-            hideCardDetails();
-            matchShowConfirm("Something went wrong.")
-        } else {
-            detailsContainer.style.display = "flex";
-            detailsContainer.innerHTML = response;
-        }
-    })
-
-    .catch(error => {
-        console.error(error)
-        hideCardDetails();
-        matchShowConfirm("Something went wrong.")
-    })
-}
-
-// Hides card details
-function hideCardDetails() {
-    var detailsContainer = document.getElementById("details-container");
-    detailsContainer.style.display = "none";
-    detailsContainer.innerHTML = "";
-}
-
-// Hides card details for enemy
-function hideCardDetailsEnemy() {
-    var detailsContainer = document.getElementById("details-container-enemy");
-    detailsContainer.style.display = "none";
-    detailsContainer.innerHTML = "";
-}
-
-
-
-// Opponent/Enemy card slideout animations
-
-var cardSlideOutEnemy = anime.timeline({
-    easing: 'easeInOutSine',
-    duration: (animationDuration * 2),
-    autoplay: false,
-});
-cardSlideOutEnemy
-.add({
-    targets: '#card-5-enemy',
-    translateX: -720,
-    duration: (animationDuration * 3),
-})
-.add({
-    targets: '#card-4-enemy',
-    translateX: -540,
-    duration: (animationDuration * 3),
-}, "-=50")
-.add({
-    targets: '#card-3-enemy',
-    translateX: -360,
-    duration: (animationDuration * 3),
-}, "-=50")
-.add({
-    targets: '#card-2-enemy',
-    translateX: -180,
-    duration: (animationDuration * 3),
-}, "-=50")
-
-
-// Enemy/Opponent card button slideout animations
-var buttonSlideOutEnemy = anime.timeline({
-    easing: 'easeInOutElastic',
-    duration: (animationDuration * 4),
-    autoplay: false
-})
-
-buttonSlideOutEnemy.add({
-    targets: '#card-slideout-button-enemy',
-    translateX: 800,
-    duration: (animationDuration * 3),
-    rotate: "180deg"
-})
-
-// slide selected cards up on enemy/Opponent
-var cardSelectedUpEnemy = anime.timeline({
-    easing: 'easeOutExpo',
-    duration: 100,
-    autoplay: false,
-});
-
-cardSelectedUpEnemy
-.add({
-    targets: '.card-slideout-card-enemy',
-    translateY: -20,
-    duration: 100,
-});
-
-
-/* On click function for enemy button slideout animation */
-document.querySelector('#card-slideout-button-enemy').onclick = function() {
-    hideCardDetailsEnemy();
-    playCardAnimationEnemy();
-    /* Checks if player card hand is open, if so, close it */
-    if (animationState == 1) {
-        playCardAnimation();
-        animationState = 0;
-        hideCardDetails();
-    }
-    if (animationStateEnemy == 0) {
-        animationStateEnemy = 1;
-    } else {
-        animationStateEnemy = 0;
-    }
-}
-/* This gets triggered in the code above */
-function playCardAnimationEnemy() {
-    document.getElementById("card-slideout-button-enemy").disabled = true;
-    if (cardSlideOutEnemy.began) {
-        if (cardSlideOutEnemy.finished) {
-            cardDownAnimation(previousCardEnemy)
-            cardSlideOutEnemy.reverse();
-            buttonSlideOutEnemy.reverse();
-        }
-    }
-    cardSlideOutEnemy.play();
-    buttonSlideOutEnemy.play();
-
-    setTimeout(function() {
-        document.getElementById("card-slideout-button-enemy").disabled = false;
-    }, (animationDuration * 3))
-   console.log(cardSlideOutEnemy); // began: true
-}
-/* Eventlistener for cards in hand enemy */
-const enemycards = document.querySelectorAll('.card-slideout-card-wrapper-enemy');
-enemycards.forEach(card => {
-    card.addEventListener("click", function() {
-        if (animationState == 1) {
-            playCardAnimation()
-            animationState = 0;
-            hideCardDetails();
-        }
-        if (animationStateEnemy == 0) {
-            playCardAnimationEnemy();
-            animationStateEnemy = 1;
-        }
-        else {
-            if (previousCardEnemy == this.id) {
-                cardDownAnimation(previousCardEnemy)
-                hideCardDetailsEnemy()
-                previousCardEnemy = 0;
-            } else {
-                cardDownAnimation(previousCardEnemy)
-                cardUpAnimation(this.id);
-                previousCardEnemy = this.id;
-                showCardDetailsEnemy(this.name);
-            }
-        }
-    })
-});
-
 var actionJSON = {
     1:0,
     2:0,
     3:0,
-    4:0,
-    5:0
+    4:0
 };
+
 var cardBox = "";
 var noOpenSpots = true;
+var card_count = 0;
+var card_count_hand = 0;
+var actionBp = 0;
+
 // Function that adds card to action
 function addToAction(card_id, card_pressed) {
     cardDownAnimation(card_pressed);
+    var card_pressed_element = document.getElementById(card_pressed);
+    var bp = card_pressed_element.getAttribute("bp");
+
     noOpenSpots = true;
+    card_count = 0;
+    card_count_hand = 0;
 
     var url = "./php_scripts/match/get_card_info.php?id=" + card_id;
 
@@ -759,27 +423,75 @@ function addToAction(card_id, card_pressed) {
                     var value = actionJSON[key];
                     if (value == 0) {
                         noOpenSpots = false;
-                        // Update background image
-                        actionJSON[key] = card_id;
-                        var cardBox = document.getElementById("action-card-" + key);
-                        cardBox.style.backgroundImage = `url(./img/cards/${response.texture})`
-                        cardBox.setAttribute("json_pos", key)
-                        cardBox.setAttribute("card_id", card_id)
-                        cardBox.addEventListener("click", function() {
-                            removeFromAction(key);
-                            cardBox.removeEventListener("click", null);
-                        })
-                        hideCardDetails();
-                        break;
+                        // Check if this card is in your hand
+                        if (handArray.includes(card_id) == false) {
+                            hideCardDetails();
+                            matchShowConfirm("This card is not in your hand.");
+                            break;
+                        } else {
+                            // Check if you have enough of this card to use it
+
+                            // Check how many of this card is already in the action
+                            for (var key2 in actionJSON) {
+                                if (actionJSON[key2] == card_id) {
+                                    card_count++;
+                                }
+                            }
+
+                            // Get the amount of that card in your hand
+                            card_count_hand = handArray.filter(x => x === card_id).length;  // vet ikke hvorfor funker
+
+                            // Check if those slots are already filled up
+                            if (card_count == card_count_hand) {
+                                matchShowConfirm("Card is already used up.")
+                                hideCardDetails();
+                                break;
+                            } else {
+                                // Check if you have enough BP left
+                                if (bp > yourBP) {
+                                    matchShowConfirm("You dont have enough bp for this card.")
+                                    hideCardDetails();
+                                    break;
+                                } else {
+                                    // Update background image
+                                    actionJSON[key] = card_id;
+                                    var cardBox = document.getElementById("action-card-" + key);
+                                    cardBox.style.backgroundImage = `url(./img/cards/${response.texture})`
+
+                                    // Update attributes of element
+                                    cardBox.setAttribute("json_pos", key)
+                                    cardBox.setAttribute("card_id", card_id)
+                                    cardBox.setAttribute("card-pressed", card_pressed)
+
+                                    // Make it clickable
+                                    cardBox.addEventListener("click", function() {
+                                        removeFromAction(key);
+                                        cardBox.removeEventListener("click", null);
+                                    })
+
+                                    // Update bp
+                                    actionBp += Number(bp);
+                                    yourBP -= Number(bp);
+
+                                    // Change counter color based on bp amount
+                                    UpdateBP()
+
+                                    // Disable pressed card
+                                    card_pressed_element.style.pointerEvents = "none";
+                                    card_pressed_element.style.opacity = "0.3";
+
+                                    hideCardDetails();
+                                    break;
+                                }
+                            }
+                        }
                     }
                 }
             }
-            if (noOpenSpots == true) {
-                matchShowConfirm("You can only use 5 cards in an action.")
-                hideCardDetails();
-            }
-
-            console.log(actionJSON)
+        }
+        if (noOpenSpots == true) {
+            matchShowConfirm("You can only use 4 cards in an action.")
+            hideCardDetails();
         }
     })
 
@@ -789,9 +501,35 @@ function addToAction(card_id, card_pressed) {
     })
 }
 
+// Chnanges bp counter color based on bp amount
+function UpdateBP() {
+    const hue = Math.round( (15 - actionBp) / 14 * 120);
+    const color = `hsl(${hue}, 100%, 50%)`;
+    yourBpContainer.style.color = color;
+    yourBpContainer.innerHTML = "BP: " + yourBP;
+}
+
 // Function that removes card from action
 function removeFromAction(id) {
+    // Get the card box and remove the background image
     var cardBox = document.getElementById("action-card-" + id);
     cardBox.style.backgroundImage = "";
+
+    // Get the card that was pressed and enable it
+    var card_pressed = cardBox.getAttribute("card-pressed");
+    var card = document.getElementById(card_pressed);
+    card.style.pointerEvents = "auto";
+    card.style.opacity = "1";
+    var bp = card.getAttribute("bp");
+
+    // Remove attributes from card box
+    cardBox.removeAttribute("card-pressed");
+    cardBox.removeAttribute("json_pos");
+    cardBox.removeAttribute("card_id");
+
+    // Get bp and add it to amount
+    yourBP += Number(bp);
+    actionBp -= Number(bp)
+    UpdateBP();
     actionJSON[id] = 0;
 }

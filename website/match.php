@@ -185,7 +185,7 @@
             <div class="action-box-card" id="action-card-2"></div>
             <div class="action-box-card" id="action-card-3"></div>
             <div class="action-box-card" id="action-card-4"></div>
-            <div class="action-box-card" id="action-card-5"></div>
+            <button onclick="attackOpponent()">attack</button>
         </div>
     </div>
     </div>
@@ -208,6 +208,12 @@
     <?php include "./js/script.js" ?>
 </script>
 <script>
-    <?php include "./js/match.js" ?>
+    <?php include "./js/match/general.js" ?>
+</script>
+<script>
+    <?php include "./js/match/card_animations.js" ?>
+</script>
+<script>
+    <?php include "./js/match/ui_animations.js" ?>
 </script>
 </html>
