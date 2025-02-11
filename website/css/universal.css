@@ -1,6 +1,19 @@
 /*Stylesheet with rules for every page*/
 @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
 
+:root {
+    --dynamic-background-color: #000000;
+    --dynamic-background-gradient: linear-gradient(180deg, rgba(255, 98, 0, 0.54) 0%, rgba(21,21,21,1) 81%);
+    --dynamic-theme-ui-bg-color: #552D18;
+    --dynamic-theme-ui-bg-seethrough-color: rgba(85, 45, 24, 0.9);
+    --dynamic-theme-border-color: #FF4400;
+    --dynamic-theme-icon-color: #FFFFFF;
+    --dynamic-theme-warning-color: #FF0000;
+    --dynamic-theme-positive-color: #00FF00;
+    --dynamic-theme-text-color: #FFFFFF;
+    --dynamic-theme-user-selection-color: rgb(194, 52, 0); 
+}
+
 ::-moz-selection { /* Code for Firefox */
     color: var(--dynamic-theme-text-color);
     background: var(--dynamic-theme-user-selection-color);
