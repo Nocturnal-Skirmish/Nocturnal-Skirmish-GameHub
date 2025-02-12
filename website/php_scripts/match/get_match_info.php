@@ -40,6 +40,16 @@ if (isset($_SESSION["match_name"])) {
     $yourbp = $row["bp" . $pos];
     $opponenthealth = $row["health" . $oppos];
 
+    // Check if anyone has lost or won the game
+    $winloss = 0;
+    if ($yourhealth <= 0) {
+        //Loss
+        $winloss = "loss";
+    } else if ($opponenthealth <= 0 ){
+        //win
+        $winloss = "win";
+    }
+
     // Get emoji
     $emoji = $row["emoji" . $pos];
     $emojicol = "emoji" . $pos;
@@ -59,7 +69,8 @@ if (isset($_SESSION["match_name"])) {
         "opponenthealth" => $opponenthealth,
         "round" => $round,
         "turn" => $turn,
-        "emoji" => $emoji
+        "emoji" => $emoji,
+        "winloss" => $winloss
     );
 
     // Get your hand
