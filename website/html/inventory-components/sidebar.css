@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
+
+:root {
+    --large-font: 3vw;
+    --small-font: 1vw;
+    --bg: #D9D9D9;
+    --bg-hover: #999999;
+    --light-font: #ffffff;
+    --dark-font: #000000;
+}
+
+h1 {
+    font-family: "Afacad Flux", sans-serif;
+    font-size: var(--large-font);
+    margin: 0;
+    padding: 0;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    width: calc(100vw - 85vw);
+    height: max-content;
+    display: flex;
+    justify-content: center;
+    height: calc(100vh - 84vh);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.sidebar {
+    height: calc(100vh - 16vh);
+    width: calc(100vw - 85vw);
+    background-color: var(--bg);
+    position: absolute;
+    bottom: 0%;
+    border-radius: 0% 20px 0% 0%;
+    box-shadow: rgba(0, 0, 0, 0.3) -10px 8px 20px 1px inset;
+}
+
+.button-container {
+    position: absolute;
+    top: 10%;
+    width: 100%;
+}
+
+button {
+    width: 100%;
+    height: calc(100vh - 93vh);
+    background-color: transparent;
+    border: none;
+    font-size: var(--small-font);
+}
+
+button:hover {
+    background-color: var(--bg-hover);
+    color: var(--light-font);
+    box-shadow: rgba(0, 0, 0, 0.3) -10px 8px 20px 1px inset;
+}
+
+.card-dex-link {
+    position: absolute;
+    bottom: 0%;
+}
