@@ -5,7 +5,7 @@
     --large-font: 3vw;
     --medium-font: 1.5vw;
     --bg: #D9D9D9;
-    --bg-hover: #999999;
+    --bg-dark: #999999;
     --light-font: #ffffff;
     --dark-font: #5B5B5B;
 }
@@ -50,6 +50,27 @@ body {
     width: 100%;
 }
 
+/*when button is clicked it is switched to this class*/
+.active-button{
+    width: 100%;
+    height: calc(100vh - 93vh);
+    background-color: var(--bg-dark);
+    border: none;
+    font-size: var(--medium-font);  
+    background-color: var(--bg-dark);
+    color: var(--light-font);
+    box-shadow: rgba(0, 0, 0, 0.3) -10px 8px 20px 1px inset;
+}
+
+/*when the first button is clicked the second one will be deactivated and reseive this class*/
+.deactive-button{
+    width: 100%;
+    height: calc(100vh - 93vh);
+    background-color: transparent;
+    border: none;
+    font-size: var(--medium-font);
+}
+
 button {
     width: 100%;
     height: calc(100vh - 93vh);
@@ -59,9 +80,7 @@ button {
 }
 
 button:hover {
-    background-color: var(--bg-hover);
     color: var(--light-font);
-    box-shadow: rgba(0, 0, 0, 0.3) -10px 8px 20px 1px inset;
 }
 
 .button-content {
