@@ -224,6 +224,14 @@ function retrieveMatchInfo() {
         if (response.emoji != 0) {
             showEmoji(response.emoji);
         }
+
+        // Check if someone has won or lost
+        var winloss = response.winloss;
+        if (winloss == "win") {
+            // You won
+        } else if (winloss == "loss") {
+            // You lost
+        }
     })
 
     .catch(error => {
@@ -282,7 +290,7 @@ function hideEffectDetails(event){
 
 // Attack opponent with action and ends the round
 function attackOpponent() {
-    var url = "./php_scripts/match/attack_opponent.php";
+    var url = "./php_scripts/match/attack_opponent.php?debug=win";
 
     fetch(url, {
         method : "POST",
