@@ -16,53 +16,35 @@
 
     <div class="sidebar">
         <div class="button-container">
-            <button class="active-button">
+            <button class="active-button" onmouseover="changeIcon('icon-change-1', 'icons/card-deck.svg')" onmouseleave="revertIcon('icon-change-1', 'icons/card-deck-white.svg')">
                 <div class="button-content">
-                    <img class="icons" src="icons/card-deck.svg" alt=""> Card Deck
+                    <img class="icons" id="icon-change-1" src="icons/card-deck-white.svg" alt=""> Card Deck
                 </div>
             </button>
-            <button class="deactive-button">
+            <button class="deactive-button" onmouseover="changeIcon('icon-change-2', 'icons/characters-white.svg')" onmouseleave="revertIcon('icon-change-2', 'icons/characters.svg')">
                 <div class="button-content">
-                    <img class="icons" src="icons/characters.svg" alt=""> characters
+                    <img class="icons" id="icon-change-2" src="icons/characters.svg" alt=""> characters
                 </div>
             </button>
         </div>
-        <button class="card-dex-link">
+        <button class="card-dex-link" onmouseover="changeIcon('icon-change-3', 'icons/card-dex-white.svg')" onmouseleave="revertIcon('icon-change-3', 'icons/card-dex.svg')">
             <div class="button-content">
-                <img class="icons" src="icons/card-dex.svg" alt=""> Card Dex
+                <img class="icons" id="icon-change-3" src="icons/card-dex.svg" alt=""> Card Dex
             </div>
         </button>
     </div>
 
-    <!--Icons-->
-
-    <!--Deck showcase-->
-
-    <!--Card select-->
-
-    <!--Header-->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <script>
+        function changeIcon(imageId, newSrc) {
+            document.getElementById(imageId).src = newSrc;
+        }
+    
+        function revertIcon(imageId, originalSrc) {
+            document.getElementById(imageId).src = originalSrc;
+        }
+    </script>
 
 </body>
 </html>
