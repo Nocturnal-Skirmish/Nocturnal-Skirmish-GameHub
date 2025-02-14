@@ -15,23 +15,31 @@
     </div>
 
     <div class="sidebar">
+
         <div class="button-container">
-            <button class="active-button" onmouseover="changeIcon('icon-change-1', 'icons/card-deck.svg')" onmouseleave="revertIcon('icon-change-1', 'icons/card-deck-white.svg')">
+
+            <button class="active" onmouseover="changeIcon('icon-change-1', 'icons/card-deck-white.svg')" onmouseleave="revertIcon('icon-change-1', 'icons/card-deck.svg')">
                 <div class="button-content">
-                    <img class="icons" id="icon-change-1" src="icons/card-deck-white.svg" alt=""> Card Deck
+                    <img class="icons" id="icon-change-1" src="icons/card-deck-white.svg" data-default="icons/card-deck.svg" data-active="icons/card-deck-white.svg" alt=""> Card Deck
                 </div>
             </button>
-            <button class="deactive-button" onmouseover="changeIcon('icon-change-2', 'icons/characters-white.svg')" onmouseleave="revertIcon('icon-change-2', 'icons/characters.svg')">
+
+            <button class="deactive" onmouseover="changeIcon('icon-change-2', 'icons/characters-white.svg')" onmouseleave="revertIcon('icon-change-2', 'icons/characters.svg')">
                 <div class="button-content">
-                    <img class="icons" id="icon-change-2" src="icons/characters.svg" alt=""> characters
+                    <img class="icons" id="icon-change-2" src="icons/characters.svg" data-default="icons/characters.svg" data-active="icons/characters-white.svg" alt=""> characters
                 </div>
             </button>
+
+            <div class="underline"></div>
+
         </div>
-        <button class="card-dex-link" onmouseover="changeIcon('icon-change-3', 'icons/card-dex-white.svg')" onmouseleave="revertIcon('icon-change-3', 'icons/card-dex.svg')">
+
+        <button class="deactive" id="card-dex-link" onmouseover="changeIcon('icon-change-3', 'icons/card-dex-white.svg')" onmouseleave="revertIcon('icon-change-3', 'icons/card-dex.svg')">
             <div class="button-content">
-                <img class="icons" id="icon-change-3" src="icons/card-dex.svg" alt=""> Card Dex
+                <img class="icons" id="icon-change-3" src="icons/card-dex.svg" data-default="icons/card-dex.svg" data-active="icons/card-dex-white.svg" alt=""> Card Dex
             </div>
         </button>
+
     </div>
 
 
@@ -44,6 +52,45 @@
         function revertIcon(imageId, originalSrc) {
             document.getElementById(imageId).src = originalSrc;
         }
+
+        
+
+        const buttons = document.querySelectorAll("button");
+
+        buttons.forEach(button => {
+            button.addEventListener("click", function() {
+                buttons.forEach(btn => {
+                    btn.classList.remove("active");
+                    btn.classList.add("deactive");
+
+                    // Reset icon to default
+                    const img = btn.querySelector("img");
+                    if (img) img.src = img.dataset.default;
+                });
+
+                // Set clicked button to active
+                this.classList.remove("deactive");
+                this.classList.add("active");
+
+                // Change icon to active (white)
+                const img = this.querySelector("img");
+                if (img) img.src = img.dataset.active;
+            });
+        });
+
+        // Hover effect (reuses dataset)
+        function changeIcon(imageId) {
+            const img = document.getElementById(imageId);
+            if (img) img.src = img.dataset.active;
+        }
+
+        function revertIcon(imageId) {
+            const img = document.getElementById(imageId);
+            if (img && !img.closest("button").classList.contains("active")) {
+                img.src = img.dataset.default;
+            }
+        }
+        
     </script>
 
 </body>
