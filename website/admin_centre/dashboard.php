@@ -38,6 +38,7 @@ if (!isset($_SESSION['isadmin']) || $_SESSION['isadmin'] != 1) {
                 <button name="testing">Testing page</button>
                 <button name="server_settings">Server settings</button>
             </form>
+            <?php include "./goofy/scripts/link.php" ?>
         </div>
     </header>
     <div class="content">
