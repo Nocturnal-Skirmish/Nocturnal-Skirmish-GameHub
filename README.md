@@ -1,4 +1,7 @@
 # Nocturnal Skirmish
+>[!WARNING]
+> Development on this project has ceased, and a remake is underway: https://github.com/Nocturnal-Skirmish/nocskir
+
 ### ***We could never accomplished this "feet" without our manly makers BimBomSlimSlom, Magic the cow and HengeBenge also known as Lord Beng of Bengladesh.***
 
 Untitled-Game-Terminal-Project also known as Nocturnal Skirmish is not only jut a game but a game hub too.
